@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardianLive - Real-Time Safety Streaming</title>
+    <meta name="description" content="GuardianLive provides automated emergency response through live video streaming and intelligent alerting systems. Stay safe with real-time protection.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #000000;
+            background: #FFFFFF;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FF0000;
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #FF0000;
+        }
+
+        .cta-button {
+            background: #FF0000;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #E60000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #000000 0%, #FF0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #666666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #000000;
+            border: 2px solid #000000;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #000000;
+            color: white;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #FF0000;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #F8F9FA;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000000;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #E5E5E5;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF0000, #FF6B6B);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #000000;
+        }
+
+        .feature-card p {
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        /* Severity Levels */
+        .severity-levels {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .severity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .severity-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid #E5E5E5;
+            transition: all 0.3s ease;
+        }
+
+        .severity-card.level-1 {
+            border-color: #10B981;
+        }
+
+        .severity-card.level-2 {
+            border-color: #F59E0B;
+        }
+
+        .severity-card.level-3 {
+            border-color: #FF0000;
+        }
+
+        .severity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .severity-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .level-1 .severity-number {
+            background: #10B981;
+        }
+
+        .level-2 .severity-number {
+            background: #F59E0B;
+        }
+
+        .level-3 .severity-number {
+            background: #FF0000;
+        }
+
+        /* Security Section */
+        .security {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #000000 0%, #262626 100%);
+            color: white;
+        }
+
+        .security .section-header h2,
+        .security .section-header p {
+            color: white;
+        }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .security-feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .security-feature i {
+            font-size: 2.5rem;
+            color: #FF0000;
+            margin-bottom: 1rem;
+        }
+
+        .security-feature h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .security-feature p {
+            color: #A3A3A3;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: #FF0000;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-section .cta-button {
+            background: white;
+            color: #FF0000;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
+
+        .cta-section .cta-button:hover {
+            background: #F5F5F5;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #FF0000;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #A3A3A3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #262626;
+            padding-top: 2rem;
+            text-align: center;
+            color: #A3A3A3;
+        }
+
+        .safety-notice {
+            background: #FFE5E5;
+            border: 1px solid #FF0000;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .safety-notice strong {
+            color: #FF0000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .features-grid,
+            .severity-grid,
+            .security-features {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                GuardianLive
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#severity">How It Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#download" class="cta-button">Download App</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1>Your Personal Safety Guardian</h1>
+                <p>Real-time safety streaming with automated emergency response. GuardianLive provides intelligent protection through live video streaming and smart alerting systems.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#download" class="cta-button">
+                        <i class="fas fa-download"></i> Download Now
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        <i class="fas fa-play"></i> Learn More
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Emergency Monitoring</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">&lt;30s</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Severity Levels</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Comprehensive Safety Features</h2>
+                <p>Advanced technology designed to keep you safe in any situation with intelligent monitoring and instant emergency response.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Live Video Streaming</h3>
+                    <p>Real-time video streaming with low-latency delivery ensures immediate visibility during emergencies.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Smart Countdown System</h3>
+                    <p>Configurable countdown timers with automatic emergency triggers if you don't check in safely.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Emergency Contacts</h3>
+                    <p>Manage trusted contacts who receive instant notifications and live stream access during emergencies.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Location Tracking</h3>
+                    <p>Precise GPS tracking with geofencing capabilities for proactive safety in dangerous areas.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Law Enforcement Integration</h3>
+                    <p>Direct SOS alerts with live stream access sent to emergency services when needed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Cross-Platform Support</h3>
+                    <p>Native iOS and Android applications with seamless synchronization across devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Severity Levels Section -->
+    <section id="severity" class="severity-levels">
+        <div class="container">
+            <div class="section-header">
+                <h2>Three Levels of Protection</h2>
+                <p>Choose the right level of emergency response for your situation with our intelligent severity system.</p>
+            </div>
+
+            <div class="severity-grid">
+                <div class="severity-card level-1">
+                    <div class="severity-number">1</div>
+                    <h3>Silent Mode</h3>
+                    <p><strong>Discreet Protection</strong></p>
+                    <p>No immediate alerts sent. SOS only triggered if countdown expires without manual stop. Perfect for situations requiring discretion.</p>
+                </div>
+
+                <div class="severity-card level-2">
+                    <div class="severity-number">2</div>
+                    <h3>Contact Alert</h3>
+                    <p><strong>Trusted Network</strong></p>
+                    <p>Alerts your emergency contacts immediately. SOS triggered if countdown expires. Ideal for potentially risky situations.</p>
+                </div>
+
+                <div class="severity-card level-3">
+                    <div class="severity-number">3</div>
+                    <h3>Immediate Response</h3>
+                    <p><strong>Full Emergency</strong></p>
+                    <p>Instant SOS and law enforcement notification. Maximum protection for high-risk situations requiring immediate help.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section id="security" class="security">
+        <div class="container">
+            <div class="section-header">
+                <h2>Enterprise-Grade Security</h2>
+                <p>Your safety and privacy are protected with military-grade encryption and compliance standards.</p>
+            </div>
+
+            <div class="security-features">
+                <div class="security-feature">
+                    <i class="fas fa-lock"></i>
+                    <h4>End-to-End Encryption</h4>
+                    <p>All streams and data encrypted in transit and at rest</p>
+                </div>
+
+                <div class="security-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>HIPAA Compliance</h4>
+                    <p>Healthcare-grade privacy and security standards</p>
+                </div>
+
+                <div class="security-feature">
+                    <i class="fas fa-certificate"></i>
+                    <h4>SOC2 Type II</h4>
+                    <p>Enterprise security controls and auditing</p>
+                </div>
+
+                <div class="security-feature">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>Multi-Factor Authentication</h4>
+                    <p>Required for emergency contacts and law enforcement access</p>
+                </div>
+
+                <div class="security-feature">
+                    <i class="fas fa-trash-alt"></i>
+                    <h4>Data Retention Policies</h4>
+                    <p>Automatic cleanup of streams and emergency data</p>
+                </div>
+
+                <div class="security-feature">
+                    <i class="fas fa-globe"></i>
+                    <h4>Global Compliance</h4>
+                    <p>GDPR, CCPA, and regional privacy law compliance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Stay Safe?</h2>
+            <p>Join thousands of users who trust GuardianLive for their personal safety and emergency protection.</p>
+            <a href="#download" class="cta-button">
+                <i class="fas fa-download"></i> Download GuardianLive Now
+            </a>
+            
+            <div class="safety-notice">
+                <strong>⚠️ IMPORTANT SAFETY NOTICE:</strong> GuardianLive is designed to enhance personal safety but should not be considered a replacement for traditional emergency services. Always call your local emergency number (911, 112, etc.) in life-threatening situations.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>GuardianLive</h4>
+                    <p>Real-time safety streaming with automated emergency response. Your personal safety guardian, always watching over you.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><a href="#features">Live Streaming</a></li>
+                        <li><a href="#features">Smart Countdown</a></li>
+                        <li><a href="#features">Emergency Contacts</a></li>
+                        <li><a href="#features">Location Tracking</a></li>
+                        <li><a href="#features">Law Enforcement</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="mailto:support@guardianlive.com">Technical Support</a></li>
+                        <li><a href="mailto:emergency@guardianlive.com">Emergency Services</a></li>
+                        <li><a href="tel:+1-XXX-XXX-XXXX">24/7 Hotline</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Emergency Agreement</a></li>
+                        <li><a href="#">Data Processing</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 GuardianLive. All rights reserved. | Your safety is our priority.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and sections
+        document.querySelectorAll('.feature-card, .severity-card, .security-feature').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
