@@ -793,7 +793,7 @@
                 <div class="footer-section">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
                         <li><a href="#">Terms of Service</a></li>
                         <li><a href="#">Emergency Agreement</a></li>
                         <li><a href="#">Data Processing</a></li>
@@ -856,6 +856,21 @@
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+
+        // Client-side routing for privacy policy
+        function handleRouting() {
+            const path = window.location.pathname;
+            if (path === '/privacy-policy') {
+                // Redirect to privacy-policy.html
+                window.location.href = '/privacy-policy.html';
+            }
+        }
+
+        // Handle initial page load
+        handleRouting();
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', handleRouting);
     </script>
 </body>
 </html>
