@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deletion - GuardianLive</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logos/translucent_background.PNG">
+    <link rel="shortcut icon" type="image/png" href="logos/translucent_background.PNG">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #eb3446;
+            --primary-start: #eb34c3;
+            --black: #000000;
+            --dark-gray: #0a0a0a;
+            --surface: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary) 100%);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary-start);
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(-30px, -20px) scale(1.02); }
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 14px;
+        }
+
+        .logo img {
+            height: 42px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .logo span {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 36px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(235, 52, 195, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+
+        .page-header h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .content-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 60px;
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(235, 52, 195, 0.1) 0%, rgba(235, 52, 70, 0.05) 100%);
+            border: 1px solid rgba(235, 52, 195, 0.3);
+            border-radius: 20px;
+            padding: 28px;
+            margin: 28px 0;
+        }
+
+        .info-box p {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .info-box ol {
+            margin-left: 24px;
+            margin-bottom: 0;
+        }
+
+        .info-box li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .warning-box i {
+            font-size: 1.5rem;
+            color: var(--warning);
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: var(--warning);
+        }
+
+        /* Steps Box */
+        .steps-box {
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 28px 0;
+        }
+
+        .steps-box ol {
+            margin-left: 24px;
+            margin-bottom: 0;
+        }
+
+        .steps-box li {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .steps-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        .steps-box li strong {
+            color: var(--text-primary);
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 28px 0;
+        }
+
+        .contact-box h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-box p {
+            margin-bottom: 12px;
+        }
+
+        .contact-box ul {
+            margin-left: 24px;
+            margin-top: 16px;
+        }
+
+        .contact-box li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .email-link {
+            color: var(--primary-start);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Regular lists */
+        ul {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        li strong {
+            color: var(--text-primary);
+        }
+
+        /* Alternative options box */
+        .alternatives-box {
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 28px;
+            margin: 28px 0;
+        }
+
+        .alternatives-box p {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .alternatives-box ul {
+            margin-bottom: 0;
+        }
+
+        /* Link styling */
+        a {
+            color: var(--primary-start);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--glass-border);
+            margin: 40px 0;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #050505;
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h4 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            max-width: 400px;
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            background: var(--glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-5px);
+            border-color: transparent;
+        }
+
+        .footer-nav h5 {
+            font-size: 1rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .footer-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-nav li {
+            margin-bottom: 12px;
+        }
+
+        .footer-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-brand {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-card {
+                padding: 32px 24px;
+                border-radius: 24px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-brand {
+                grid-column: span 1;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
+                    <span>GuardianLive</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html#mission">Mission</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#use-cases">Use Cases</a></li>
+                </ul>
+                <a href="index.html" class="cta-button">Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="page-header" data-aos="fade-up">
+                <h1><span>Account Deletion</span></h1>
+                <p>Request to delete your GuardianLive account and data</p>
+            </div>
+
+            <div class="content-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="info-box">
+                    <p><strong>You can delete your account in two ways:</strong></p>
+                    <ol>
+                        <li>Directly in the app (recommended)</li>
+                        <li>By contacting us via email</li>
+                    </ol>
+                </div>
+
+                <h2>Method 1: Delete Account In-App</h2>
+                <p>This is the fastest and recommended method to delete your account.</p>
+                
+                <div class="steps-box">
+                    <ol>
+                        <li>Open the <strong>GuardianLive</strong> app</li>
+                        <li>Go to your <strong>Profile</strong> tab</li>
+                        <li>Tap <strong>Settings</strong></li>
+                        <li>Scroll down and tap <strong>Delete Account</strong></li>
+                        <li><strong>Step 1:</strong> Enter your password and tap "Verify Password"</li>
+                        <li><strong>Step 2:</strong> Type "CONFIRM" in the text field</li>
+                        <li>Tap <strong>Delete My Account Forever</strong></li>
+                        <li>Confirm the final warning dialog</li>
+                        <li>Your account will be permanently deleted</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p><strong>Warning:</strong> Account deletion is permanent and cannot be undone.</p>
+                </div>
+
+                <h2>What Gets Deleted</h2>
+                <p>When you delete your account, the following data will be permanently removed:</p>
+                <ul>
+                    <li><strong>Profile Information:</strong> Name, email, phone number, username</li>
+                    <li><strong>Profile Picture:</strong> Any uploaded photos</li>
+                    <li><strong>Emergency Contacts:</strong> All saved emergency contacts</li>
+                    <li><strong>Location History:</strong> All stored location data</li>
+                    <li><strong>App Settings:</strong> All preferences and configurations</li>
+                    <li><strong>Emergency Timer History:</strong> Records of past countdowns and alerts</li>
+                    <li><strong>Account Authentication:</strong> Login credentials</li>
+                </ul>
+
+                <h2>Data Retention Period</h2>
+                <p>After you request account deletion:</p>
+                <ul>
+                    <li><strong>Immediate:</strong> Your account will be deactivated immediately and you'll be logged out</li>
+                    <li><strong>Within 30 days:</strong> All your personal data will be permanently deleted from our servers</li>
+                    <li><strong>Exception:</strong> Some anonymized data may be retained for legal or security purposes as required by law</li>
+                </ul>
+
+                <h2>Method 2: Email Deletion Request</h2>
+                <p>If you're unable to access the app or prefer to request deletion via email, please contact us:</p>
+
+                <div class="contact-box">
+                    <h3><i class="fas fa-envelope"></i> Contact Support</h3>
+                    <p><strong>Email:</strong> <a href="mailto:support@guardianlive.app" class="email-link">support@guardianlive.app</a></p>
+                    <p><strong>Please include in your email:</strong></p>
+                    <ul>
+                        <li>Subject line: "Account Deletion Request"</li>
+                        <li>Your registered email address</li>
+                        <li>Your username (if you remember it)</li>
+                        <li>Reason for deletion (optional)</li>
+                    </ul>
+                </div>
+
+                <p>We will process your deletion request within <strong>3-5 business days</strong> and send you a confirmation email once completed.</p>
+
+                <h2>Before You Delete</h2>
+                <div class="alternatives-box">
+                    <p><strong>Consider these alternatives:</strong></p>
+                    <ul>
+                        <li><strong>Temporary pause:</strong> You can simply log out and stop using the app without deleting</li>
+                        <li><strong>Cancel subscription:</strong> Cancel your subscription but keep your account</li>
+                        <li><strong>Contact support:</strong> If you're having issues, we may be able to help</li>
+                    </ul>
+                </div>
+
+                <h2>After Deletion</h2>
+                <p>After your account is deleted:</p>
+                <ul>
+                    <li>You will no longer receive any notifications from GuardianLive</li>
+                    <li>Your emergency contacts will no longer see you in their contacts list</li>
+                    <li>You can create a new account anytime with the same email address</li>
+                    <li>Previous subscriptions will be canceled (contact your app store for refunds)</li>
+                </ul>
+
+                <h2>Questions?</h2>
+                <p>If you have any questions about account deletion or data privacy, please review our <a href="privacy-policy.html">Privacy Policy</a> or contact us at <a href="mailto:support@guardianlive.app" class="email-link">support@guardianlive.app</a></p>
+
+                <hr>
+
+                <p class="footer-text">
+                    GuardianLive - Your safety, your control<br>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h4>GuardianLive</h4>
+                    <p>The next generation of personal safety. Real-time streaming, automated alerts, and professional duress protection.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-apple"></i></a>
+                        <a href="#"><i class="fab fa-google-play"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-nav">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="account_deletion.html">Account Deletion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="mailto:admin@guardianlive.org">Contact Support</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Security Overview</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Guardian Live LLC. All rights reserved.</p>
+                <p>Designed with care for your safety.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
