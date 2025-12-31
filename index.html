@@ -617,6 +617,13 @@
             animation: bounce 2s infinite;
             color: var(--text-secondary);
             font-size: 1.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .scroll-indicator:hover {
+            color: var(--text-primary);
         }
 
         @keyframes bounce {
@@ -1084,7 +1091,7 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
                 </ul>
-                <button class="cta-button">Download Now</button>
+                <button class="cta-button">Coming Soon</button>
             </nav>
         </div>
     </header>
@@ -1126,9 +1133,9 @@
                     </div>
                 </div>
             </div>
-            <div class="scroll-indicator">
+            <a href="#mission" class="scroll-indicator">
                 <i class="fas fa-chevron-down"></i>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -1320,12 +1327,14 @@
                         <span>GuardianLive</span>
                     </a>
                     <p>The next generation of personal safety. Real-time streaming, automated alerts, and professional duress protection.</p>
+                    <!-- Social links hidden for now
                     <div class="social-links">
                         <a href="#"><i class="fab fa-apple"></i></a>
                         <a href="#"><i class="fab fa-google-play"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
+                    -->
                 </div>
                 <div class="footer-nav">
                     <h5>Legal</h5>
