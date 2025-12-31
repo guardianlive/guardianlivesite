@@ -748,93 +748,19 @@
             line-height: 1.6;
         }
 
-        /* How It Works / Duress Section */
-        .how-it-works {
-            background: var(--surface);
-            border-radius: 40px;
-            padding: 100px 0;
-            margin: 60px 0;
-            border: 1px solid var(--glass-border);
-        }
-
-        .duress-intro {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin-bottom: 80px;
-        }
-
-        .duress-badge {
+        .read-more-link {
             display: inline-block;
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--danger);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .duress-text h3 {
-            font-size: 2.5rem;
-            margin-bottom: 24px;
-            line-height: 1.2;
-        }
-
-        .duress-text p {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-        }
-
-        .flow-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 32px;
-            position: relative;
-        }
-
-        .flow-step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(235, 52, 195, 0.3);
-        }
-
-        .flow-step h4 {
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .flow-step p {
-            color: var(--text-secondary);
+            margin-top: 16px;
+            color: var(--primary-start);
+            text-decoration: none;
+            font-weight: 600;
             font-size: 0.95rem;
+            transition: all 0.3s ease;
         }
 
-        .flow-step.highlighted {
-            background: rgba(239, 68, 68, 0.05);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            transform: scale(1.05);
-            z-index: 2;
+        .read-more-link:hover {
+            color: var(--primary);
+            transform: translateX(4px);
         }
 
         /* Use Cases */
@@ -1097,9 +1023,9 @@
 
         @media (max-width: 992px) {
             .hero h1 { font-size: 3.5rem; }
-            .duress-intro { grid-template-columns: 1fr; text-align: center; }
             .footer-content { grid-template-columns: 1fr 1fr; }
             .footer-brand { grid-column: span 2; }
+            .modal-content { padding: 40px 30px; }
         }
 
         @media (max-width: 768px) {
@@ -1117,6 +1043,15 @@
             .hero-btns { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
             .phone-mockup { max-width: 260px; }
             .floating-badges { display: none; }
+            .modal-content { padding: 30px 20px; margin: 2vh auto; }
+            .modal-content h2 { font-size: 1.8rem !important; }
+            .modal-flow-steps { 
+                grid-template-columns: repeat(2, 1fr) !important; 
+                gap: 16px !important;
+            }
+            .modal-dual-flow { 
+                grid-template-columns: 1fr !important; 
+            }
         }
     </style>
 </head>
@@ -1147,7 +1082,6 @@
                 <ul class="nav-links">
                     <li><a href="#mission">Mission</a></li>
                     <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
                 </ul>
                 <button class="cta-button">Download Now</button>
@@ -1164,7 +1098,6 @@
                     <p data-aos="fade-up" data-aos-delay="100">GuardianLive is your silent partner in safety. Set timers, live stream your surroundings, and ensure that if anything goes wrong, help is on the way.</p>
                     <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
                         <a href="#features" class="cta-button">Get Started</a>
-                        <a href="#how-it-works" class="btn-secondary">How It Works</a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -1246,57 +1179,13 @@
                     <div class="feature-icon"><i class="fas fa-fingerprint"></i></div>
                     <h3>Duress PIN System</h3>
                     <p>A sophisticated two-PIN system: one confirms you're safe, while the other silently signals you're in danger while appearing completely normal.</p>
+                    <a href="#" class="read-more-link" onclick="openModal(); return false;">Read more →</a>
                 </div>
                 <!-- Feature 6 -->
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
                     <h3>Real-Time Tracking</h3>
                     <p>Share and track your precise location with emergency contacts when any timer is active. Location updates continue throughout your stream.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="duress-intro" data-aos="fade-up">
-                <div class="duress-text">
-                    <span class="duress-badge">The Duress System</span>
-                    <h3>Silent Protection When You Need It Most</h3>
-                    <p>The Emergency PIN (Duress PIN) is a powerful safety feature that lets you signal danger while appearing completely normal to anyone watching. It's designed for situations where you can't openly call for help.</p>
-                    <button class="cta-button" onclick="openModal()">Learn the Full Flow</button>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: rgba(239, 68, 68, 0.15); color: var(--danger);">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4>Double PIN Security</h4>
-                    <p><strong>Normal PIN:</strong> Confirms you're safe. Notifies contacts everything is OK.</p>
-                    <p style="margin-top: 15px;"><strong>Emergency PIN:</strong> Silently alerts contacts while appearing to complete the functionality normally.</p>
-                </div>
-            </div>
-
-            <div class="flow-steps" data-aos="fade-up">
-                <div class="flow-step">
-                    <div class="step-number">1</div>
-                    <h4>Start Activity</h4>
-                    <p>Begin a timer or stream. Contacts see your location.</p>
-                </div>
-                <div class="flow-step highlighted">
-                    <div class="step-number" style="background: var(--danger);">2</div>
-                    <h4>Enter Emergency PIN</h4>
-                    <p>If you are under duress, enter the Emergency PIN.</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-number">3</div>
-                    <h4>Silent Alert</h4>
-                    <p>Contacts are notified instantly with a DURESS badge.</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-number">4</div>
-                    <h4>Help Arrives</h4>
-                    <p>Contacts view your live location and take action.</p>
                 </div>
             </div>
         </div>
@@ -1443,7 +1332,7 @@
                     <ul>
                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="#">Terms of Service</a></li>
-                        <li><a href="account-deletion.html">Account Deletion</a></li>
+                        <li><a href="account_deletion.html">Account Deletion</a></li>
                     </ul>
                 </div>
                 <div class="footer-nav">
@@ -1466,10 +1355,52 @@
     <div id="duressModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">The Duress PIN System</h2>
-            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 40px;">How the silent alert protects you in critical moments.</p>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <!-- Header Section -->
+            <div style="text-align: center; margin-bottom: 50px;">
+                <span style="display: inline-block; background: rgba(239, 68, 68, 0.15); color: var(--danger); padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; border: 1px solid rgba(239, 68, 68, 0.3);">The Duress System</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Silent Protection When You Need It Most</h2>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">The Emergency PIN (Duress PIN) is a powerful safety feature that lets you signal danger while appearing completely normal to anyone watching. It's designed for situations where you can't openly call for help.</p>
+            </div>
+
+            <!-- Double PIN Security Card -->
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; margin-bottom: 50px;">
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+                    <div style="width: 56px; height: 56px; background: rgba(239, 68, 68, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--danger);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 style="font-size: 1.4rem; font-weight: 700;">Double PIN Security</h3>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 12px;"><strong style="color: var(--text-primary);">Normal PIN:</strong> Confirms you're safe. Notifies contacts everything is OK.</p>
+                <p style="color: var(--text-secondary);"><strong style="color: var(--text-primary);">Emergency PIN:</strong> Silently alerts contacts while appearing to complete the functionality normally.</p>
+            </div>
+
+            <!-- Flow Steps -->
+            <div class="modal-flow-steps" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 50px;">
+                <div style="text-align: center;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(235, 52, 195, 0.3);">1</div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 10px; font-weight: 700;">Start Activity</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Begin a timer or stream. Contacts see your location.</p>
+                </div>
+                <div style="text-align: center; background: rgba(239, 68, 68, 0.05); padding: 24px 16px; border-radius: 20px; border: 1px solid rgba(239, 68, 68, 0.2); transform: scale(1.02);">
+                    <div style="width: 50px; height: 50px; background: var(--danger); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">2</div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 10px; font-weight: 700;">Enter Emergency PIN</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">If you are under duress, enter the Emergency PIN.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(235, 52, 195, 0.3);">3</div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 10px; font-weight: 700;">Silent Alert</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Contacts are notified instantly with a DURESS badge.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(235, 52, 195, 0.3);">4</div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 10px; font-weight: 700;">Help Arrives</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Contacts view your live location and take action.</p>
+                </div>
+            </div>
+            
+            <!-- Timer & Stream Flows -->
+            <div class="modal-dual-flow" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
                 <div>
                     <h4 style="color: var(--primary-start); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">Timer Flow</h4>
                     <ul style="list-style: none; color: var(--text-secondary);">
@@ -1490,7 +1421,7 @@
                 </div>
             </div>
 
-            <div style="margin-top: 40px; padding: 30px; background: rgba(255, 255, 255, 0.03); border-radius: 20px; border: 1px solid var(--glass-border);">
+            <div style="padding: 30px; background: rgba(255, 255, 255, 0.03); border-radius: 20px; border: 1px solid var(--glass-border);">
                 <h4 style="margin-bottom: 10px;">What your contacts see:</h4>
                 <p style="color: var(--text-secondary);">A red <strong>DURESS</strong> badge on your profile, your full location history since the activity started, and the VOD recording if you were streaming. They are empowered to call you or emergency services with full context.</p>
             </div>

@@ -46,7 +46,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--black);
             color: var(--text-primary);
-            line-height: 1.7;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
@@ -170,6 +170,8 @@
             display: flex;
             list-style: none;
             gap: 36px;
+            margin: 0;
+            padding: 0;
         }
 
         .nav-links a {
@@ -198,6 +200,10 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .nav-links li {
+            margin-bottom: 0;
         }
 
         .cta-button {
@@ -507,7 +513,6 @@
                 <ul class="nav-links">
                     <li><a href="index.html#mission">Mission</a></li>
                     <li><a href="index.html#features">Features</a></li>
-                    <li><a href="index.html#how-it-works">How It Works</a></li>
                     <li><a href="index.html#use-cases">Use Cases</a></li>
                 </ul>
                 <a href="index.html" class="cta-button">Back to Home</a>
