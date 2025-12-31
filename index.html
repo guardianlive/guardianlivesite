@@ -6,8 +6,8 @@
     <title>GuardianLive - Your Personal Safety Guardian</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logos/translucent_background.PNG">
-    <link rel="shortcut icon" type="image/png" href="logos/translucent_background.PNG">
+    <link rel="icon" type="image/png" href="logos/translucent_background.png">
+    <link rel="shortcut icon" type="image/png" href="logos/translucent_background.png">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -50,7 +50,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
+        /* Animated Background - Tutorial Style */
         .background-animation {
             position: fixed;
             top: 0;
@@ -59,54 +59,121 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            background: linear-gradient(180deg, #040407 0%, #0a0a14 30%, #08080f 70%, #040407 100%);
         }
 
-        .gradient-orb {
+        /* Gradient accent overlays */
+        .accent-overlay {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .accent-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse at top left, rgba(235, 52, 195, 0.08) 0%, transparent 60%);
+        }
+
+        .accent-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse at bottom right, rgba(235, 52, 70, 0.06) 0%, transparent 60%);
+        }
+
+        /* Grid Dots Pattern */
+        .grid-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeInGrid 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInGrid {
+            to { opacity: 1; }
+        }
+
+        .grid-dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: floatOrb 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 600px;
-            height: 600px;
             background: var(--primary-start);
-            top: -200px;
-            right: -200px;
-            animation-delay: 0s;
         }
 
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--primary);
-            bottom: -150px;
-            left: -150px;
-            animation-delay: -5s;
-        }
-
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: var(--gradient);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: -10s;
-            opacity: 0.2;
-        }
-
-        @keyframes floatOrb {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -30px) scale(1.05); }
-            50% { transform: translate(-20px, 20px) scale(0.95); }
-            75% { transform: translate(-30px, -20px) scale(1.02); }
-        }
-
-        /* Particle Effect */
+        /* Floating Particles */
         .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeInGrid 1s ease-out 0.5s forwards;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: floatParticle 5s ease-in-out infinite;
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { 
+                transform: translateY(0); 
+                opacity: 0.15;
+            }
+            50% { 
+                transform: translateY(-20px); 
+                opacity: 0.4;
+            }
+        }
+
+        /* Connection Lines */
+        .connection-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeInLines 0.6s ease-out 1.8s forwards;
+        }
+
+        @keyframes fadeInLines {
+            to { opacity: 0.2; }
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-start), transparent);
+            transform-origin: left center;
+        }
+
+        /* Floating Feature Icons */
+        .floating-icons {
             position: fixed;
             top: 0;
             left: 0;
@@ -116,41 +183,103 @@
             pointer-events: none;
         }
 
-        .particle {
+        .floating-icon {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary-start);
-            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
-            animation: rise 8s ease-in infinite;
+            animation: fadeInIcon 1s ease-out forwards;
         }
 
-        @keyframes rise {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.3; }
-            100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+        @keyframes fadeInIcon {
+            to { opacity: 0.65; }
         }
 
-        /* Grid overlay */
-        .grid-overlay {
+        .floating-icon i {
+            color: rgba(235, 52, 195, 0.7);
+            filter: drop-shadow(0 0 15px rgba(235, 52, 195, 0.3));
+            animation: iconFloat 6s ease-in-out infinite, iconPulse 4s ease-in-out infinite, iconRotate 16s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { scale: 1; }
+            50% { scale: 1.08; }
+        }
+
+        @keyframes iconRotate {
+            0%, 100% { rotate: -5deg; }
+            50% { rotate: 5deg; }
+        }
+
+        .icon-glow {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(235, 52, 195, 0.18) 0%, rgba(235, 52, 70, 0.08) 50%, transparent 70%);
+        }
+
+        /* Pulse Rings */
+        .pulse-rings {
+            position: fixed;
+            top: 55%;
+            left: calc(50% + 44px);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1.5px solid rgba(235, 52, 195, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0.3);
+            animation: pulseRing 4s ease-out infinite;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: -1.33s;
+        }
+
+        .pulse-ring:nth-child(3) {
+            animation-delay: -2.66s;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3);
+                opacity: 0.25;
+            }
+            30% {
+                opacity: 0.12;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        /* Vignette Overlay */
+        .vignette-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 30s linear infinite;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.6) 100%);
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
+        /* Legacy grid overlay - now replaced */
+        .grid-overlay {
+            display: none;
         }
 
         .container {
@@ -992,21 +1121,27 @@
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
+    <!-- Animated Background - Tutorial Style -->
     <div class="background-animation">
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="gradient-orb orb-3"></div>
+        <div class="accent-overlay"></div>
     </div>
-    <div class="grid-overlay"></div>
+    <div class="grid-dots" id="gridDots"></div>
     <div class="particles" id="particles"></div>
+    <div class="connection-lines" id="connectionLines"></div>
+    <div class="pulse-rings">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+    </div>
+    <div class="floating-icons" id="floatingIcons"></div>
+    <div class="vignette-overlay"></div>
 
     <!-- Header -->
     <header id="header">
         <div class="container">
             <nav>
                 <a href="#" class="logo">
-                    <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
+                    <img src="logos/translucent_background.png" alt="GuardianLive Logo">
                     <span>GuardianLive</span>
                 </a>
                 <ul class="nav-links">
@@ -1036,7 +1171,7 @@
                     <div class="phone-mockup">
                         <div class="phone-frame">
                             <div class="phone-screen">
-                                <img src="logos/translucent_background.PNG" alt="GuardianLive" class="phone-logo">
+                                <img src="logos/translucent_background.png" alt="GuardianLive" class="phone-logo">
                                 <div class="timer-display">05:00</div>
                                 <div class="timer-label">Safety Timer Active</div>
                             </div>
@@ -1292,7 +1427,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <a href="#" class="logo" style="margin-bottom: 24px; display: inline-flex;">
-                        <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
+                        <img src="logos/translucent_background.png" alt="GuardianLive Logo">
                         <span>GuardianLive</span>
                     </a>
                     <p>The next generation of personal safety. Real-time streaming, automated alerts, and professional duress protection.</p>
@@ -1308,7 +1443,7 @@
                     <ul>
                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="#">Terms of Service</a></li>
-                        <li><a href="account_deletion.html">Account Deletion</a></li>
+                        <li><a href="account-deletion.html">Account Deletion</a></li>
                     </ul>
                 </div>
                 <div class="footer-nav">
@@ -1382,22 +1517,163 @@
             }
         });
 
-        // Particle Animation
+        // Feature icons configuration (matching the app)
+        const FEATURE_ICONS = [
+            { icon: 'fa-stopwatch', size: 28 },
+            { icon: 'fa-video', size: 32 },
+            { icon: 'fa-location-dot', size: 26 },
+            { icon: 'fa-users', size: 30 },
+            { icon: 'fa-bell', size: 26 },
+            { icon: 'fa-shield-halved', size: 34 },
+            { icon: 'fa-clock', size: 24 },
+            { icon: 'fa-table-cells', size: 24 },
+        ];
+
+        // Organic, asymmetric constellation positions
+        const ICON_POSITIONS = [
+            { x: 0.15, y: 0.14 },
+            { x: 0.78, y: 0.11 },
+            { x: 0.10, y: 0.42 },
+            { x: 0.88, y: 0.32 },
+            { x: 0.14, y: 0.68 },
+            { x: 0.85, y: 0.62 },
+            { x: 0.22, y: 0.88 },
+            { x: 0.72, y: 0.84 },
+        ];
+
+        // Connection pairs between icons
+        const CONNECTION_PAIRS = [
+            [0, 3], [1, 2], [2, 5], [3, 4],
+            [0, 4], [1, 5], [4, 7], [5, 6],
+            [2, 6], [3, 7],
+        ];
+
+        // Create grid dots pattern
+        function createGridDots() {
+            const container = document.getElementById('gridDots');
+            const spacing = 50;
+            const rows = Math.ceil(window.innerHeight / spacing) + 1;
+            const cols = Math.ceil(window.innerWidth / spacing) + 1;
+            
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const distFromCenter = Math.sqrt(
+                        Math.pow((col * spacing - window.innerWidth / 2) / window.innerWidth, 2) +
+                        Math.pow((row * spacing - window.innerHeight / 2) / window.innerHeight, 2)
+                    );
+                    const opacity = Math.max(0.03, 0.12 - distFromCenter * 0.15);
+                    
+                    const dot = document.createElement('div');
+                    dot.className = 'grid-dot';
+                    dot.style.left = col * spacing + 'px';
+                    dot.style.top = row * spacing + 'px';
+                    dot.style.opacity = opacity;
+                    container.appendChild(dot);
+                }
+            }
+        }
+
+        // Create floating particles
         function createParticles() {
             const container = document.getElementById('particles');
-            const particleCount = 30;
+            const particleCount = 150;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
+                const size = 1.5 + Math.random() * 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = (Math.random() * 3) + 's';
+                particle.style.animationDuration = (4 + i * 0.2) + 's';
                 container.appendChild(particle);
             }
         }
+
+        // Create floating feature icons
+        function createFloatingIcons() {
+            const container = document.getElementById('floatingIcons');
+            
+            FEATURE_ICONS.forEach((iconData, idx) => {
+                const pos = ICON_POSITIONS[idx];
+                const iconWrapper = document.createElement('div');
+                iconWrapper.className = 'floating-icon';
+                iconWrapper.style.left = (pos.x * 100) + '%';
+                iconWrapper.style.top = (pos.y * 100) + '%';
+                iconWrapper.style.animationDelay = (0.8 + idx * 0.15) + 's';
+                
+                // Icon glow
+                const glow = document.createElement('div');
+                glow.className = 'icon-glow';
+                const glowSize = iconData.size * 2.2;
+                glow.style.width = glowSize + 'px';
+                glow.style.height = glowSize + 'px';
+                
+                // Icon element
+                const icon = document.createElement('i');
+                icon.className = 'fas ' + iconData.icon;
+                icon.style.fontSize = iconData.size + 'px';
+                icon.style.animationDelay = (idx * 0.5) + 's, ' + (idx * 0.3) + 's, ' + (idx * 1) + 's';
+                icon.style.animationDuration = (6 + idx * 0.5) + 's, ' + (4 + idx * 0.3) + 's, ' + (16 + idx * 1) + 's';
+                
+                iconWrapper.appendChild(glow);
+                iconWrapper.appendChild(icon);
+                container.appendChild(iconWrapper);
+            });
+        }
+
+        // Create connection lines between icons
+        function createConnectionLines() {
+            const container = document.getElementById('connectionLines');
+            
+            CONNECTION_PAIRS.forEach(([a, b]) => {
+                const posA = ICON_POSITIONS[a];
+                const posB = ICON_POSITIONS[b];
+                
+                const x1 = posA.x * window.innerWidth;
+                const y1 = posA.y * window.innerHeight;
+                const x2 = posB.x * window.innerWidth;
+                const y2 = posB.y * window.innerHeight;
+                
+                const dx = x2 - x1;
+                const dy = y2 - y1;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                line.style.left = x1 + 'px';
+                line.style.top = y1 + 'px';
+                line.style.width = length + 'px';
+                line.style.transform = 'rotate(' + angle + 'deg)';
+                container.appendChild(line);
+            });
+        }
+
+        // Initialize all background elements
+        function initTutorialBackground() {
+            createGridDots();
+            createParticles();
+            createFloatingIcons();
+            createConnectionLines();
+        }
         
-        createParticles();
+        initTutorialBackground();
+
+        // Handle resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Clear and recreate elements
+                document.getElementById('gridDots').innerHTML = '';
+                document.getElementById('connectionLines').innerHTML = '';
+                createGridDots();
+                createConnectionLines();
+            }, 250);
+        });
 
         // Timer animation
         function animateTimer() {
