@@ -192,8 +192,8 @@
         return;
       }
       
-      // Create deep link
-      const deepLink = 'guardianlive://add-contact?user_id=' + userId;
+      // Create deep link (using registered URL scheme)
+      const deepLink = 'com.guardianlive.app://add-contact?user_id=' + userId;
       
       // Set the open app button href
       document.getElementById('openAppBtn').href = deepLink;
