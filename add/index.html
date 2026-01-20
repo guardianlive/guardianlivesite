@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Contact - GuardianLive</title>
+  
+  <!-- Open Graph / Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GuardianLive">
+  <meta property="og:title" content="Add me on GuardianLive">
+  <meta property="og:description" content="Tap to add me as a contact on GuardianLive - your personal safety guardian.">
+  <meta property="og:image" content="https://guardianlive.org/add/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GuardianLive Logo">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Add me on GuardianLive">
+  <meta name="twitter:description" content="Tap to add me as a contact on GuardianLive - your personal safety guardian.">
+  <meta name="twitter:image" content="https://guardianlive.org/add/og-image.png">
+  
+  <!-- Apple Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=6745359398">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://guardianlive.org/favicon.png">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #020210 0%, #0D0D14 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
+    }
+    
+    .container {
+      text-align: center;
+      max-width: 400px;
+    }
+    
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 24px;
+      border-radius: 22px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    p {
+      font-size: 16px;
+      color: #9ca3af;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 51, 102, 0.2);
+      border-top-color: #FF3366;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 24px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .button {
+      display: block;
+      background: linear-gradient(135deg, #FF3366 0%, #FF0040 100%);
+      color: white;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      margin: 12px 0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+    }
+    
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .button.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .store-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    
+    #loading {
+      display: block;
+    }
+    
+    #fallback {
+      display: none;
+    }
+    
+    .error {
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .error h2 {
+      color: #ff4444;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://guardianlive.org/add/og-image.png" alt="GuardianLive" class="logo">
+    
+    <div id="loading">
+      <div class="spinner"></div>
+      <h1>Opening GuardianLive...</h1>
+      <p>Please wait while we redirect you to the app.</p>
+    </div>
+    
+    <div id="fallback">
+      <h1>Add Contact on GuardianLive</h1>
+      <p>Someone wants to add you as their safety contact! Download GuardianLive to connect with them.</p>
+      
+      <a id="openAppBtn" href="#" class="button">Open in App</a>
+      
+      <div class="store-buttons">
+        <a href="https://apps.apple.com/app/guardianlive/id6745359398" class="button secondary">
+          Download on App Store
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.guardianlive.app" class="button secondary">
+          Get it on Google Play
+        </a>
+      </div>
+    </div>
+    
+    <div id="error" style="display: none;">
+      <div class="error">
+        <h2>Invalid Link</h2>
+        <p>This link appears to be invalid or expired.</p>
+      </div>
+      <a href="https://guardianlive.org" class="button">Visit GuardianLive</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Get user_id from URL parameters
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get('id') || params.get('user_id');
+      
+      // Validate UUID format
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      
+      if (!userId || !uuidRegex.test(userId)) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
+        return;
+      }
+      
+      // Create deep link
+      const deepLink = 'guardianlive://add-contact?user_id=' + userId;
+      
+      // Set the open app button href
+      document.getElementById('openAppBtn').href = deepLink;
+      
+      // Track if app was opened
+      let appOpened = false;
+      
+      // Try to open the app
+      window.location.href = deepLink;
+      
+      // Show fallback after delay
+      setTimeout(function() {
+        if (!appOpened && !document.hidden) {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('fallback').style.display = 'block';
+        }
+      }, 2500);
+      
+      // Detect if page becomes hidden (app opened)
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          appOpened = true;
+        }
+      });
+      
+      window.addEventListener('blur', function() {
+        appOpened = true;
+      });
+    })();
+  </script>
+</body>
+</html>
