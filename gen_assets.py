@@ -133,6 +133,7 @@ def optimize_screenshots():
     names = [
         "timer_view", "stream_view", "contacts_screen", "timer_alert1", "timer_alert2",
         "active_contact", "active_contact_timer1", "active_contact_timer2", "at_risk_contact",
+        "pin_entry",
     ]
     for n in names:
         src = Image.open(os.path.join(IMAGES, n + ".png")).convert("RGB")

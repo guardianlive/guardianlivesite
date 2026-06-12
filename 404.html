@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - GuardianLive</title>
+    <meta name="robots" content="noindex">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #eb3446;
+            --primary-start: #eb34c3;
+            --text-secondary: #a3a3a3;
+            --gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary) 100%);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            color: #fff;
+            background:
+                radial-gradient(ellipse at top left, rgba(235, 52, 195, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom right, rgba(235, 52, 70, 0.06) 0%, transparent 60%),
+                linear-gradient(180deg, #040407 0%, #0a0a14 50%, #040407 100%);
+        }
+
+        .box {
+            max-width: 460px;
+        }
+
+        .logo {
+            height: 64px;
+            width: auto;
+            margin-bottom: 28px;
+        }
+
+        .code {
+            font-size: 5rem;
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 1;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(235, 52, 195, 0.3);
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="/logos/translucent_background.PNG" alt="GuardianLive Logo" class="logo">
+        <div class="code">404</div>
+        <h1>This page wandered off alone</h1>
+        <p>The page you're looking for doesn't exist or has been moved. Let's get you back somewhere safe.</p>
+        <a href="/" class="home-btn">Back to Home</a>
+    </div>
+</body>
+</html>
