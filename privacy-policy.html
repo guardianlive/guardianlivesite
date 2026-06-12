@@ -152,38 +152,13 @@
             background: rgba(0, 0, 0, 0.95);
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.25rem 0;
+        header.nav-hidden {
+            transform: translateY(-100%);
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 14px;
-        }
-
-        .logo img {
-            height: 42px;
-            width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover img {
-            transform: rotate(-10deg) scale(1.1);
-        }
-
-        .logo span {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+        header .container {
+            max-width: 100%;
+            padding: 0 40px;
         }
 
         .nav-links {
@@ -222,8 +197,38 @@
             width: 100%;
         }
 
-        .nav-links li {
-            margin-bottom: 0;
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 14px;
+        }
+
+        .logo img {
+            height: 42px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .logo span {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
         .cta-button {
@@ -245,16 +250,6 @@
             box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
         }
 
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 8px;
-        }
 
         /* Main Content */
         main {
@@ -492,23 +487,7 @@
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: block; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                gap: 0;
-                background: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(20px);
-                border-bottom: 1px solid var(--glass-border);
-                padding: 8px 24px 20px;
-            }
-            .nav-links.open { display: flex; }
-            .nav-links li { padding: 12px 0; }
-            
+            .nav-links { display: none; }
             .page-header h1 {
                 font-size: 2.5rem;
             }
@@ -554,17 +533,12 @@
                     <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
                     <span>GuardianLive</span>
                 </a>
-                <ul class="nav-links" id="navLinks">
+                <ul class="nav-links">
                     <li><a href="index.html#mission">Mission</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="index.html#use-cases">Use Cases</a></li>
                 </ul>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <a href="index.html" class="cta-button">Back to Home</a>
-                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
+                <a href="index.html" class="cta-button">Back to Home</a>
             </nav>
         </div>
     </header>
@@ -861,23 +835,25 @@
             offset: 50
         });
 
-        // Header Scroll Effect
+        // Header Scroll Effect — hide on scroll down, reveal on scroll up
+        const header = document.getElementById('header');
+        let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
-        });
 
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        menuToggle.addEventListener('click', () => {
-            const isOpen = navLinks.classList.toggle('open');
-            menuToggle.setAttribute('aria-expanded', isOpen);
-            menuToggle.querySelector('i').className = isOpen ? 'fas fa-xmark' : 'fas fa-bars';
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                header.classList.add('nav-hidden');
+            } else {
+                header.classList.remove('nav-hidden');
+            }
+
+            lastScrollY = currentScrollY;
         });
     </script>
 </body>
