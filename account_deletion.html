@@ -4,10 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Deletion - GuardianLive</title>
-    
+    <meta name="description" content="How to delete your GuardianLive account and personal data, either directly in the app or by email request.">
+    <link rel="canonical" href="https://guardianlive.org/account_deletion.html">
+
+    <!-- Open Graph / Link Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GuardianLive">
+    <meta property="og:title" content="Account Deletion - GuardianLive">
+    <meta property="og:description" content="How to delete your GuardianLive account and personal data, either directly in the app or by email request.">
+    <meta property="og:url" content="https://guardianlive.org/account_deletion.html">
+    <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Account Deletion - GuardianLive">
+    <meta name="twitter:description" content="How to delete your GuardianLive account and personal data, either directly in the app or by email request.">
+    <meta name="twitter:image" content="https://guardianlive.org/images/og-image.png">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logos/translucent_background.PNG">
-    <link rel="shortcut icon" type="image/png" href="logos/translucent_background.PNG">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -217,6 +237,17 @@
         .cta-button:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px;
         }
 
         /* Main Content */
@@ -581,9 +612,22 @@
         }
 
         @media (max-width: 768px) {
+            .menu-toggle { display: block; }
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--glass-border);
+                padding: 8px 24px 20px;
             }
+            .nav-links.open { display: flex; }
+            .nav-links li { padding: 12px 0; margin-bottom: 0; }
             
             .page-header h1 {
                 font-size: 2.5rem;
@@ -630,12 +674,17 @@
                     <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
                     <span>GuardianLive</span>
                 </a>
-                <ul class="nav-links">
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html#mission">Mission</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="index.html#use-cases">Use Cases</a></li>
                 </ul>
-                <a href="index.html" class="cta-button">Back to Home</a>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <a href="index.html" class="cta-button">Back to Home</a>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -704,7 +753,7 @@
 
                 <div class="contact-box">
                     <h3><i class="fas fa-envelope"></i> Contact Support</h3>
-                    <p><strong>Email:</strong> <a href="mailto:support@guardianlive.app" class="email-link">support@guardianlive.app</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:admin@guardianlive.org" class="email-link">admin@guardianlive.org</a></p>
                     <p><strong>Please include in your email:</strong></p>
                     <ul>
                         <li>Subject line: "Account Deletion Request"</li>
@@ -736,7 +785,7 @@
                 </ul>
 
                 <h2>Questions?</h2>
-                <p>If you have any questions about account deletion or data privacy, please review our <a href="privacy-policy.html">Privacy Policy</a> or contact us at <a href="mailto:support@guardianlive.app" class="email-link">support@guardianlive.app</a></p>
+                <p>If you have any questions about account deletion or data privacy, please review our <a href="privacy-policy.html">Privacy Policy</a> or contact us at <a href="mailto:admin@guardianlive.org" class="email-link">admin@guardianlive.org</a></p>
 
                 <hr>
 
@@ -755,18 +804,11 @@
                 <div class="footer-brand">
                     <h4>GuardianLive</h4>
                     <p>The next generation of personal safety. Real-time streaming, automated alerts, and professional duress protection.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-apple"></i></a>
-                        <a href="#"><i class="fab fa-google-play"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
                 </div>
                 <div class="footer-nav">
                     <h5>Legal</h5>
                     <ul>
                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
                         <li><a href="account_deletion.html">Account Deletion</a></li>
                     </ul>
                 </div>
@@ -774,8 +816,6 @@
                     <h5>Support</h5>
                     <ul>
                         <li><a href="mailto:admin@guardianlive.org">Contact Support</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Security Overview</a></li>
                     </ul>
                 </div>
             </div>
@@ -804,6 +844,15 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+            menuToggle.querySelector('i').className = isOpen ? 'fas fa-xmark' : 'fas fa-bars';
         });
     </script>
 </body>

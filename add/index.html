@@ -10,24 +10,37 @@
   <meta property="og:site_name" content="GuardianLive">
   <meta property="og:title" content="Add me on GuardianLive">
   <meta property="og:description" content="Tap to add me as a contact on GuardianLive - your personal safety guardian.">
-  <meta property="og:image" content="https://guardianlive.org/add/og-image.png">
+  <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="GuardianLive Logo">
+  <meta property="og:image:alt" content="GuardianLive - Personal Safety, Intuitive & Accessible">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Add me on GuardianLive">
   <meta name="twitter:description" content="Tap to add me as a contact on GuardianLive - your personal safety guardian.">
-  <meta name="twitter:image" content="https://guardianlive.org/add/og-image.png">
+  <meta name="twitter:image" content="https://guardianlive.org/images/og-image.png">
   
   <!-- Apple Smart App Banner -->
   <meta name="apple-itunes-app" content="app-id=6745359398">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://guardianlive.org/favicon.png">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   
   <style>
+    :root {
+      --primary: #eb3446;
+      --primary-start: #eb34c3;
+      --gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary) 100%);
+      --text-secondary: #a3a3a3;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -35,8 +48,8 @@
     }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #020210 0%, #0D0D14 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #040407 0%, #0a0a14 50%, #040407 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -55,7 +68,6 @@
       width: 100px;
       height: 100px;
       margin: 0 auto 24px;
-      border-radius: 22px;
     }
     
     h1 {
@@ -66,7 +78,7 @@
     
     p {
       font-size: 16px;
-      color: #9ca3af;
+      color: var(--text-secondary);
       margin-bottom: 32px;
       line-height: 1.6;
     }
@@ -74,8 +86,8 @@
     .spinner {
       width: 40px;
       height: 40px;
-      border: 3px solid rgba(255, 51, 102, 0.2);
-      border-top-color: #FF3366;
+      border: 3px solid rgba(235, 52, 195, 0.2);
+      border-top-color: var(--primary-start);
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin: 0 auto 24px;
@@ -87,29 +99,32 @@
     
     .button {
       display: block;
-      background: linear-gradient(135deg, #FF3366 0%, #FF0040 100%);
+      background: var(--gradient);
       color: white;
       text-decoration: none;
       padding: 16px 32px;
-      border-radius: 12px;
+      border-radius: 50px;
       font-weight: 600;
       font-size: 16px;
       margin: 12px 0;
       transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(235, 52, 195, 0.3);
     }
     
     .button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+      box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
     }
     
     .button.secondary {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: none;
     }
     
     .button.secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: none;
     }
     
     .store-buttons {
@@ -128,15 +143,15 @@
     }
     
     .error {
-      background: rgba(255, 0, 0, 0.1);
-      border: 1px solid rgba(255, 0, 0, 0.3);
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       padding: 16px;
-      border-radius: 12px;
+      border-radius: 16px;
       margin-bottom: 24px;
     }
     
     .error h2 {
-      color: #ff4444;
+      color: #ef4444;
       font-size: 18px;
       margin-bottom: 8px;
     }
@@ -144,7 +159,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://guardianlive.org/add/og-image.png" alt="GuardianLive" class="logo">
+    <img src="../logos/translucent_background.PNG" alt="GuardianLive" class="logo">
     
     <div id="loading">
       <div class="spinner"></div>

@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuardianLive - Your Personal Safety Guardian</title>
-    
+    <meta name="description" content="GuardianLive is a personal safety app with smart countdown timers, live video streaming, real-time location sharing, and a silent duress PIN. If anything goes wrong, your emergency contacts know instantly.">
+    <link rel="canonical" href="https://guardianlive.org/">
+
+    <!-- Open Graph / Link Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GuardianLive">
+    <meta property="og:title" content="GuardianLive - Your Personal Safety Guardian">
+    <meta property="og:description" content="Smart safety countdowns, live video streaming, and silent duress alerts. If anything goes wrong, help is on the way.">
+    <meta property="og:url" content="https://guardianlive.org/">
+    <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="GuardianLive - Personal Safety, Intuitive & Accessible">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GuardianLive - Your Personal Safety Guardian">
+    <meta name="twitter:description" content="Smart safety countdowns, live video streaming, and silent duress alerts. If anything goes wrong, help is on the way.">
+    <meta name="twitter:image" content="https://guardianlive.org/images/og-image.png">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logos/translucent_background.PNG">
-    <link rel="shortcut icon" type="image/png" href="logos/translucent_background.PNG">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -393,6 +414,17 @@
             box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
         }
 
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -479,115 +511,425 @@
         }
 
         .phone-screen {
-            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
-            border-radius: 28px;
-            aspect-ratio: 9/19;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        .phone-screen::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 24px;
             background: #000;
-            border-radius: 12px;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 390 / 844;
         }
 
-        .phone-logo {
-            width: 100px;
-            height: auto;
-            margin-bottom: 24px;
-        }
-
-        .timer-display {
-            font-size: 4rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: timerPulse 2s ease infinite;
-        }
-
-        @keyframes timerPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .timer-label {
-            color: var(--text-secondary);
-            margin-top: 8px;
-            font-size: 0.9rem;
-            opacity: 0.6;
-        }
-
-        .floating-badges {
-            position: absolute;
+        .phone-screen > picture,
+        .phone-screen > picture img {
+            display: block;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
+            object-fit: cover;
         }
 
-        .floating-badge {
+        /* Hero carousel - three phones, sides sit up and behind the front one */
+        .hero-carousel {
+            position: relative;
+            aspect-ratio: 320 / 665;
+        }
+
+        .hero-phone {
             position: absolute;
-            padding: 10px 16px;
-            background: rgba(20, 20, 20, 0.9);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            animation: floatBadge 4s ease-in-out infinite;
+            inset: 0;
+            /* z-index transitions in integer steps, so layers hand over mid-flight
+               instead of popping the moment the rotation starts */
+            transition: transform 1s cubic-bezier(0.35, 0, 0.15, 1), z-index 1s linear;
+            will-change: transform;
+        }
+
+        /* dimmer overlay - cheaper to animate than filter, so the motion stays smooth */
+        .hero-phone::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 40px;
+            background: #06040a;
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .hero-phone.pos-center {
+            transform: translate(0, 0) scale(1);
+            z-index: 3;
+        }
+
+        .hero-phone.pos-right {
+            transform: translate(38%, -9%) scale(0.78);
+            z-index: 2;
+        }
+
+        .hero-phone.pos-left {
+            transform: translate(-38%, -9%) scale(0.78);
+            z-index: 1;
+        }
+
+        .hero-phone.pos-right::after,
+        .hero-phone.pos-left::after {
+            opacity: 0.55;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-phone,
+            .hero-phone::after {
+                transition: none;
+            }
+        }
+
+        .hero-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .hero-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.22);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.35s ease;
+        }
+
+        .hero-dot.active {
+            width: 26px;
+            background: var(--gradient);
+        }
+
+        /* Live timer replica - built at the app's native 390x844 size, scaled to fit the frame */
+        .at-app {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 390px;
+            height: 844px;
+            background: #000;
+            transform-origin: top left;
+            pointer-events: none;
+            user-select: none;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        .at-statusbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 28px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .at-status-icons {
+            display: flex;
+            gap: 7px;
+            font-size: 13px;
+        }
+
+        .at-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 64px 24px 120px;
+        }
+
+        .at-header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
         }
 
-        .floating-badge.badge-1 {
-            top: 20%;
-            left: -40px;
-            animation-delay: 0s;
+        .at-badge {
+            display: flex;
+            align-items: center;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 20px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #22c55e;
         }
 
-        .floating-badge.badge-2 {
-            bottom: 30%;
-            right: -50px;
-            animation-delay: -2s;
+        .at-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: #22c55e;
+            margin-right: 8px;
         }
 
-        .floating-badge.badge-3 {
-            bottom: 10%;
-            left: -30px;
-            animation-delay: -1s;
+        .at-preset {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.8;
         }
 
-        .badge-icon {
-            font-size: 1.1rem;
+        .at-timer-wrap {
+            position: relative;
+            height: 234px;
+            margin: 20px 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .badge-text {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+        .at-ring-pulse {
+            position: absolute;
+            width: 234px;
+            height: 234px;
+            animation: atPulse 3s ease-in-out infinite;
+        }
+
+        .at-ring {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, #eb3446 0%, #eb34c3 33%, transparent 66%, transparent 100%);
+            opacity: 0.3;
+            animation: atSpin 10s linear infinite;
+        }
+
+        @keyframes atSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes atPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .at-circle {
+            position: relative;
+            width: 194px;
+            height: 194px;
+            border-radius: 50%;
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .at-time {
+            color: #fff;
+            font-size: 56px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .at-remaining {
+            color: #6b7280;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .at-info {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .at-info i {
+            font-size: 18px;
+            color: #9ca3af;
+        }
+
+        .at-info span {
+            flex: 1;
+            margin-left: 12px;
+            font-size: 12px;
+            line-height: 16px;
+            color: #9ca3af;
+        }
+
+        .at-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .at-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+        }
+
+        .at-safe {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+                rgba(34, 197, 94, 0.08);
+            box-shadow: 0 8px 16px rgba(34, 197, 94, 0.3);
+        }
+
+        .at-shield {
+            position: relative;
+            font-size: 28px;
+            color: #22c55e;
+            margin-right: 12px;
+            line-height: 1;
+        }
+
+        .at-shield .fa-check {
+            position: absolute;
+            font-size: 12px;
+            color: #06130b;
+            left: 50%;
+            top: 44%;
+            transform: translate(-50%, -50%);
+        }
+
+        .at-btn-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .at-btn-text strong {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .at-btn-text small {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
             font-weight: 500;
         }
 
-        @keyframes floatBadge {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .at-alert {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+                rgba(239, 68, 68, 0.08);
+        }
+
+        .at-alert i {
+            font-size: 22px;
+            color: #ef4444;
+            margin-right: 12px;
+        }
+
+        .at-alert span,
+        .at-live span {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .at-live {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+                rgba(59, 130, 246, 0.15);
+        }
+
+        .at-live i {
+            font-size: 22px;
+            color: #3B82F6;
+            margin-right: 12px;
+        }
+
+        .at-live span {
+            color: #3B82F6;
+        }
+
+        .at-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .at-mini {
+            flex: 1;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+                rgba(255, 255, 255, 0.05);
+        }
+
+        .at-mini i {
+            font-size: 18px;
+            color: #9ca3af;
+        }
+
+        .at-mini span {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .at-tabbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 96px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: #050505;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-around;
+            padding-top: 18px;
+        }
+
+        .at-tabbar > i {
+            font-size: 24px;
+            color: rgba(235, 52, 195, 0.75);
+        }
+
+        .at-tab-logo {
+            height: 30px;
+            width: auto;
+        }
+
+        .at-home-indicator {
+            position: absolute;
+            bottom: 9px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            border-radius: 3px;
+            background: #fff;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .at-ring,
+            .at-ring-pulse {
+                animation: none;
+            }
         }
 
         .btn-secondary {
@@ -634,19 +976,27 @@
 
         /* Sections */
         section {
-            padding: 120px 0;
+            padding: 76px 0;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 52px;
         }
 
         .section-header h2 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             letter-spacing: -1px;
+        }
+
+        .section-sub {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 620px;
+            margin: 0 auto 18px;
+            line-height: 1.6;
         }
 
         .section-header .accent {
@@ -657,107 +1007,9 @@
             border-radius: 2px;
         }
 
-        /* Mission */
-        .mission-card {
-            background: linear-gradient(135deg, rgba(235, 52, 195, 0.08) 0%, rgba(235, 52, 70, 0.04) 100%);
-            border: 1px solid rgba(235, 52, 195, 0.2);
-            border-radius: 32px;
-            padding: 80px 60px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mission-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            left: 40px;
-            font-size: 10rem;
-            font-family: serif;
-            color: rgba(235, 52, 195, 0.1);
-            line-height: 1;
-        }
-
-        .mission-quote {
-            font-size: 2.5rem;
-            font-weight: 700;
-            font-style: italic;
-            margin-bottom: 40px;
-            color: var(--text-primary);
-            line-height: 1.3;
-        }
-
-        .mission-text {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 900px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* Features */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 24px;
-        }
-
-        .feature-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(235, 52, 195, 0.4);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(235, 52, 195, 0.15);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-            font-size: 1.75rem;
-            color: var(--primary-start);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
-            background: var(--gradient);
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-
         .read-more-link {
             display: inline-block;
-            margin-top: 16px;
+            margin-top: 14px;
             color: var(--primary-start);
             text-decoration: none;
             font-weight: 600;
@@ -768,6 +1020,183 @@
         .read-more-link:hover {
             color: var(--primary);
             transform: translateX(4px);
+        }
+
+        /* In Action - editorial alternating rows, free-floating phones */
+        .action-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 72px;
+        }
+
+        .action-row + .action-row {
+            margin-top: 84px;
+        }
+
+        .action-row.reverse .action-media {
+            order: 2;
+        }
+
+        .action-media {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* soft brand glow instead of a container box */
+        .action-media::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(420px, 100%);
+            aspect-ratio: 1;
+            background: radial-gradient(circle, rgba(235, 52, 195, 0.13) 0%, rgba(235, 52, 70, 0.06) 45%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .action-phone {
+            position: relative;
+            width: 250px;
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border-radius: 34px;
+            padding: 9px;
+            box-shadow:
+                0 40px 80px -24px rgba(0, 0, 0, 0.6),
+                0 18px 40px -20px rgba(235, 52, 195, 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .action-phone > picture img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 26px;
+        }
+
+        .action-phone .phone-screen {
+            border-radius: 26px;
+        }
+
+        /* temporary stand-in until the real screenshot is provided */
+        .phone-placeholder {
+            aspect-ratio: 390 / 844;
+            border-radius: 26px;
+            border: 1px dashed rgba(255, 255, 255, 0.18);
+            background: linear-gradient(180deg, rgba(235, 52, 195, 0.06), rgba(0, 0, 0, 0.4));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .phone-placeholder i {
+            font-size: 2.2rem;
+            color: rgba(235, 52, 195, 0.6);
+        }
+
+        .phone-placeholder span {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .action-media-pair {
+            gap: 22px;
+            align-items: flex-start;
+        }
+
+        .action-media-pair .action-phone {
+            width: 212px;
+        }
+
+        .action-media-pair .action-phone:last-child {
+            margin-top: 44px;
+        }
+
+        .step-badge {
+            position: absolute;
+            top: -14px;
+            left: -14px;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(235, 52, 195, 0.4);
+        }
+
+        .action-eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 14px;
+        }
+
+        .action-text h3 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .action-text > p {
+            color: var(--text-secondary);
+            font-size: 1.08rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .action-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .action-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .action-list li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .action-list i {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            margin-top: 1px;
+            border-radius: 50%;
+            background: rgba(235, 52, 195, 0.15);
+            color: var(--primary-start);
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Use Cases */
@@ -781,7 +1210,7 @@
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            padding: 48px;
+            overflow: hidden;
             transition: all 0.3s ease;
             height: 100%;
             display: flex;
@@ -791,19 +1220,72 @@
         .use-case-card:hover {
             border-color: rgba(235, 52, 195, 0.3);
             background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-6px);
+        }
+
+        .uc-photo {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .uc-photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.8);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .use-case-card:hover .uc-photo img {
+            transform: scale(1.06);
+        }
+
+        /* brand tint + fade into the dark card, applied via CSS so all photos match */
+        .uc-photo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(235, 52, 195, 0.16) 0%, rgba(235, 52, 70, 0.1) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .uc-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 7, 11, 0.35) 0%, rgba(7, 7, 11, 0.05) 40%, rgba(9, 9, 14, 0.94) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .uc-body {
+            padding: 0 36px 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .use-case-icon-box {
             width: 60px;
             height: 60px;
-            background: rgba(235, 52, 195, 0.15);
+            background: rgba(22, 16, 26, 0.85);
+            border: 1px solid rgba(235, 52, 195, 0.35);
+            backdrop-filter: blur(10px);
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 28px;
+            margin-top: -30px;
+            margin-bottom: 24px;
             font-size: 1.5rem;
             color: var(--primary-start);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         .use-case-card h3 {
@@ -832,44 +1314,12 @@
             line-height: 1.6;
         }
 
-        /* Safety Notice */
-        .safety-notice-box {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.05) 100%);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 32px;
-            padding: 60px;
-            text-align: center;
-            max-width: 1000px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
-        }
-
-        .safety-notice-box i {
-            font-size: 3rem;
-            color: var(--warning);
-            margin-bottom: 24px;
-        }
-
-        .safety-notice-box h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--warning);
-            font-weight: 700;
-        }
-
-        .safety-notice-box p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
         /* App Info Bar */
         .app-info-bar {
-            padding: 80px 0;
+            padding: 48px 0;
             display: flex;
             justify-content: center;
-            gap: 100px;
+            gap: 90px;
             border-top: 1px solid var(--glass-border);
         }
 
@@ -895,15 +1345,15 @@
         /* Footer */
         footer {
             background: #050505;
-            padding: 100px 0 40px;
+            padding: 64px 0 32px;
             border-top: 1px solid var(--glass-border);
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            gap: 80px;
-            margin-bottom: 80px;
+            gap: 56px;
+            margin-bottom: 48px;
         }
 
         .footer-brand h4 {
@@ -919,8 +1369,8 @@
         .footer-brand p {
             color: var(--text-secondary);
             max-width: 400px;
-            font-size: 1.1rem;
-            margin-bottom: 32px;
+            font-size: 1.05rem;
+            margin-bottom: 24px;
         }
 
         .social-links {
@@ -949,8 +1399,8 @@
         }
 
         .footer-nav h5 {
-            font-size: 1.1rem;
-            margin-bottom: 32px;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
             font-weight: 700;
         }
 
@@ -959,7 +1409,7 @@
         }
 
         .footer-nav li {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .footer-nav a {
@@ -974,7 +1424,7 @@
         }
 
         .footer-bottom {
-            padding-top: 40px;
+            padding-top: 28px;
             border-top: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
@@ -1033,6 +1483,12 @@
             .footer-content { grid-template-columns: 1fr 1fr; }
             .footer-brand { grid-column: span 2; }
             .modal-content { padding: 40px 30px; }
+            .action-row { grid-template-columns: 1fr; gap: 40px; }
+            .action-row.reverse .action-media { order: 0; }
+            .action-row + .action-row { margin-top: 64px; }
+            .action-text { text-align: center; max-width: 560px; margin: 0 auto; }
+            .action-list { align-items: center; }
+            .action-list li { text-align: left; }
         }
 
         @media (max-width: 768px) {
@@ -1041,15 +1497,33 @@
             .hero-text { text-align: center; }
             .hero-btns { justify-content: center; }
             .hero-content { grid-template-columns: 1fr; gap: 40px; }
-            .nav-links { display: none; }
-            .mission-card { padding: 40px 24px; }
-            .mission-quote { font-size: 1.8rem; }
-            .section-header h2 { font-size: 2.2rem; }
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--glass-border);
+                padding: 8px 24px 20px;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { padding: 12px 0; }
+            .action-text h3 { font-size: 1.5rem; }
+            .action-phone { width: 220px; }
+            .action-media-pair { gap: 14px; }
+            .action-media-pair .action-phone { width: 150px; }
+            .action-media-pair .action-phone:last-child { margin-top: 32px; }
+            .step-badge { width: 32px; height: 32px; font-size: 0.9rem; top: -10px; left: -10px; }
+            .section-header h2 { font-size: 2rem; }
             .app-info-bar { flex-direction: column; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
             .hero-btns { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
             .phone-mockup { max-width: 260px; }
-            .floating-badges { display: none; }
             .modal-content { padding: 30px 20px; margin: 2vh auto; }
             .modal-content h2 { font-size: 1.8rem !important; }
             .modal-flow-steps { 
@@ -1086,12 +1560,16 @@
                     <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
                     <span>GuardianLive</span>
                 </a>
-                <ul class="nav-links">
-                    <li><a href="#mission">Mission</a></li>
-                    <li><a href="#features">Features</a></li>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#in-action">Features</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
                 </ul>
-                <button class="cta-button">Coming Soon</button>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <a href="mailto:admin@guardianlive.org?subject=GuardianLive%20Beta%20Access" class="cta-button">Join the Beta</a>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -1109,90 +1587,297 @@
                 </div>
                 <div class="hero-visual">
                     <div class="phone-mockup">
-                        <div class="phone-frame">
+                        <div class="hero-carousel">
+                            <div class="hero-phone pos-center">
+                            <div class="phone-frame">
                             <div class="phone-screen">
-                                <img src="logos/translucent_background.PNG" alt="GuardianLive" class="phone-logo">
-                                <div class="timer-display">05:00</div>
-                                <div class="timer-label">Safety Timer Active</div>
+                                <div class="at-app" role="img" aria-label="GuardianLive app showing an active safety timer counting down, with I Am Safe, Alert Now, and Go Live buttons">
+                                    <div class="at-statusbar">
+                                        <span class="at-clock">11:45</span>
+                                        <span class="at-status-icons">
+                                            <i class="fas fa-signal"></i>
+                                            <i class="fas fa-wifi"></i>
+                                            <i class="fas fa-battery-three-quarters"></i>
+                                        </span>
+                                    </div>
+                                    <div class="at-content">
+                                        <div class="at-header">
+                                            <div class="at-badge"><span class="at-dot"></span>ACTIVE</div>
+                                            <div class="at-preset">Run</div>
+                                        </div>
+                                        <div class="at-timer-wrap">
+                                            <div class="at-ring-pulse"><div class="at-ring"></div></div>
+                                            <div class="at-circle">
+                                                <div class="at-time">44:52</div>
+                                                <div class="at-remaining">Remaining</div>
+                                            </div>
+                                        </div>
+                                        <div class="at-info">
+                                            <i class="fas fa-location-dot"></i>
+                                            <span>Location sharing is active. Emergency contacts will be notified if timer expires.</span>
+                                        </div>
+                                        <div class="at-actions">
+                                            <div class="at-btn at-safe">
+                                                <span class="at-shield"><i class="fas fa-shield"></i><i class="fas fa-check"></i></span>
+                                                <span class="at-btn-text"><strong>I AM SAFE</strong><small>Stop Timer</small></span>
+                                            </div>
+                                            <div class="at-btn at-alert">
+                                                <i class="fas fa-triangle-exclamation"></i><span>ALERT NOW</span>
+                                            </div>
+                                            <div class="at-btn at-live">
+                                                <i class="fas fa-video"></i><span>GO LIVE</span>
+                                            </div>
+                                            <div class="at-row">
+                                                <div class="at-btn at-mini"><i class="fas fa-circle-info"></i><span>Timer Details</span></div>
+                                                <div class="at-btn at-mini"><i class="fas fa-clock"></i><span>Modify Time</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="at-tabbar">
+                                        <i class="fas fa-user-group"></i>
+                                        <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                        <i class="far fa-user"></i>
+                                        <span class="at-home-indicator"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="hero-phone pos-right">
+                                <div class="phone-frame">
+                                    <div class="phone-screen">
+                                        <picture>
+                                            <source srcset="images/stream_view-640.webp" type="image/webp">
+                                            <img src="images/stream_view-640.png" alt="GuardianLive live stream in progress with SOS button and stream timer" width="640" height="1385">
+                                        </picture>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-phone pos-left">
+                                <div class="phone-frame">
+                                    <div class="phone-screen">
+                                        <picture>
+                                            <source srcset="images/timer_alert2-640.webp" type="image/webp">
+                                            <img src="images/timer_alert2-640.png" alt="Contact alert view with response instructions and a live location map" width="640" height="1385">
+                                        </picture>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="floating-badges">
-                            <div class="floating-badge badge-1">
-                                <div class="badge-icon" style="color: var(--primary-start);"><i class="fas fa-shield-alt"></i></div>
-                                <div class="badge-text">Protected</div>
-                            </div>
-                            <div class="floating-badge badge-2">
-                                <div class="badge-icon" style="color: var(--primary-start);"><i class="fas fa-map-marker-alt"></i></div>
-                                <div class="badge-text">Location Shared</div>
-                            </div>
-                            <div class="floating-badge badge-3">
-                                <div class="badge-icon" style="color: var(--primary-start);"><i class="fas fa-video"></i></div>
-                                <div class="badge-text">Live Stream</div>
-                            </div>
+                        <div class="hero-dots" role="tablist" aria-label="App feature previews">
+                            <button class="hero-dot active" aria-label="Safety timer view"></button>
+                            <button class="hero-dot" aria-label="Live stream view"></button>
+                            <button class="hero-dot" aria-label="Contact alert view"></button>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="#mission" class="scroll-indicator">
+            <a href="#in-action" class="scroll-indicator">
                 <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </section>
 
-    <!-- Mission Section -->
-    <section id="mission">
-        <div class="container">
-            <div class="mission-card" data-aos="zoom-in">
-                <div class="mission-quote">"Improving personal safety in an intuitive and accessible way."</div>
-                <p class="mission-text">GuardianLive is an application designed to increase individual's safety in any given situation. We achieve this by providing users with tools to ensure that if something goes wrong, they are able to get help as quickly and easily as possible.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features">
+    <!-- Features / In Action Section -->
+    <section id="in-action">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2>Powerful Safety Features</h2>
+                <p class="section-sub">Every core feature, shown with real screens from the app — this is exactly what you and your contacts see.</p>
                 <div class="accent"></div>
             </div>
-            <div class="features-grid">
-                <!-- Feature 1 -->
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="feature-icon"><i class="fas fa-stopwatch"></i></div>
-                    <h3>Smart Safety Countdowns</h3>
-                    <p>Set customizable timers that automatically alert your emergency contacts if you don't check in on time. Perfect for any situation where you want an extra layer of security.</p>
+
+            <div class="action-row" data-aos="fade-up">
+                <div class="action-media">
+                    <div class="action-phone">
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="GuardianLive app showing an active safety timer counting down, with I Am Safe, Alert Now, and Go Live buttons">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons">
+                                        <i class="fas fa-signal"></i>
+                                        <i class="fas fa-wifi"></i>
+                                        <i class="fas fa-battery-three-quarters"></i>
+                                    </span>
+                                </div>
+                                <div class="at-content">
+                                    <div class="at-header">
+                                        <div class="at-badge"><span class="at-dot"></span>ACTIVE</div>
+                                        <div class="at-preset">Run</div>
+                                    </div>
+                                    <div class="at-timer-wrap">
+                                        <div class="at-ring-pulse"><div class="at-ring"></div></div>
+                                        <div class="at-circle">
+                                            <div class="at-time">44:52</div>
+                                            <div class="at-remaining">Remaining</div>
+                                        </div>
+                                    </div>
+                                    <div class="at-info">
+                                        <i class="fas fa-location-dot"></i>
+                                        <span>Location sharing is active. Emergency contacts will be notified if timer expires.</span>
+                                    </div>
+                                    <div class="at-actions">
+                                        <div class="at-btn at-safe">
+                                            <span class="at-shield"><i class="fas fa-shield"></i><i class="fas fa-check"></i></span>
+                                            <span class="at-btn-text"><strong>I AM SAFE</strong><small>Stop Timer</small></span>
+                                        </div>
+                                        <div class="at-btn at-alert">
+                                            <i class="fas fa-triangle-exclamation"></i><span>ALERT NOW</span>
+                                        </div>
+                                        <div class="at-btn at-live">
+                                            <i class="fas fa-video"></i><span>GO LIVE</span>
+                                        </div>
+                                        <div class="at-row">
+                                            <div class="at-btn at-mini"><i class="fas fa-circle-info"></i><span>Timer Details</span></div>
+                                            <div class="at-btn at-mini"><i class="fas fa-clock"></i><span>Modify Time</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Feature 2 -->
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon"><i class="fas fa-video"></i></div>
-                    <h3>Live Video Streaming</h3>
-                    <p>Broadcast your surroundings in real-time to your contacts. VOD recordings are stored on the cloud and accessible to you and your contacts at any time.</p>
+                <div class="action-text">
+                    <span class="action-eyebrow">Smart Safety Countdowns</span>
+                    <h3>Set a timer. Live your life.</h3>
+                    <p>Tell GuardianLive how long you'll be. If you don't check in before the timer runs out, your emergency contacts are alerted automatically — no action required from you.</p>
+                    <ul class="action-list">
+                        <li><i class="fas fa-check"></i><span><strong>Presets for your routines</strong> — a run, a date, a commute, one tap to start</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Modify time on the fly</strong> if plans change mid-timer</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>PIN-protected stop</strong> so no one else can silently end it</span></li>
+                    </ul>
                 </div>
-                <!-- Feature 3 -->
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
-                    <h3>Emergency Network</h3>
-                    <p>Add trusted friends and family who will be automatically notified when you need help. They'll receive your live location and stream access instantly.</p>
+            </div>
+
+            <div class="action-row reverse" data-aos="fade-up">
+                <div class="action-text">
+                    <span class="action-eyebrow">Live Video Streaming</span>
+                    <h3>Go live in one tap</h3>
+                    <p>When something feels off, start streaming. Your trusted contacts watch in real time while you keep moving.</p>
+                    <ul class="action-list">
+                        <li><i class="fas fa-check"></i><span><strong>Contacts watch live</strong> from anywhere, the moment you start</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Every second saved to the cloud</strong> as evidence, even if your phone is taken</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>One-tap SOS</strong> alerts everyone without ending the stream</span></li>
+                    </ul>
                 </div>
-                <!-- Feature 4 -->
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
-                    <h3>Auto-Alert System</h3>
-                    <p>If your countdown expires without a response, GuardianLive automatically notifies your contacts with your location and any active streams.</p>
+                <div class="action-media">
+                    <div class="action-phone">
+                        <picture>
+                            <source srcset="images/stream_view-640.webp" type="image/webp">
+                            <img src="images/stream_view-640.png" alt="GuardianLive live stream in progress with SOS button and stream timer" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
                 </div>
-                <!-- Feature 5 -->
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon"><i class="fas fa-fingerprint"></i></div>
-                    <h3>Duress PIN System</h3>
-                    <p>A sophisticated two-PIN system: one confirms you're safe, while the other silently signals you're in danger while appearing completely normal.</p>
-                    <a href="#" class="read-more-link" onclick="openModal(); return false;">Read more →</a>
+            </div>
+
+            <div class="action-row" data-aos="fade-up">
+                <div class="action-media action-media-pair">
+                    <div class="action-phone">
+                        <picture>
+                            <source srcset="images/contacts_screen-640.webp" type="image/webp">
+                            <img src="images/contacts_screen-640.png" alt="GuardianLive emergency contacts list" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
+                    <div class="action-phone">
+                        <picture>
+                            <source srcset="images/active_contact-640.webp" type="image/webp">
+                            <img src="images/active_contact-640.png" alt="Contacts list highlighting a contact with an active safety timer" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
                 </div>
-                <!-- Feature 6 -->
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    <h3>Real-Time Tracking</h3>
-                    <p>Share and track your precise location with emergency contacts when any timer is active. Location updates continue throughout your stream.</p>
+                <div class="action-text">
+                    <span class="action-eyebrow">Emergency Network</span>
+                    <h3>Your trusted circle, always ready</h3>
+                    <p>Add the friends and family you trust most. They're on standby automatically — and when someone you protect starts a timer, they appear right at the top of your list.</p>
+                    <ul class="action-list">
+                        <li><i class="fas fa-check"></i><span><strong>Status at a glance</strong> — contacts with active timers are highlighted instantly</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Notified the moment</strong> a timer expires or an alert is triggered</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>You control who's in</strong> — add or remove contacts anytime</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="action-row reverse" data-aos="fade-up">
+                <div class="action-text">
+                    <span class="action-eyebrow">Real-Time Tracking</span>
+                    <h3>Watched over while the clock runs</h3>
+                    <p>While your timer is active, your contacts can open it at any time to see how you're doing — no waiting for something to go wrong.</p>
+                    <ul class="action-list">
+                        <li><i class="fas fa-check"></i><span><strong>Time remaining and timer details</strong> visible to your contacts in real time</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Live location map</strong> with your path from start to current position</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Updates continue</strong> through any active timer or stream</span></li>
+                    </ul>
+                </div>
+                <div class="action-media action-media-pair">
+                    <div class="action-phone">
+                        <picture>
+                            <source srcset="images/active_contact_timer1-640.webp" type="image/webp">
+                            <img src="images/active_contact_timer1-640.png" alt="Contact details showing an active timer with time remaining and tap-to-call info" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
+                    <div class="action-phone">
+                        <picture>
+                            <source srcset="images/active_contact_timer2-640.webp" type="image/webp">
+                            <img src="images/active_contact_timer2-640.png" alt="Active timer view with description, response instructions, and live location map" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-row" data-aos="fade-up">
+                <div class="action-media action-media-pair">
+                    <div class="action-phone">
+                        <span class="step-badge">1</span>
+                        <picture>
+                            <source srcset="images/at_risk_contact-640.webp" type="image/webp">
+                            <img src="images/at_risk_contact-640.png" alt="Contacts list flagging a contact as At Risk after their timer expired" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
+                    <div class="action-phone">
+                        <span class="step-badge">2</span>
+                        <picture>
+                            <source srcset="images/timer_alert1-640.webp" type="image/webp">
+                            <img src="images/timer_alert1-640.png" alt="Contact alert view showing the at-risk user, their phone number, and timer details" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
+                </div>
+                <div class="action-text">
+                    <span class="action-eyebrow">Automatic Alerts</span>
+                    <h3>When a timer expires, contacts see this</h3>
+                    <p>No vague "check on your friend" notifications. The moment your timer runs out, you're flagged At Risk and your contacts get exactly what they need to act.</p>
+                    <ul class="action-list">
+                        <li><i class="fas fa-check"></i><span><strong>Flagged instantly</strong> — you move to the top of their list, marked At Risk</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Who needs help</strong> — your name, photo, tap-to-call number, and exactly when the timer expired</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>How to respond</strong> — your personal instructions plus a map of your last known location</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="action-row reverse" data-aos="fade-up">
+                <div class="action-text">
+                    <span class="action-eyebrow">Duress PIN System</span>
+                    <h3>Silent protection under pressure</h3>
+                    <p>Two PINs that look identical in use. One confirms you're safe. The other appears to work normally — while silently alerting everyone you trust.</p>
+                    <ul class="action-list">
+                        <li><i class="fas fa-check"></i><span><strong>Looks completely normal</strong> to anyone watching over your shoulder</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Contacts see a DURESS badge</strong> with your live location the moment you enter it</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Works everywhere</strong> — stopping timers, ending streams, all PIN prompts</span></li>
+                    </ul>
+                    <a href="#" class="read-more-link" onclick="openModal(); return false;">How the duress system works →</a>
+                </div>
+                <div class="action-media">
+                    <div class="action-phone">
+                        <div class="phone-placeholder">
+                            <i class="fas fa-fingerprint"></i>
+                            <span>PIN entry screenshot<br>coming soon</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1203,98 +1888,136 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2>Real-World Safety</h2>
+                <p class="section-sub">Everyday situations where a timer or a stream makes all the difference.</p>
                 <div class="accent"></div>
             </div>
             <div class="use-cases-grid">
                 <!-- Case 1 -->
                 <div class="use-case-card" data-aos="fade-up">
-                    <div class="use-case-icon-box"><i class="fas fa-walking"></i></div>
-                    <h3>Walking Alone</h3>
-                    <div class="uc-section">
-                        <span class="uc-label">Scenario</span>
-                        <p class="uc-content">You're walking home late and notice someone following you. You feel uneasy and want insurance.</p>
+                    <div class="uc-photo">
+                        <picture>
+                            <source srcset="images/use-cases/walking-alone.webp" type="image/webp">
+                            <img src="images/use-cases/walking-alone.jpg" alt="Silhouette of a person walking alone at night while checking their phone" width="800" height="500" loading="lazy">
+                        </picture>
                     </div>
-                    <div class="uc-section">
-                        <span class="uc-label">The Solution</span>
-                        <p class="uc-content">Start a countdown with live streaming. Contacts watch in real-time, and video is saved to the cloud. If you don't check in, they're alerted with your path.</p>
+                    <div class="uc-body">
+                        <div class="use-case-icon-box"><i class="fas fa-walking"></i></div>
+                        <h3>Walking Alone</h3>
+                        <div class="uc-section">
+                            <span class="uc-label">Scenario</span>
+                            <p class="uc-content">You're walking home late and notice someone following you. You feel uneasy and want insurance.</p>
+                        </div>
+                        <div class="uc-section">
+                            <span class="uc-label">The Solution</span>
+                            <p class="uc-content">Start a countdown with live streaming. Contacts watch in real-time, and video is saved to the cloud. If you don't check in, they're alerted with your path.</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Case 2 -->
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="use-case-icon-box"><i class="fas fa-user-friends"></i></div>
-                    <h3>First Dates</h3>
-                    <div class="uc-section">
-                        <span class="uc-label">Scenario</span>
-                        <p class="uc-content">Meeting someone new from an app. You want to be cautious while enjoying your time.</p>
+                    <div class="uc-photo">
+                        <picture>
+                            <source srcset="images/use-cases/first-dates.webp" type="image/webp">
+                            <img src="images/use-cases/first-dates.jpg" alt="Two people having coffee together across a table" width="800" height="500" loading="lazy">
+                        </picture>
                     </div>
-                    <div class="uc-section">
-                        <span class="uc-label">The Solution</span>
-                        <p class="uc-content">Set a countdown for the date duration. If anything feels off, start streaming discreetly. If the timer expires, help is notified.</p>
+                    <div class="uc-body">
+                        <div class="use-case-icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h3>First Dates</h3>
+                        <div class="uc-section">
+                            <span class="uc-label">Scenario</span>
+                            <p class="uc-content">Meeting someone new from an app. You want to be cautious while enjoying your time.</p>
+                        </div>
+                        <div class="uc-section">
+                            <span class="uc-label">The Solution</span>
+                            <p class="uc-content">Set a countdown for the date duration. If anything feels off, start streaming discreetly. If the timer expires, help is notified.</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Case 3 -->
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="use-case-icon-box"><i class="fas fa-mountain"></i></div>
-                    <h3>Solo Activities</h3>
-                    <div class="uc-section">
-                        <span class="uc-label">Scenario</span>
-                        <p class="uc-content">Early morning jogs, hiking trails, or solo travel where accidents could happen.</p>
+                    <div class="uc-photo">
+                        <picture>
+                            <source srcset="images/use-cases/solo-activities.webp" type="image/webp">
+                            <img src="images/use-cases/solo-activities.jpg" alt="Woman running alone on an outdoor trail" width="800" height="500" loading="lazy">
+                        </picture>
                     </div>
-                    <div class="uc-section">
-                        <span class="uc-label">The Solution</span>
-                        <p class="uc-content">Start a timer for your expected return. If you're injured and can't check in, contacts get your last known location automatically.</p>
+                    <div class="uc-body">
+                        <div class="use-case-icon-box"><i class="fas fa-mountain"></i></div>
+                        <h3>Solo Activities</h3>
+                        <div class="uc-section">
+                            <span class="uc-label">Scenario</span>
+                            <p class="uc-content">Early morning jogs, hiking trails, or solo travel where accidents could happen.</p>
+                        </div>
+                        <div class="uc-section">
+                            <span class="uc-label">The Solution</span>
+                            <p class="uc-content">Start a timer for your expected return. If you're injured and can't check in, contacts get your last known location automatically.</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Case 4 -->
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="use-case-icon-box"><i class="fas fa-car"></i></div>
-                    <h3>Using Rideshares</h3>
-                    <div class="uc-section">
-                        <span class="uc-label">Scenario</span>
-                        <p class="uc-content">You're taking an Uber or Lyft late at night. You want someone to know you're on your way and track your journey.</p>
+                    <div class="uc-photo">
+                        <picture>
+                            <source srcset="images/use-cases/rideshares.webp" type="image/webp">
+                            <img src="images/use-cases/rideshares.jpg" alt="Passenger riding in the back seat of a car" width="800" height="500" loading="lazy">
+                        </picture>
                     </div>
-                    <div class="uc-section">
-                        <span class="uc-label">The Solution</span>
-                        <p class="uc-content">Start a countdown with live streaming. Your contacts can watch your ride in real-time and see your location, ensuring you arrive safely at your destination.</p>
+                    <div class="uc-body">
+                        <div class="use-case-icon-box"><i class="fas fa-car"></i></div>
+                        <h3>Using Rideshares</h3>
+                        <div class="uc-section">
+                            <span class="uc-label">Scenario</span>
+                            <p class="uc-content">You're taking an Uber or Lyft late at night. You want someone to know you're on your way and track your journey.</p>
+                        </div>
+                        <div class="uc-section">
+                            <span class="uc-label">The Solution</span>
+                            <p class="uc-content">Start a countdown with live streaming. Your contacts can watch your ride in real-time and see your location, ensuring you arrive safely at your destination.</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Case 5 -->
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="use-case-icon-box"><i class="fas fa-home"></i></div>
-                    <h3>Home Service Visits</h3>
-                    <div class="uc-section">
-                        <span class="uc-label">Scenario</span>
-                        <p class="uc-content">A contractor, repair person, or delivery driver is coming to your home. You're alone and want an extra safety measure.</p>
+                    <div class="uc-photo">
+                        <picture>
+                            <source srcset="images/use-cases/home-service.webp" type="image/webp">
+                            <img src="images/use-cases/home-service.jpg" alt="Person receiving a service visit at their front door" width="800" height="500" loading="lazy">
+                        </picture>
                     </div>
-                    <div class="uc-section">
-                        <span class="uc-label">The Solution</span>
-                        <p class="uc-content">Set a timer for the appointment duration. If something goes wrong, your emergency contacts are notified automatically with your location.</p>
+                    <div class="uc-body">
+                        <div class="use-case-icon-box"><i class="fas fa-home"></i></div>
+                        <h3>Home Service Visits</h3>
+                        <div class="uc-section">
+                            <span class="uc-label">Scenario</span>
+                            <p class="uc-content">A contractor, repair person, or delivery driver is coming to your home. You're alone and want an extra safety measure.</p>
+                        </div>
+                        <div class="uc-section">
+                            <span class="uc-label">The Solution</span>
+                            <p class="uc-content">Set a timer for the appointment duration. If something goes wrong, your emergency contacts are notified automatically with your location.</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Case 6 -->
                 <div class="use-case-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="use-case-icon-box"><i class="fas fa-handshake"></i></div>
-                    <h3>Marketplace Meetups</h3>
-                    <div class="uc-section">
-                        <span class="uc-label">Scenario</span>
-                        <p class="uc-content">Meeting a stranger from a marketplace app to buy or sell an item. Even in public, these interactions carry inherent risks.</p>
+                    <div class="uc-photo">
+                        <picture>
+                            <source srcset="images/use-cases/marketplace.webp" type="image/webp">
+                            <img src="images/use-cases/marketplace.jpg" alt="Person loading an item into a car trunk during a marketplace exchange" width="800" height="500" loading="lazy">
+                        </picture>
                     </div>
-                    <div class="uc-section">
-                        <span class="uc-label">The Solution</span>
-                        <p class="uc-content">Set a quick 10-minute safety timer for the exchange. If the interaction goes sideways and you can't check in, your contacts are alerted instantly.</p>
+                    <div class="uc-body">
+                        <div class="use-case-icon-box"><i class="fas fa-handshake"></i></div>
+                        <h3>Marketplace Meetups</h3>
+                        <div class="uc-section">
+                            <span class="uc-label">Scenario</span>
+                            <p class="uc-content">Meeting a stranger from a marketplace app to buy or sell an item. Even in public, these interactions carry inherent risks.</p>
+                        </div>
+                        <div class="uc-section">
+                            <span class="uc-label">The Solution</span>
+                            <p class="uc-content">Set a quick 10-minute safety timer for the exchange. If the interaction goes sideways and you can't check in, your contacts are alerted instantly.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Safety Notice -->
-    <section>
-        <div class="container">
-            <div class="safety-notice-box" data-aos="zoom-in">
-                <i class="fas fa-exclamation-circle"></i>
-                <h3>Important Safety Notice</h3>
-                <p>GuardianLive is designed to enhance personal safety but should not be considered a replacement for traditional emergency services. In life-threatening situations, always call your local emergency number first.</p>
             </div>
         </div>
     </section>
@@ -1340,7 +2063,6 @@
                     <h5>Legal</h5>
                     <ul>
                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
                         <li><a href="account_deletion.html">Account Deletion</a></li>
                     </ul>
                 </div>
@@ -1348,8 +2070,6 @@
                     <h5>Support</h5>
                     <ul>
                         <li><a href="mailto:admin@guardianlive.org">Contact Support</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Security Overview</a></li>
                     </ul>
                 </div>
             </div>
@@ -1455,6 +2175,22 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+            menuToggle.querySelector('i').className = isOpen ? 'fas fa-xmark' : 'fas fa-bars';
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
         });
 
         // Feature icons configuration (matching the app)
@@ -1615,29 +2351,61 @@
             }, 250);
         });
 
-        // Timer animation
-        function animateTimer() {
-            const timerDisplay = document.querySelector('.timer-display');
-            if (!timerDisplay) return;
-            
-            let minutes = 5;
-            let seconds = 0;
-            
-            setInterval(() => {
-                seconds--;
-                if (seconds < 0) {
-                    seconds = 59;
-                    minutes--;
-                    if (minutes < 0) {
-                        minutes = 5;
-                        seconds = 0;
-                    }
-                }
-                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }, 1000);
+        // Live timer replicas: scale each 390x844 app UI to fit its phone frame
+        const atApps = document.querySelectorAll('.at-app');
+        function scaleTimerApp() {
+            atApps.forEach(app => {
+                app.style.transform = 'scale(' + (app.parentElement.clientWidth / 390) + ')';
+            });
         }
-        
-        animateTimer();
+        scaleTimerApp();
+        window.addEventListener('resize', scaleTimerApp);
+
+        // Live countdown (44:52 and counting, loops back when it runs out)
+        const AT_START = 44 * 60 + 52;
+        let atRemaining = AT_START;
+        const atTimerEls = document.querySelectorAll('.at-time');
+        setInterval(() => {
+            atRemaining = atRemaining > 0 ? atRemaining - 1 : AT_START;
+            const m = Math.floor(atRemaining / 60);
+            const s = atRemaining % 60;
+            const text = m + ':' + String(s).padStart(2, '0');
+            atTimerEls.forEach(el => el.textContent = text);
+        }, 1000);
+
+        // Status bar clocks show the visitor's actual time, like a real phone
+        const atClockEls = document.querySelectorAll('.at-clock');
+        function atUpdateClock() {
+            const d = new Date();
+            let h = d.getHours() % 12;
+            if (h === 0) h = 12;
+            const text = h + ':' + String(d.getMinutes()).padStart(2, '0');
+            atClockEls.forEach(el => el.textContent = text);
+        }
+        atUpdateClock();
+        setInterval(atUpdateClock, 15000);
+
+        // Hero carousel: the next phone swings around from the side to the front
+        const heroPhones = document.querySelectorAll('.hero-phone');
+        const heroDots = document.querySelectorAll('.hero-dot');
+        const HERO_POS = ['pos-center', 'pos-right', 'pos-left'];
+        let heroIdx = 0;
+        function showHeroSlide(i) {
+            heroIdx = i % heroPhones.length;
+            heroPhones.forEach((phone, p) => {
+                phone.classList.remove('pos-center', 'pos-right', 'pos-left');
+                phone.classList.add(HERO_POS[(p - heroIdx + 3) % 3]);
+            });
+            heroDots.forEach((dot, d) => dot.classList.toggle('active', d === heroIdx));
+        }
+        let heroRotation = setInterval(() => showHeroSlide(heroIdx + 1), 4500);
+        heroDots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showHeroSlide(i);
+                clearInterval(heroRotation);
+                heroRotation = setInterval(() => showHeroSlide(heroIdx + 1), 4500);
+            });
+        });
 
         // Modal Functions
         function openModal() {
