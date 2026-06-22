@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuardianLive - Your Personal Safety Guardian</title>
-    <meta name="description" content="GuardianLive is a personal safety app with smart countdown timers, live video streaming, real-time location sharing, and a silent duress PIN. If anything goes wrong, your emergency contacts know instantly.">
+    <meta name="description" content="GuardianLive is a personal safety app with smart timer timers, live video streaming, real-time location sharing, and a silent duress PIN. If anything goes wrong, your emergency contacts know instantly.">
     <link rel="canonical" href="https://guardianlive.org/">
 
     <!-- Open Graph / Link Preview -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GuardianLive">
     <meta property="og:title" content="GuardianLive - Your Personal Safety Guardian">
-    <meta property="og:description" content="Smart safety countdowns, live video streaming, and silent duress alerts. If anything goes wrong, help is on the way.">
+    <meta property="og:description" content="Smart safety timers, live video streaming, and silent duress alerts. If anything goes wrong, help is on the way.">
     <meta property="og:url" content="https://guardianlive.org/">
     <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -21,7 +21,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="GuardianLive - Your Personal Safety Guardian">
-    <meta name="twitter:description" content="Smart safety countdowns, live video streaming, and silent duress alerts. If anything goes wrong, help is on the way.">
+    <meta name="twitter:description" content="Smart safety timers, live video streaming, and silent duress alerts. If anything goes wrong, help is on the way.">
     <meta name="twitter:image" content="https://guardianlive.org/images/og-image.png">
 
     <!-- Structured Data -->
@@ -31,7 +31,7 @@
         "@type": "MobileApplication",
         "name": "GuardianLive",
         "url": "https://guardianlive.org/",
-        "description": "GuardianLive is a personal safety app with smart countdown timers, live video streaming, real-time location sharing, and a silent duress PIN. If anything goes wrong, your emergency contacts know instantly.",
+        "description": "GuardianLive is a personal safety app with smart timer timers, live video streaming, real-time location sharing, and a silent duress PIN. If anything goes wrong, your emergency contacts know instantly.",
         "operatingSystem": "iOS",
         "applicationCategory": "UtilitiesApplication",
         "image": "https://guardianlive.org/images/og-image.png",
@@ -1400,6 +1400,23 @@
             margin-top: 44px;
         }
 
+        .action-media-trio {
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .action-media-trio .action-phone {
+            width: 168px;
+        }
+
+        .action-media-trio .action-phone:nth-child(2) {
+            margin-top: 28px;
+        }
+
+        .action-media-trio .action-phone:nth-child(3) {
+            margin-top: 56px;
+        }
+
         .step-badge {
             position: absolute;
             top: -14px;
@@ -1428,6 +1445,29 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 14px;
+        }
+
+        /* Soft scrim so the fixed dots/connection lines fade out behind the copy */
+        .action-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-text::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135%;
+            height: 135%;
+            background: radial-gradient(ellipse at center,
+                #06060c 0%,
+                rgba(6, 6, 12, 0.92) 38%,
+                rgba(6, 6, 12, 0.55) 62%,
+                transparent 80%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .action-text h3 {
@@ -1488,7 +1528,7 @@
         }
 
         .use-case-card {
-            background: var(--glass);
+            background: rgba(18, 14, 24, 0.92);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
             overflow: hidden;
@@ -1500,7 +1540,7 @@
 
         .use-case-card:hover {
             border-color: rgba(235, 52, 195, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(26, 20, 33, 0.96);
             transform: translateY(-6px);
         }
 
@@ -1903,6 +1943,10 @@
             .action-media-pair { gap: 14px; }
             .action-media-pair .action-phone { width: 150px; }
             .action-media-pair .action-phone:last-child { margin-top: 32px; }
+            .action-media-trio { gap: 10px; }
+            .action-media-trio .action-phone { width: 104px; }
+            .action-media-trio .action-phone:nth-child(2) { margin-top: 22px; }
+            .action-media-trio .action-phone:nth-child(3) { margin-top: 44px; }
             .step-badge { width: 32px; height: 32px; font-size: 0.9rem; top: -10px; left: -10px; }
             .section-header h2 { font-size: 2rem; }
             .app-info-bar { flex-direction: column; gap: 40px; }
@@ -2143,7 +2187,7 @@
                     </div>
                 </div>
                 <div class="action-text">
-                    <span class="action-eyebrow">Smart Safety Countdowns</span>
+                    <span class="action-eyebrow">Smart Safety Timers</span>
                     <h3>Set a timer and carry on</h3>
                     <p>Tell GuardianLive how long you'll be. If you don't check in before the timer runs out, your emergency contacts are alerted automatically — no action required from you.</p>
                     <ul class="action-list">
@@ -2260,19 +2304,23 @@
             </div>
 
             <div class="action-row" data-aos="fade-up">
-                <div class="action-media action-media-pair">
+                <div class="action-media action-media-trio">
                     <div class="action-phone">
-                        <span class="step-badge">1</span>
                         <picture>
                             <source srcset="images/at_risk_contact-640.webp" type="image/webp">
                             <img src="images/at_risk_contact-640.png" alt="Contacts list flagging a contact as At Risk after their timer expired" width="640" height="1385" loading="lazy">
                         </picture>
                     </div>
                     <div class="action-phone">
-                        <span class="step-badge">2</span>
                         <picture>
                             <source srcset="images/timer_alert1-640.webp" type="image/webp">
                             <img src="images/timer_alert1-640.png" alt="Contact alert view showing the at-risk user, their phone number, and timer details" width="640" height="1385" loading="lazy">
+                        </picture>
+                    </div>
+                    <div class="action-phone">
+                        <picture>
+                            <source srcset="images/timer_alert2-640.webp" type="image/webp">
+                            <img src="images/timer_alert2-640.png" alt="Contact alert view showing response instructions and a map of the at-risk user's last known location" width="640" height="1385" loading="lazy">
                         </picture>
                     </div>
                 </div>
@@ -2337,7 +2385,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Start a countdown with live streaming. Contacts watch in real-time, and video is saved to the cloud. If you don't check in, they're alerted with your path.</p>
+                            <p class="uc-content">Start a timer with live streaming. Contacts watch in real-time, and video is saved to the cloud. If you don't check in, they're alerted with your path.</p>
                         </div>
                     </div>
                 </div>
@@ -2358,7 +2406,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Set a countdown for the date duration. If anything feels off, start streaming discreetly. If the timer expires, help is notified.</p>
+                            <p class="uc-content">Set a timer for the date duration. If anything feels off, start streaming discreetly. If the timer expires, help is notified.</p>
                         </div>
                     </div>
                 </div>
@@ -2400,7 +2448,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Start a countdown with live streaming. Your contacts can watch your ride in real-time and see your location, ensuring you arrive safely at your destination.</p>
+                            <p class="uc-content">Start a timer with live streaming. Your contacts can watch your ride in real-time and see your location, ensuring you arrive safely at your destination.</p>
                         </div>
                     </div>
                 </div>
@@ -2806,7 +2854,7 @@
         scaleTimerApp();
         window.addEventListener('resize', scaleTimerApp);
 
-        // Live countdown (44:52 and counting, loops back when it runs out)
+        // Live timer (44:52 and counting, loops back when it runs out)
         const AT_START = 44 * 60 + 52;
         let atRemaining = AT_START;
         const atTimerEls = document.querySelectorAll('.at-time, .st-time');

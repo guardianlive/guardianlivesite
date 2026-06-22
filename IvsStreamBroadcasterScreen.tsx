@@ -1632,17 +1632,17 @@ import React, {
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.modalInner}>
                   <Text style={styles.modalTitle}>
-                    {t('countdownEnd.optionalMessage') ||
+                    {t('timerEnd.optionalMessage') ||
                       'Optional Message for Contacts'}
                   </Text>
                   <Text style={styles.modalSubtitle}>
-                    {t('countdownEnd.messagePlaceholder') ||
+                    {t('timerEnd.messagePlaceholder') ||
                       "I'm safe, sorry for the alarm..."}
                   </Text>
   
                   <TextInput
                     style={styles.messageInput}
-                    placeholder={t('countdownEnd.messagePlaceholder')}
+                    placeholder={t('timerEnd.messagePlaceholder')}
                     placeholderTextColor="rgba(255,255,255,0.4)"
                     value={stopMessage}
                     onChangeText={setStopMessage}

@@ -200,7 +200,7 @@ export default function ActiveTimerView({
           <View style={styles.statusBadge}>
             <View style={styles.statusDot} />
             <Text style={styles.statusText}>
-              {t('countdown.active').toUpperCase()}
+              {t('timer.active').toUpperCase()}
             </Text>
           </View>
           <Text
@@ -251,7 +251,7 @@ export default function ActiveTimerView({
               {formatTime(timeRemaining)}
             </Animated.Text>
             <Text style={styles.timerLabel} allowFontScaling={false}>
-              {t('countdown.remaining')}
+              {t('timer.remaining')}
             </Text>
           </View>
         </View>
@@ -447,7 +447,7 @@ export default function ActiveTimerView({
                   color={Colors.gray400}
                 />
                 <Text style={styles.restartButtonText}>
-                  {t('countdown.modifyTime') || 'Modify Time'}
+                  {t('timer.modifyTime') || 'Modify Time'}
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
