@@ -635,6 +635,26 @@
 
         .hero-text {
             text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Soft scrim so the fixed dots/connection lines fade out behind the copy */
+        .hero-text::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135%;
+            height: 135%;
+            background: radial-gradient(ellipse at center,
+                #06060c 0%,
+                rgba(6, 6, 12, 0.92) 38%,
+                rgba(6, 6, 12, 0.55) 62%,
+                transparent 80%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hero h1 {
