@@ -58,7 +58,7 @@
                 "name": "What happens if my timer expires and I'm actually fine?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "You stay in control the whole time. You can extend the timer mid-activity with Modify Time, or stop it the moment you're done by entering your PIN. If it does expire by accident, just open the app and mark yourself safe — your contacts see the update immediately."
+                    "text": "You stay in control the whole time. You can extend the timer mid-activity with Modify Time, or stop it the moment you're done by entering your PIN. If it does expire by accident, just open the app and mark yourself safe. Your contacts see the update immediately."
                 }
             },
             {
@@ -66,7 +66,7 @@
                 "name": "What if my phone dies or loses signal?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Your timer runs on our servers, not just on your phone. If the timer expires and you haven't checked in — for any reason, including a dead battery — your emergency contacts are still alerted with your last known location."
+                    "text": "Your timer runs on our servers, not just on your phone. If the timer expires and you haven't checked in for any reason, including a dead battery or loss of signal, your emergency contacts are still alerted with your last known location."
                 }
             },
             {
@@ -74,7 +74,7 @@
                 "name": "Who can see my location?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Only the emergency contacts you've personally added, and only while a timer or stream is active. GuardianLive is not a constant tracker — when no activity is running, nothing is shared."
+                    "text": "Only the emergency contacts you've personally added, and only while a timer or stream is active. GuardianLive is not a constant tracker. When no activity is running, nothing is tracked or shared."
                 }
             },
             {
@@ -82,7 +82,7 @@
                 "name": "Do my emergency contacts need the app?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes — your contacts use GuardianLive to see your active timers, watch live streams, and receive alerts with your location and response instructions. Adding each other takes seconds."
+                    "text": "Yes, your contacts use GuardianLive to see your active timers, watch live streams, and receive alerts with your location and response instructions. Adding each other takes seconds."
                 }
             },
             {
@@ -95,10 +95,10 @@
             },
             {
                 "@type": "Question",
-                "name": "How does the duress PIN work?",
+                "name": "How does the emergency PIN work?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "You set two PINs that look identical in use. Your normal PIN confirms you're safe. Your emergency PIN appears to work exactly the same way — but silently alerts your contacts with a DURESS badge and your live location. To anyone watching over your shoulder, nothing happened."
+                    "text": "You set two PINs that look identical in use. Your normal PIN confirms you're safe. Your emergency PIN appears to work exactly the same way but silently alerts your contacts with a DURESS badge and your live location. To anyone watching over your shoulder, nothing happened."
                 }
             }
         ]
@@ -1841,13 +1841,15 @@
         .compare-note {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 1.05rem;
+            font-size: 1.2rem;
             max-width: 640px;
             margin: 36px auto 0;
             line-height: 1.7;
         }
 
         .compare-note strong {
+            display: block;
+            margin-bottom: 8px;
             color: var(--text-primary);
         }
 
@@ -1996,7 +1998,7 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 data-aos="fade-up">Personal Safety,<span>Intuitive & Accessible</span></h1>
-                    <p data-aos="fade-up" data-aos-delay="100">No one plans for the worst — and in a real crisis, you can't count on dialing 911 or texting your contacts. Start a timer before you do anything where you could be at risk, for example, walking alone or meeting someone new. If you don't check in, GuardianLive automatically alerts your contacts with your live location, and video if you started a stream. The timer does the work, so you don't have to act when it matters most.</p>
+                    <p data-aos="fade-up" data-aos-delay="100">Most safety apps wait for you to ask for help or rely on someone noticing something's wrong. In a real emergency, both are wishful thinking. GuardianLive eliminates this uncertainty. Start a timer before any risky situation, and the clock becomes your lifeline. If it runs out, your contacts are automatically alerted with everything they need to get you help: your live location path, activity details, and video feed (if you started a stream). No calls, no wasted time. Set it and stay protected.</p>
                     <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
                         <a href="#in-action" class="cta-button">See how it works</a>
                     </div>
@@ -2126,7 +2128,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2>Powerful Safety Features</h2>
-                <p class="section-sub">Every core feature, shown with real screens from the app — this is exactly what you and your contacts see.</p>
+                <p class="section-sub">Every core feature, shown with real screens from the app.</p>
                 <div class="accent"></div>
             </div>
 
@@ -2189,11 +2191,11 @@
                 <div class="action-text">
                     <span class="action-eyebrow">Smart Safety Timers</span>
                     <h3>Set a timer and carry on</h3>
-                    <p>Tell GuardianLive how long you'll be. If you don't check in before the timer runs out, your emergency contacts are alerted automatically — no action required from you.</p>
+                    <p>Tell GuardianLive how long you'll be. If the timer runs out, your emergency contacts are alerted automatically. No action required from you. Stop the timer with your PIN when you are safe.</p>
                     <ul class="action-list">
-                        <li><i class="fas fa-check"></i><span><strong>Presets for your routines</strong> — a run, a date, a commute, one tap to start</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Presets for your routines.</strong> A run, a date, a commute, one tap to start</span></li>
                         <li><i class="fas fa-check"></i><span><strong>Modify time on the fly</strong> if plans change mid-timer</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>PIN-protected stop</strong> so no one else can silently end it</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>PIN-protected stop</strong> so no one else can silently end your timer</span></li>
                     </ul>
                 </div>
             </div>
@@ -2202,12 +2204,12 @@
                 <div class="action-text">
                     <span class="action-eyebrow">Live Video Streaming</span>
                     <h3>Go live in one tap</h3>
-                    <p>When something feels off, start streaming. Your trusted contacts watch in real time while you keep moving.</p>
+                    <p>When you feel unsafe, start streaming. Your trusted contacts watch in real time while you keep moving.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>Contacts watch live</strong> from anywhere, the moment you start</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Every second saved to the cloud</strong> as evidence, even if your phone is taken</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>One-tap Alert</strong> alerts everyone that you might be in trouble while continuing to stream</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>SOS Button</strong> calls 911 without ending the stream</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Every second is saved to the cloud</strong> as evidence, even if your phone is taken</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>One-tap alert</strong> alerts your selected contacts that you might be in trouble while continuing to stream</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>SOS button</strong> calls 911 without ending the stream</span></li>
                     </ul>
                 </div>
                 <div class="action-media">
@@ -2267,11 +2269,11 @@
                 <div class="action-text">
                     <span class="action-eyebrow">Emergency Network</span>
                     <h3>Your trusted circle, always ready</h3>
-                    <p>Add friends and family. If anything goes wrong and you don't check in, they will be alerted with all of the necessary information to help you.</p>
+                    <p>Add friends and family. If anything goes wrong and your timer runs out, they will be alerted with all of the necessary information to help you.</p>
                     <ul class="action-list">
-                        <li><i class="fas fa-check"></i><span><strong>Status at a glance</strong> — contacts with active timers are highlighted instantly</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Notified the moment</strong> a timer expires or an alert is triggered</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>You control who's alerted</strong> — you can directly select which contacts will be notified</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>You control who's alerted.</strong> You can directly select which contacts will be notified</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Status at a glance.</strong> Contacts with active timers are highlighted instantly</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Selected contacts are notified</strong> the moment a timer expires or an alert is triggered</span></li>
                     </ul>
                 </div>
             </div>
@@ -2280,7 +2282,7 @@
                 <div class="action-text">
                     <span class="action-eyebrow">Real-Time Tracking</span>
                     <h3>Watched over while the clock runs</h3>
-                    <p>While your timer is active, your contacts can open it at any time to see how you're doing — no waiting for something to go wrong.</p>
+                    <p>While your timer is active, your contacts can open it at any time to see how you're doing; no waiting for something to go wrong.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>Time remaining and timer details</strong> visible to your contacts in real time</span></li>
                         <li><i class="fas fa-check"></i><span><strong>Live location map</strong> with your path from start to current position</span></li>
@@ -2326,25 +2328,25 @@
                 </div>
                 <div class="action-text">
                     <span class="action-eyebrow">Automatic Alerts</span>
-                    <h3>When a timer expires, contacts see this</h3>
-                    <p>No vague "check on your friend" notifications. The moment your timer runs out, you're flagged At Risk and your contacts get exactly what they need to act.</p>
+                    <h3>Contgacts immediatelyt see expired timers and their details</h3>
+                    <p>No vague "check on your friend" notifications. The moment your timer runs out, you're flagged At Risk and your contacts get the exact information they need to act.</p>
                     <ul class="action-list">
-                        <li><i class="fas fa-check"></i><span><strong>Flagged instantly</strong> — you move to the top of their list, marked At Risk</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Who needs help</strong> — your name, photo, and tap-to-call number are all displayed</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>How to respond</strong> — your personal instructions plus a map of your last known location, and the stream/VOD if one was started are all immediately available to your contacts</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Flagged instantly.</strong> You move to the top of their list, marked At Risk</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>How to respond:</strong> Your personal instructions plus a map of your last known location and the stream/VOD, if one was started, are all immediately available to your contacts</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Accidental Expiry?</strong> No problem! Just mark yourself as safe with a message saying that you're okay, it was an accident.</span></li>
                     </ul>
                 </div>
             </div>
 
             <div class="action-row reverse" data-aos="fade-up">
                 <div class="action-text">
-                    <span class="action-eyebrow">Duress PIN System</span>
+                    <span class="action-eyebrow">Emergency PIN System</span>
                     <h3>Silent protection under pressure</h3>
-                    <p>Two PINs that look identical in use. One confirms you're safe, the other appears to work normally — while silently alerting your selected contacts.</p>
+                    <p>Two PINs that look identical in use. One PIN confirms you're safe; the emergency PIN appears to work normally, while silently alerting your selected contacts that you are in danger. Meant to be used if you are under duress.</p>
                     <ul class="action-list">
-                        <li><i class="fas fa-check"></i><span><strong>Looks completely normal</strong> to anyone watching over your shoulder</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>The emergency PIN looks completely normal</strong> to anyone watching over your shoulder</span></li>
                         <li><i class="fas fa-check"></i><span><strong>Contacts see a DURESS badge</strong> with your live location the moment you enter it</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Works everywhere</strong> — stopping timers, ending streams, all PIN prompts</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Works everywhere in the app.</strong> Stopping timers, ending streams, deleting history records, are all PIN protected</span></li>
                     </ul>
                 </div>
                 <div class="action-media">
@@ -2385,7 +2387,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Start a timer with live streaming. Contacts watch in real-time, and video is saved to the cloud. If you don't check in, they're alerted with your path.</p>
+                            <p class="uc-content">Start a timer with live streaming. Contacts watch in real-time, and video is saved to the cloud. If your timer runs out, they're alerted with your path.</p>
                         </div>
                     </div>
                 </div>
@@ -2406,7 +2408,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Set a timer for the date duration. If anything feels off, start streaming discreetly. If the timer expires, help is notified.</p>
+                            <p class="uc-content">Set a timer for the date duration. If you begin to feel unsafe, start streaming discreetly. If the timer expires, help is notified with the video feed and your location.</p>
                         </div>
                     </div>
                 </div>
@@ -2427,7 +2429,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Start a timer for your expected return. If you're injured and can't check in, contacts get your last known location automatically.</p>
+                            <p class="uc-content">Start a timer for your expected return. If you get injured and your timer runs out, contacts get your last known location automatically, along with the details of your activity.</p>
                         </div>
                     </div>
                 </div>
@@ -2469,7 +2471,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Set a timer for the appointment duration. If something goes wrong, your emergency contacts are notified automatically with your location.</p>
+                            <p class="uc-content">Set a timer for the appointment duration. If the timer runs out, your emergency contacts are notified automatically with your location and the details of the visit.</p>
                         </div>
                     </div>
                 </div>
@@ -2486,11 +2488,11 @@
                         <h3>Marketplace Meetups</h3>
                         <div class="uc-section">
                             <span class="uc-label">Scenario</span>
-                            <p class="uc-content">Meeting a stranger from a marketplace app to buy or sell an item. Even in public, these interactions carry inherent risks.</p>
+                            <p class="uc-content">You're meeting a stranger from a marketplace app to buy or sell an item. Even in public, these interactions carry inherent risks.</p>
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Set a quick 10-minute safety timer for the exchange. If the interaction goes sideways and you can't check in, your contacts are alerted instantly.</p>
+                            <p class="uc-content">Set a quick 10-minute safety timer for the exchange. If the interaction goes sideways and your timer runs out, your contacts are alerted instantly.</p>
                         </div>
                     </div>
                 </div>
@@ -2503,7 +2505,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2>Why Not Just Share My Location?</h2>
-                <p class="section-sub">Texting a friend or sharing your location only works if someone is actively watching. GuardianLive acts for you — even when you can't.</p>
+                <p class="section-sub">Texting a friend or sharing your location only works if someone is actively watching. GuardianLive acts for you even when you can't.</p>
                 <div class="accent"></div>
             </div>
             <div class="compare-wrap" data-aos="fade-up">
@@ -2530,25 +2532,25 @@
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Live location during an activity<small>Your path from start to current position</small></th>
+                            <th scope="row">Provides live location during an activity<small>Your path is shown from start to current position</small></th>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td><span class="compare-partial">If they check</span></td>
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Live video saved to the cloud<small>Evidence preserved even if your phone is taken</small></th>
+                            <th scope="row">Saves live video to the cloud<small>Evidence is preserved even if your phone is taken</small></th>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Silent duress signal<small>Call for help while appearing completely normal</small></th>
+                            <th scope="row">Send a silent duress signal<small>Call for help while appearing completely normal</small></th>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Tells contacts how to respond<small>Your instructions, tap-to-call, and last known location</small></th>
+                            <th scope="row">Tells contacts how to respond<small>Your instructions, tap-to-call, and last known location are readily available</small></th>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
@@ -2556,7 +2558,7 @@
                     </tbody>
                 </table>
             </div>
-            <p class="compare-note" data-aos="fade-up"><strong>The difference is who has to act.</strong> With texts and location sharing, your safety depends on someone noticing something is wrong. With GuardianLive, the alert goes out automatically — your contacts are told who needs help, where you are, and what to do.</p>
+            <p class="compare-note" data-aos="fade-up"><strong>Determining your safety is automated.</strong> With texts and location sharing, your safety depends on someone noticing something is wrong. With GuardianLive, the alert fires automatically; your contacts immediately know who needs help, where you are, and what to do next. Your safety no longer hinges on someone happening to notice, and having the necessary information to get you help.</p>
         </div>
     </section>
 
@@ -2571,27 +2573,27 @@
             <div class="faq-list" data-aos="fade-up">
                 <details class="faq-item">
                     <summary>What happens if my timer expires and I'm actually fine?<i class="fas fa-chevron-down"></i></summary>
-                    <p>You stay in control the whole time. You can extend the timer mid-activity with Modify Time, or stop it the moment you're done by entering your PIN. If it does expire by accident, just open the app and mark yourself safe with a message saying it was an accident — your contacts see the update immediately.</p>
+                    <p>You stay in control the whole time. You can extend the timer mid-activity with Modify Time, or stop it the moment you're done by entering your PIN. If it does expire by accident, just open the app and mark yourself safe with a message saying it was an accident. Your contacts see the update immediately.</p>
                 </details>
                 <details class="faq-item">
                     <summary>What if my phone dies or loses signal?<i class="fas fa-chevron-down"></i></summary>
-                    <p>Your timer runs on our servers, not just on your phone. If the timer expires and you haven't checked in — for any reason, including a dead battery — your emergency contacts are still alerted with your last known location.</p>
+                    <p>Your timer runs on our servers, not just on your phone. If the timer expires and you haven't checked in for any reason, including a dead battery or loss of signal, your emergency contacts are still alerted with your last known location.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Who can see my location?<i class="fas fa-chevron-down"></i></summary>
-                    <p>Only the emergency contacts you've personally selected to alert for that timer, and only while a timer or stream is active. GuardianLive is not a constant tracker — when no activity is running, nothing is shared.</p>
+                    <p>Only the emergency contacts you've personally selected to alert for that timer, and only while a timer or stream is active. GuardianLive is not a constant tracker. When no activity is running, nothing is tracked or shared.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Do my emergency contacts need the app?<i class="fas fa-chevron-down"></i></summary>
-                    <p>Yes — your contacts use GuardianLive to see your active timers, watch live streams, and receive alerts with your location and response instructions. Adding each other takes seconds.</p>
+                    <p>Yes, your contacts use GuardianLive to see your active timers, watch live streams, and receive alerts with your location and response instructions. Adding each other takes seconds.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Will it drain my battery?<i class="fas fa-chevron-down"></i></summary>
                     <p>GuardianLive only shares your location while a timer or stream is active, so there's no constant background tracking eating your battery. Live video streaming uses more power, as any camera app does, but timers are designed to be light.</p>
                 </details>
                 <details class="faq-item">
-                    <summary>How does the duress PIN work?<i class="fas fa-chevron-down"></i></summary>
-                    <p>You set two PINs that look identical in use. Your normal PIN confirms you're safe. Your emergency PIN appears to work exactly the same way — but silently alerts your contacts with a DURESS badge and your live location. To anyone watching over your shoulder, nothing happened.</p>
+                    <summary>How does the emergency PIN work?<i class="fas fa-chevron-down"></i></summary>
+                    <p>You set two PINs that look identical in use. Your normal PIN confirms you're safe. Your emergency PIN appears to work exactly the same way but silently alerts your contacts with a DURESS badge and your live location. Anyone watching over your shoulder will not know that you sent a distress signal.</p>
                 </details>
             </div>
         </div>
@@ -2624,7 +2626,7 @@
                         <img src="logos/translucent_background.PNG" alt="GuardianLive Logo">
                         <span>GuardianLive</span>
                     </a>
-                    <p>The next generation of personal safety. Real-time streaming, automated alerts, and professional duress protection.</p>
+                    <p>The next generation of personal safety. Real-time streaming, automated alerts, and silent duress alerts.</p>
                     <!-- Social links hidden for now
                     <div class="social-links">
                         <a href="#"><i class="fab fa-apple"></i></a>
