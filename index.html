@@ -2076,11 +2076,12 @@
             }
 
             .compare-table tbody td.col-gl {
-                margin-top: 12px;
-                padding: 12px 14px;
-                border-radius: 12px;
-                background: linear-gradient(180deg, rgba(235, 52, 195, 0.12), rgba(235, 52, 70, 0.08));
-                border: 1px solid rgba(235, 52, 195, 0.22);
+                /* Full-bleed highlight band: negative margins reach the card edges
+                   while the matching padding keeps the check aligned with the X's
+                   in the rows above it. */
+                margin: 10px -20px 0;
+                padding: 12px 20px;
+                background: linear-gradient(90deg, rgba(235, 52, 195, 0.12), rgba(235, 52, 70, 0.08));
             }
 
             .compare-table tbody td.col-gl::before {
