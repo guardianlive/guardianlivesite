@@ -499,6 +499,7 @@
 
         body.menu-open .nav-toggle span:nth-child(2) {
             opacity: 0;
+            transform: scaleX(0);
         }
 
         body.menu-open .nav-toggle span:nth-child(3) {
@@ -512,7 +513,7 @@
             left: 0;
             right: 0;
             z-index: 999;
-            padding: 92px 24px 32px;
+            padding: 84px 24px 18px;
             background: rgba(4, 4, 37, 0.97);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
@@ -1887,7 +1888,7 @@
             -webkit-overflow-scrolling: touch;
             border-radius: 24px;
             border: 1px solid var(--glass-border);
-            background: var(--glass);
+            background: rgba(18, 14, 24, 0.92);
         }
 
         .compare-table {
@@ -1980,6 +1981,35 @@
             color: var(--text-primary);
         }
 
+        /* Same treatment as the feature copy: a soft radial scrim sits behind the
+           free-floating text so the animated background fades out seamlessly
+           (no hard-edged container) */
+        #why-guardianlive .section-header,
+        #faq .section-header,
+        .compare-note {
+            position: relative;
+            z-index: 1;
+        }
+
+        #why-guardianlive .section-header::before,
+        #faq .section-header::before,
+        .compare-note::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135%;
+            height: 135%;
+            background: radial-gradient(ellipse at center,
+                #06060c 0%,
+                rgba(6, 6, 12, 0.92) 38%,
+                rgba(6, 6, 12, 0.55) 62%,
+                transparent 80%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
         /* FAQ */
         .faq-list {
             max-width: 800px;
@@ -1990,7 +2020,7 @@
         }
 
         .faq-item {
-            background: var(--glass);
+            background: rgba(18, 14, 24, 0.92);
             border: 1px solid var(--glass-border);
             border-radius: 18px;
             overflow: hidden;
@@ -2000,7 +2030,7 @@
         .faq-item[open],
         .faq-item:hover {
             border-color: rgba(235, 52, 195, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(26, 20, 33, 0.96);
         }
 
         .faq-item summary {
@@ -2053,7 +2083,9 @@
             .footer-content { grid-template-columns: 1fr 1fr; }
             .footer-brand { grid-column: span 2; }
             .action-row { grid-template-columns: 1fr; gap: 40px; }
-            .action-row.reverse .action-media { order: 0; }
+            /* When stacked, always show the text first, then the demo image(s) below */
+            .action-row .action-text { order: 1; }
+            .action-row .action-media { order: 2; }
             .action-row + .action-row { margin-top: 64px; }
             .action-text { text-align: center; max-width: 560px; margin: 0 auto; }
             .action-list { align-items: center; }
