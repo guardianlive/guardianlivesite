@@ -2076,9 +2076,10 @@
             }
 
             .compare-table tbody td.col-gl {
-                /* Full-bleed highlight band: negative margins reach the card edges
-                   while the matching padding keeps the check aligned with the X's
-                   in the rows above it. */
+                /* Full-bleed highlight band: width:auto lets the negative margins
+                   stretch the band to both card edges, while the matching padding
+                   keeps the check aligned with the X's in the rows above it. */
+                width: auto;
                 margin: 10px -20px 0;
                 padding: 12px 20px;
                 background: linear-gradient(90deg, rgba(235, 52, 195, 0.12), rgba(235, 52, 70, 0.08));
