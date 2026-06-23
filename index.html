@@ -150,6 +150,8 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         /* Animated Background - Tutorial Style */
@@ -462,6 +464,110 @@
             align-items: center;
             padding: 1.25rem 0;
             position: relative;
+        }
+
+        /* Mobile nav toggle (hamburger) - hidden on desktop, shown via media query */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 1002;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            margin: 0 auto;
+            border-radius: 2px;
+            background: var(--text-primary);
+            transition: transform 0.3s ease, opacity 0.2s ease;
+        }
+
+        body.menu-open .nav-toggle span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        body.menu-open .nav-toggle span:nth-child(2) {
+            opacity: 0;
+        }
+
+        body.menu-open .nav-toggle span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Mobile slide-down menu panel */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 92px 24px 32px;
+            background: rgba(4, 4, 37, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.35s;
+        }
+
+        body.menu-open .mobile-menu {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 18px 4px;
+            border-bottom: 1px solid var(--glass-border);
+            transition: color 0.25s ease;
+        }
+
+        .mobile-menu-links a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu-links a:active {
+            color: var(--primary);
+        }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 998;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+
+        body.menu-open .mobile-menu-backdrop {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.menu-open {
+            overflow: hidden;
         }
 
         .logo {
@@ -1299,6 +1405,7 @@
         /* Sections */
         section {
             padding: 76px 0;
+            scroll-margin-top: 80px;
         }
 
         .section-header {
@@ -1523,7 +1630,7 @@
         /* Use Cases */
         .use-cases-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
             gap: 32px;
         }
 
@@ -1934,12 +2041,28 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; letter-spacing: -2px; }
-            .hero p { font-size: 1.1rem; }
-            .hero-text { text-align: center; }
-            .hero-btns { justify-content: center; }
-            .hero-content { grid-template-columns: 1fr; gap: 40px; }
+            .container { padding: 0 20px; }
+            header .container { padding: 0 20px; }
             .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            nav { padding: 0.9rem 0; }
+            .logo img { height: 36px; }
+            .logo span { font-size: 1.35rem; }
+
+            section { padding: 56px 0; scroll-margin-top: 72px; }
+            .section-header { margin-bottom: 40px; }
+            .section-header h2 { font-size: 2rem; }
+            .section-sub { font-size: 1rem; }
+
+            .hero { padding: 116px 0 48px; min-height: auto; }
+            .hero h1 { font-size: 2.8rem; letter-spacing: -2px; }
+            .hero p { font-size: 1.1rem; margin: 0 auto 32px; }
+            .hero-text { text-align: center; }
+            .hero-content { grid-template-columns: 1fr; gap: 40px; }
+            .hero-btns { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; justify-content: center; }
+            .phone-mockup { max-width: 260px; }
+            .scroll-indicator { display: none; }
+
             .action-text h3 { font-size: 1.5rem; }
             .action-phone { width: 220px; }
             .action-media-pair { gap: 14px; }
@@ -1950,11 +2073,34 @@
             .action-media-trio .action-phone:nth-child(2) { margin-top: 22px; }
             .action-media-trio .action-phone:nth-child(3) { margin-top: 44px; }
             .step-badge { width: 32px; height: 32px; font-size: 0.9rem; top: -10px; left: -10px; }
-            .section-header h2 { font-size: 2rem; }
-            .app-info-bar { flex-direction: column; gap: 40px; }
-            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
-            .hero-btns { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
-            .phone-mockup { max-width: 260px; }
+
+            .uc-body { padding: 0 24px 32px; }
+            .uc-photo { height: 180px; }
+
+            .app-info-bar { flex-direction: column; gap: 32px; padding: 40px 0; }
+            .footer-content { gap: 40px 32px; margin-bottom: 40px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            header .container { padding: 0 16px; }
+
+            .section-header h2 { font-size: 1.7rem; }
+            .hero h1 { font-size: 2.3rem; letter-spacing: -1.5px; }
+            .hero p { font-size: 1.02rem; }
+
+            .footer-content { grid-template-columns: 1fr; }
+            .footer-brand { grid-column: auto; }
+
+            /* Keep the three-up feature shot from overflowing very small screens */
+            .action-media-trio { gap: 7px; }
+            .action-media-trio .action-phone { width: 88px; }
+            .action-media-trio .action-phone:nth-child(2) { margin-top: 16px; }
+            .action-media-trio .action-phone:nth-child(3) { margin-top: 32px; }
+
+            .compare-note { font-size: 1.05rem; }
+            .mobile-menu-links a { font-size: 1.15rem; }
         }
     </style>
 </head>
@@ -1988,9 +2134,25 @@
                     <li><a href="#why-guardianlive">Why GuardianLive</a></li>
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
+                <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <nav class="mobile-menu-links" aria-label="Mobile">
+            <a href="#in-action">Features</a>
+            <a href="#use-cases">Use Cases</a>
+            <a href="#why-guardianlive">Why GuardianLive</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+    </div>
+    <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -2281,12 +2443,12 @@
             <div class="action-row reverse" data-aos="fade-up">
                 <div class="action-text">
                     <span class="action-eyebrow">Real-Time Tracking</span>
-                    <h3>Watched over while the clock runs</h3>
-                    <p>While your timer is active, your contacts can open it at any time to see how you're doing; no waiting for something to go wrong.</p>
+                    <h3>Stay connected until you're safe</h3>
+                    <p>While your timer is active, your contacts can open it at any time to see how you're doing, in case they need to act before the timer expires.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>Time remaining and timer details</strong> visible to your contacts in real time</span></li>
                         <li><i class="fas fa-check"></i><span><strong>Live location map</strong> with your path from start to current position</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Updates continue</strong> through any active timer or stream</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Want to be discrete?</strong> Enable the "Hidden until expiry" option to remain hidden from contacts unless your timer expires</span></li>
                     </ul>
                 </div>
                 <div class="action-media action-media-pair">
@@ -2328,11 +2490,11 @@
                 </div>
                 <div class="action-text">
                     <span class="action-eyebrow">Automatic Alerts</span>
-                    <h3>Contgacts immediatelyt see expired timers and their details</h3>
+                    <h3>Contacts immediately see expired timers and their details</h3>
                     <p>No vague "check on your friend" notifications. The moment your timer runs out, you're flagged At Risk and your contacts get the exact information they need to act.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>Flagged instantly.</strong> You move to the top of their list, marked At Risk</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>How to respond:</strong> Your personal instructions plus a map of your last known location and the stream/VOD, if one was started, are all immediately available to your contacts</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>How to respond?</strong> Your personal instructions plus a map of your last known location and the stream/VOD, if one was started, are all immediately available to your contacts</span></li>
                         <li><i class="fas fa-check"></i><span><strong>Accidental Expiry?</strong> No problem! Just mark yourself as safe with a message saying that you're okay, it was an accident.</span></li>
                     </ul>
                 </div>
@@ -2345,8 +2507,8 @@
                     <p>Two PINs that look identical in use. One PIN confirms you're safe; the emergency PIN appears to work normally, while silently alerting your selected contacts that you are in danger. Meant to be used if you are under duress.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>The emergency PIN looks completely normal</strong> to anyone watching over your shoulder</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Contacts see a DURESS badge</strong> with your live location the moment you enter it</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Works everywhere in the app.</strong> Stopping timers, ending streams, deleting history records, are all PIN protected</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Contacts see a DURESS badge</strong> with your live location the moment you enter the emergency PIN</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Works everywhere in the app.</strong> Stopping timers, ending streams, and deleting history records are all PIN protected</span></li>
                     </ul>
                 </div>
                 <div class="action-media">
@@ -2396,7 +2558,7 @@
                     <div class="uc-photo">
                         <picture>
                             <source srcset="images/use-cases/first-dates.webp" type="image/webp">
-                            <img src="images/use-cases/first-dates.jpg" alt="Two people having coffee together across a table" width="800" height="500" loading="lazy">
+                            <img src="images/use-cases/first-dates.jpg" alt="Two people meeting for coffee across a cafe table" width="800" height="500" loading="lazy">
                         </picture>
                     </div>
                     <div class="uc-body">
@@ -2438,7 +2600,7 @@
                     <div class="uc-photo">
                         <picture>
                             <source srcset="images/use-cases/rideshares.webp" type="image/webp">
-                            <img src="images/use-cases/rideshares.jpg" alt="Passenger riding in the back seat of a car" width="800" height="500" loading="lazy">
+                            <img src="images/use-cases/rideshares.jpg" alt="Passenger riding in a car at night with city lights outside the window" width="800" height="500" loading="lazy">
                         </picture>
                     </div>
                     <div class="uc-body">
@@ -2544,7 +2706,7 @@
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Send a silent duress signal<small>Call for help while appearing completely normal</small></th>
+                            <th scope="row">Send a silent duress signal<small>Call for help while appearing completely normal by entering your emergency PIN</small></th>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td class="col-gl"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
@@ -2558,7 +2720,7 @@
                     </tbody>
                 </table>
             </div>
-            <p class="compare-note" data-aos="fade-up"><strong>Determining your safety is automated.</strong> With texts and location sharing, your safety depends on someone noticing something is wrong. With GuardianLive, the alert fires automatically; your contacts immediately know who needs help, where you are, and what to do next. Your safety no longer hinges on someone happening to notice, and having the necessary information to get you help.</p>
+            <p class="compare-note" data-aos="fade-up"><strong>Determining your safety is automated.</strong> With texts and location sharing, your safety depends on someone noticing something is wrong. With GuardianLive, the alert fires automatically; your contacts immediately know who needs help, where you are, and what to do next. Your safety no longer hinges on someone happening to notice and having the necessary information to get you help.</p>
         </div>
     </section>
 
@@ -2686,6 +2848,37 @@
             }
 
             lastScrollY = currentScrollY;
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+        function setMenu(open) {
+            document.body.classList.toggle('menu-open', open);
+            navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        }
+
+        navToggle.addEventListener('click', () => {
+            setMenu(!document.body.classList.contains('menu-open'));
+        });
+
+        mobileMenuBackdrop.addEventListener('click', () => setMenu(false));
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => setMenu(false));
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setMenu(false);
+        });
+
+        // Close the menu if the viewport grows back to desktop width
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) setMenu(false);
         });
 
         // Feature icons configuration (matching the app)
