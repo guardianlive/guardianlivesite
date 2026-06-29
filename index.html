@@ -90,7 +90,7 @@
                 "name": "Will it drain my battery?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "GuardianLive only shares your location while a timer or stream is active, so there's no constant background tracking eating your battery. Live video streaming uses more power, as any camera app does, but timers are designed to be light."
+                    "text": "GuardianLive only shares your location while a timer or stream is active, so there's no constant background tracking eating your battery. Live video streaming uses more power, like any camera app, but a plain timer is just a countdown with occasional location updates, so it barely touches your battery."
                 }
             },
             {
@@ -2567,7 +2567,7 @@
                     <p>Add friends and family. If anything goes wrong and your timer runs out, they will be alerted with all of the necessary information to help you.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>You control who's alerted.</strong> You can directly select which contacts will be notified</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Status at a glance.</strong> Contacts with active timers are highlighted instantly</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Status at a glance.</strong> Any contact who's running a safety timer is highlighted and pulled to the top, so you can see who's currently out and counting down at a glance</span></li>
                         <li><i class="fas fa-check"></i><span><strong>Selected contacts are notified</strong> the moment a timer expires or an alert is triggered</span></li>
                     </ul>
                 </div>
@@ -2579,9 +2579,9 @@
                     <h3>Stay connected until you're safe</h3>
                     <p>While your timer is active, your contacts can open it at any time to see how you're doing, in case they need to act before the timer expires.</p>
                     <ul class="action-list">
-                        <li><i class="fas fa-check"></i><span><strong>Time remaining and timer details</strong> visible to your contacts in real time</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Live location map</strong> with your path from start to current position</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Want to be discrete?</strong> Enable the "Hidden until expiry" option to remain hidden from contacts unless your timer expires</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Time remaining and timer details</strong> are visible to your contacts in real time</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Live location map</strong> showing your path from start to current position</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Want to be discreet?</strong> When setting up a timer, enable the "Hidden until expiry" option to stay invisible to your contacts unless your timer actually expires</span></li>
                     </ul>
                 </div>
                 <div class="action-media action-media-pair">
@@ -2627,8 +2627,8 @@
                     <p>No vague "check on your friend" notifications. The moment your timer runs out, you're flagged At Risk and your contacts get the exact information they need to act.</p>
                     <ul class="action-list">
                         <li><i class="fas fa-check"></i><span><strong>Flagged instantly.</strong> You move to the top of their list, marked At Risk</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>How to respond?</strong> Your personal instructions plus a map of your last known location and the stream/VOD, if one was started, are all immediately available to your contacts</span></li>
-                        <li><i class="fas fa-check"></i><span><strong>Accidental Expiry?</strong> No problem! Just mark yourself as safe with a message saying that you're okay, it was an accident.</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>How to respond?</strong> Your personal instructions, a map of your last known location, and the live stream (or its saved recording, if one was started), are all immediately available to your contacts</span></li>
+                        <li><i class="fas fa-check"></i><span><strong>Accidental expiry?</strong> No problem! Just mark yourself as safe with a message saying that you're okay, it was an accident.</span></li>
                     </ul>
                 </div>
             </div>
@@ -2682,7 +2682,7 @@
                         </div>
                         <div class="uc-section">
                             <span class="uc-label">The Solution</span>
-                            <p class="uc-content">Start a timer with live streaming. Contacts watch in real-time, and video is saved to the cloud. If your timer runs out, they're alerted with your path.</p>
+                            <p class="uc-content">Start a timer with live streaming. Contacts can watch in real time, and the video is saved to the cloud. If your timer runs out, they're alerted with your path.</p>
                         </div>
                     </div>
                 </div>
@@ -2839,13 +2839,13 @@
                             <td class="col-gl" data-label="GuardianLive"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Send a silent duress signal<small>Call for help while appearing completely normal by entering your emergency PIN</small></th>
+                            <th scope="row">Tells contacts how to respond<small>Your instructions, tap-to-call, and last known location are readily available</small></th>
                             <td data-label="Texting a Friend"><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td data-label="Location Sharing"><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td class="col-gl" data-label="GuardianLive"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">Tells contacts how to respond<small>Your instructions, tap-to-call, and last known location are readily available</small></th>
+                            <th scope="row">Sends a silent duress signal<small>Calls for help while appearing completely normal when you enter your emergency PIN</small></th>
                             <td data-label="Texting a Friend"><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td data-label="Location Sharing"><i class="fas fa-xmark compare-no" aria-label="No"></i></td>
                             <td class="col-gl" data-label="GuardianLive"><i class="fas fa-check compare-yes" aria-label="Yes"></i></td>
@@ -2853,7 +2853,7 @@
                     </tbody>
                 </table>
             </div>
-            <p class="compare-note" data-aos="fade-up"><strong>Determining your safety is automated.</strong> With texts and location sharing, your safety depends on someone noticing something is wrong. With GuardianLive, the alert fires automatically; your contacts immediately know who needs help, where you are, and what to do next. Your safety no longer hinges on someone happening to notice and having the necessary information to get you help.</p>
+            <p class="compare-note" data-aos="fade-up"><strong>Determining your safety is automated.</strong> With texts and location sharing, your safety depends on someone noticing something is wrong. With GuardianLive, the alert fires automatically: your contacts immediately know who needs help, where you are, and what to do next. Your safety no longer hinges on someone happening to notice and having the necessary information to get you help.</p>
         </div>
     </section>
 
@@ -2884,7 +2884,7 @@
                 </details>
                 <details class="faq-item">
                     <summary>Will it drain my battery?<i class="fas fa-chevron-down"></i></summary>
-                    <p>GuardianLive only shares your location while a timer or stream is active, so there's no constant background tracking eating your battery. Live video streaming uses more power, as any camera app does, but timers are designed to be light.</p>
+                    <p>GuardianLive only shares your location while a timer or stream is active, so there's no constant background tracking eating your battery. Live video streaming uses more power, like any camera app, but a plain timer is just a countdown with occasional location updates, so it barely touches your battery.</p>
                 </details>
                 <details class="faq-item">
                     <summary>How does the emergency PIN work?<i class="fas fa-chevron-down"></i></summary>

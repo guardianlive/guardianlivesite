@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - GuardianLive</title>
-    <meta name="description" content="Learn how GuardianLive collects, uses, and protects your personal information, location data, and emergency contact details.">
+    <meta name="description" content="How GuardianLive collects, uses, shares, and protects your data — including location, live video/audio streams, contacts, and safety PINs.">
     <link rel="canonical" href="https://guardianlive.org/privacy-policy.html">
 
     <!-- Open Graph / Link Preview -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GuardianLive">
     <meta property="og:title" content="Privacy Policy - GuardianLive">
-    <meta property="og:description" content="Learn how GuardianLive collects, uses, and protects your personal information, location data, and emergency contact details.">
+    <meta property="og:description" content="How GuardianLive collects, uses, shares, and protects your data — including location, live video/audio streams, contacts, and safety PINs.">
     <meta property="og:url" content="https://guardianlive.org/privacy-policy.html">
     <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Privacy Policy - GuardianLive">
-    <meta name="twitter:description" content="Learn how GuardianLive collects, uses, and protects your personal information, location data, and emergency contact details.">
+    <meta name="twitter:description" content="How GuardianLive collects, uses, shares, and protects your data — including location, live video/audio streams, contacts, and safety PINs.">
     <meta name="twitter:image" content="https://guardianlive.org/images/og-image.png">
 
     <!-- Favicon -->
@@ -66,7 +66,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--black);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
@@ -424,7 +424,6 @@
             box-shadow: 0 10px 30px rgba(235, 52, 195, 0.5);
         }
 
-
         /* Main Content */
         main {
             padding-top: 120px;
@@ -450,9 +449,9 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .last-updated {
+        .page-header p {
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .content-card {
@@ -461,13 +460,15 @@
             border-radius: 32px;
             padding: 60px;
             backdrop-filter: blur(10px);
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-top: 48px;
-            margin-bottom: 24px;
+            margin-top: 40px;
+            margin-bottom: 20px;
             color: var(--text-primary);
             position: relative;
             padding-left: 20px;
@@ -490,10 +491,10 @@
         }
 
         h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-top: 32px;
-            margin-bottom: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 28px;
+            margin-bottom: 14px;
             color: var(--text-primary);
         }
 
@@ -504,13 +505,146 @@
             line-height: 1.8;
         }
 
-        ul, ol {
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(235, 52, 195, 0.1) 0%, rgba(235, 52, 70, 0.05) 100%);
+            border: 1px solid rgba(235, 52, 195, 0.3);
+            border-radius: 20px;
+            padding: 28px;
+            margin: 28px 0;
+        }
+
+        .info-box p {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-box ol,
+        .info-box ul {
+            margin-left: 24px;
+            margin-bottom: 0;
+        }
+
+        .info-box li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .warning-box i {
+            font-size: 1.5rem;
+            color: var(--warning);
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: var(--warning);
+        }
+
+        /* Steps Box */
+        .steps-box {
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 28px 0;
+        }
+
+        .steps-box ol {
+            margin-left: 24px;
+            margin-bottom: 0;
+        }
+
+        .steps-box li {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .steps-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        .steps-box li strong {
+            color: var(--text-primary);
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 28px 0;
+        }
+
+        .contact-box h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-top: 0;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-box p {
+            margin-bottom: 12px;
+        }
+
+        .contact-box ul {
+            margin-left: 24px;
+            margin-top: 16px;
+        }
+
+        .contact-box li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .email-link {
+            color: var(--primary-start);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Regular lists */
+        ul {
             margin-left: 24px;
             margin-bottom: 24px;
-            color: var(--text-secondary);
         }
 
         li {
+            color: var(--text-secondary);
             margin-bottom: 12px;
             font-size: 1.05rem;
             line-height: 1.7;
@@ -520,40 +654,27 @@
             color: var(--text-primary);
         }
 
-        strong {
-            color: var(--text-primary);
-            font-weight: 600;
+        /* Link styling */
+        a {
+            color: var(--primary-start);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(235, 52, 195, 0.1) 0%, rgba(235, 52, 70, 0.05) 100%);
-            border: 1px solid rgba(235, 52, 195, 0.3);
-            border-radius: 20px;
-            padding: 32px;
-            margin: 32px 0;
-        }
-
-        .highlight-box p {
-            margin-bottom: 0;
-            color: var(--text-primary);
-        }
-
-        .contact-box {
-            background: var(--surface);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 32px;
-            margin-top: 24px;
-        }
-
-        .contact-box p {
-            margin-bottom: 12px;
+        a:hover {
+            color: var(--primary);
         }
 
         hr {
             border: none;
             border-top: 1px solid var(--glass-border);
-            margin: 48px 0;
+            margin: 40px 0;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         /* Footer */
@@ -672,7 +793,7 @@
             }
             
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             
             .footer-content {
@@ -730,250 +851,152 @@
         <div class="container">
             <div class="page-header" data-aos="fade-up">
                 <h1><span>Privacy Policy</span></h1>
-                <p class="last-updated">Last Updated: October 28, 2025</p>
+                <p>How GuardianLive collects, uses, shares, and protects your data</p>
             </div>
 
             <div class="content-card" data-aos="fade-up" data-aos-delay="100">
-                <h2>Introduction</h2>
-                <p>GuardianLive ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.</p>
+                <p><strong>The short version.</strong> GuardianLive is a personal safety app. To keep you safe, it handles some of the most sensitive data there is — your precise location, live and recorded video and audio, your emergency contacts, and your security PINs. We only collect what we need to operate the safety features you ask for, we share it primarily with the contacts <em>you</em> choose, and we never sell it. This page explains the details.</p>
+                <p><strong>Effective date:</strong> June 29, 2026 &nbsp;|&nbsp; <strong>Last updated:</strong> June 29, 2026</p>
 
-                <h2>Information We Collect</h2>
-                
-                <h3>Personal Information</h3>
+                <h2>1. Who We Are</h2>
+                <p>This Privacy Policy describes how <strong>GuardianLive LLC</strong> ("GuardianLive," "we," "us," or "our") collects, uses, and shares information when you use the GuardianLive mobile app, the GuardianLive Apple Watch companion app, and this website (together, the "Services").</p>
+                <p>If you have any questions, you can reach us at <a href="mailto:admin@guardianlive.org" class="email-link">admin@guardianlive.org</a>.</p>
+
+                <h2>2. Information We Collect</h2>
+                <p>We collect the following categories of information, almost all of which you provide directly or generate by using the safety features of the app.</p>
+
+                <h3>Account &amp; profile information</h3>
                 <ul>
-                    <li><strong>Name:</strong> Used to identify you to your emergency contacts</li>
-                    <li><strong>Email Address:</strong> Used for account authentication and communication</li>
-                    <li><strong>Phone Number:</strong> Used for account verification and emergency notifications</li>
-                    <li><strong>Profile Picture:</strong> Optional, used to personalize your account and share with emergency contacts</li>
+                    <li><strong>Identity details:</strong> your name, email address, phone number, and username.</li>
+                    <li><strong>Profile picture:</strong> any photo you choose to upload.</li>
+                    <li><strong>Authentication credentials:</strong> your login credentials, managed through our authentication provider. If you sign up with Apple or Google (OAuth), we receive basic profile information from that provider.</li>
+                    <li><strong>Safety PINs:</strong> you create two 4-digit PINs during setup — a standard safety PIN and a separate emergency (duress) PIN. These are required to use the app and are stored in a protected, non-reversible form. They gate critical actions such as marking yourself safe, removing contacts, deleting history, and signing out.</li>
                 </ul>
 
-                <h3>Location Information</h3>
+                <h3>Location information</h3>
                 <ul>
-                    <li><strong>Real-time Location Data:</strong> We collect your device's precise location when you use location tracking features</li>
-                    <li><strong>Location History:</strong> We may store your location history to provide emergency services with your whereabouts</li>
-                    <li><strong>Background Location:</strong> When enabled, we collect location data even when the app is closed or not in use to provide emergency tracking features</li>
+                    <li><strong>Precise, real-time location:</strong> when you start a timer or stream, GuardianLive tracks your device location (including in the background) for the duration of that safety session, and records the path you travel.</li>
+                    <li><strong>Location path history:</strong> the route recorded during a session, including the state you were in at each point (e.g. "active" vs. "at risk"), is stored as part of that session's history entry.</li>
+                    <li><strong>Offline location archive:</strong> if your device loses connectivity during a session, location data is stored locally on your device and uploaded when connectivity returns, so the recorded path is complete.</li>
+                    <li><strong>Emergency location snapshots:</strong> on a cellular Apple Watch, fallback location snapshots may be captured and uploaded during an active safety session using a short-lived, session-scoped credential.</li>
                 </ul>
 
-                <h3>Contact Information</h3>
+                <h3>Video &amp; audio (streaming)</h3>
                 <ul>
-                    <li><strong>Emergency Contacts:</strong> We collect and store information about contacts you designate as emergency contacts, including their names, phone numbers, and relationship to you</li>
-                    <li><strong>Contact Requests:</strong> We process contact invitation requests you send and receive</li>
+                    <li><strong>Live video and audio:</strong> if you turn a timer into a stream ("Go Live"), your device records and live-streams audio and video to the cloud, where it can be viewed in real time by the contacts you selected for that session.</li>
+                    <li><strong>Recorded streams (VOD):</strong> when a streamed session ends, the recording is stored in the cloud and attached to that session's history entry.</li>
+                    <li><strong>Offline stream archive:</strong> like location, stream data is buffered on your device during connectivity loss and uploaded later so the recording is complete.</li>
+                    <li><strong>Chat messages:</strong> messages sent by viewers watching an active or at-risk stream.</li>
                 </ul>
 
-                <h3>Usage Data</h3>
+                <h3>Contacts</h3>
                 <ul>
-                    <li><strong>App Activity:</strong> Information about how you interact with the app, including features used and settings configured</li>
-                    <li><strong>Device Information:</strong> Device type, operating system version, unique device identifiers</li>
-                    <li><strong>Emergency Events:</strong> Records of emergency activations, timer timers, and alerts sent</li>
+                    <li><strong>Your emergency contacts:</strong> the GuardianLive users you connect with, your contact requests (sent and received), and which contacts you select to be notified for each timer.</li>
+                    <li><strong>Shared safety data:</strong> when you are a contact for someone else, you can view their shared timer details, location path, and stream as described in this policy.</li>
                 </ul>
 
-                <h3>Media Files</h3>
+                <h3>Timer &amp; safety session data</h3>
                 <ul>
-                    <li><strong>Photos:</strong> Profile pictures and any other images you choose to upload</li>
+                    <li><strong>Timer details:</strong> name, description, response instructions, duration, selected contacts, and options (such as "Don't require PIN," "Hidden until expiry," and "Disable reminders").</li>
+                    <li><strong>Session state &amp; timestamps:</strong> the state of each session (active, at risk, duress, safe) and the started, expired, and ended times.</li>
+                    <li><strong>Duress data:</strong> when an emergency PIN is entered, we record and share the resulting duress session with your contacts as designed, including a location snapshot at the moment of the trigger.</li>
+                    <li><strong>History:</strong> completed sessions are stored in your history with all of the above details.</li>
                 </ul>
 
-                <h2>How We Use Your Information</h2>
-                <p>We use the collected information to:</p>
-                <ol>
-                    <li><strong>Provide Emergency Services:</strong>
-                        <ul>
-                            <li>Send emergency alerts to your designated contacts</li>
-                            <li>Share your location with emergency contacts when needed</li>
-                            <li>Maintain timer timers and automated emergency triggers</li>
-                        </ul>
-                    </li>
-                    <li><strong>Account Management:</strong>
-                        <ul>
-                            <li>Create and maintain your user account</li>
-                            <li>Authenticate your identity and provide secure access</li>
-                            <li>Process your preferences and settings</li>
-                        </ul>
-                    </li>
-                    <li><strong>Communication:</strong>
-                        <ul>
-                            <li>Send critical notifications about your account</li>
-                            <li>Deliver emergency alerts and notifications</li>
-                            <li>Respond to your inquiries and support requests</li>
-                        </ul>
-                    </li>
-                    <li><strong>Improve Our Services:</strong>
-                        <ul>
-                            <li>Analyze app usage to improve functionality</li>
-                            <li>Monitor and maintain app performance</li>
-                            <li>Develop new features</li>
-                        </ul>
-                    </li>
-                </ol>
-
-                <h2>How We Share Your Information</h2>
-                
-                <h3>With Your Emergency Contacts</h3>
-                <p>When you trigger an emergency or your timer timer expires, we share:</p>
+                <h3>Device &amp; technical information</h3>
                 <ul>
-                    <li>Your name and profile picture</li>
-                    <li>Your current location</li>
-                    <li>The severity level and nature of the emergency</li>
-                    <li>Any emergency messages you've configured</li>
+                    <li><strong>Push notification tokens:</strong> a device identifier used to deliver alerts (e.g. when a timer is about to expire, a timer expires, a contact goes live, or a contact triggers their emergency PIN).</li>
+                    <li><strong>Device &amp; app data:</strong> basic technical details needed to operate and secure the Services, such as device/OS type and app version.</li>
                 </ul>
 
-                <h3>With Service Providers</h3>
-                <p>We use third-party services that may access your data:</p>
+                <p><strong>Sensitive by design.</strong> Precise location and audio/video recordings are highly sensitive. GuardianLive only collects them while a safety session is active, and primarily to share them with the contacts you have chosen.</p>
+
+                <h2>3. How We Use Your Information</h2>
+                <p>We use your information to:</p>
                 <ul>
-                    <li><strong>Supabase:</strong> Database and authentication services</li>
-                    <li><strong>AWS S3:</strong> Secure storage for profile pictures and media</li>
-                    <li><strong>Push Notification Services:</strong> To deliver alerts and notifications</li>
-                    <li><strong>Sentry:</strong> Error tracking and app monitoring (anonymous data only)</li>
+                    <li><strong>Provide the core safety features</strong> — run timers, track and record your location, stream live audio/video, and store session history.</li>
+                    <li><strong>Alert and inform your contacts</strong> — notify the contacts you selected when a timer is about to expire, expires, goes live, or enters the at-risk or duress state, and give them the data they need to help you.</li>
+                    <li><strong>Operate the duress / Emergency PIN system</strong> — including making certain actions appear to succeed while quietly alerting your contacts, exactly as described in the app.</li>
+                    <li><strong>Send notifications</strong> related to timers, contacts, and contact requests.</li>
+                    <li><strong>Authenticate you and secure your account</strong>, including enforcing PIN protection on critical actions.</li>
+                    <li><strong>Maintain, troubleshoot, and improve</strong> the Services.</li>
+                    <li><strong>Comply with the law</strong> and enforce our terms.</li>
                 </ul>
 
-                <h3>Legal Requirements</h3>
-                <p>We may disclose your information if required by law, court order, or governmental request, or when we believe disclosure is necessary to:</p>
+                <h2>4. How Your Information Is Shared</h2>
+
+                <h3>With the contacts you choose</h3>
+                <p>This is the heart of GuardianLive. When you start a timer or stream, the contacts you select can see the relevant session information — timer details, your current and last-known location, your recorded path, and (for streams) live or recorded video and audio. Specifically:</p>
                 <ul>
-                    <li>Comply with legal obligations</li>
-                    <li>Protect our rights or property</li>
-                    <li>Prevent fraud or security issues</li>
-                    <li>Respond to emergency situations involving danger to persons</li>
+                    <li><strong>Visibility follows your settings.</strong> If you use "Hidden until expiry," your contacts won't see that session unless it enters the at-risk or duress state — at which point it becomes visible <strong>retroactively with all data from the start</strong>, because that data is critical to getting you help.</li>
+                    <li><strong>Duress sharing.</strong> Entering your emergency PIN shares the duress session (and a location snapshot) with the contacts on that session.</li>
+                    <li><strong>Sign-out under duress.</strong> When the emergency PIN is used to sign out, your last-known location is sent to your contacts before you are signed out.</li>
                 </ul>
 
-                <h2>Data Storage and Security</h2>
-                
-                <h3>Security Measures</h3>
+                <h3>With service providers</h3>
+                <p>We use trusted third parties to run the Services. They process data on our behalf and are not permitted to use it for their own purposes. These include providers for:</p>
                 <ul>
-                    <li>All data is encrypted in transit using industry-standard encryption (HTTPS/TLS)</li>
-                    <li>Passwords are securely hashed and never stored in plain text</li>
-                    <li>PIN codes for emergency features are encrypted and stored securely</li>
-                    <li>Profile pictures and media files are stored in secure cloud storage with access controls</li>
+                    <li><strong>Authentication, database, and backend</strong> hosting (where your account, timer, contact, and location data are stored).</li>
+                    <li><strong>Cloud storage</strong> for media such as recorded streams and profile pictures.</li>
+                    <li><strong>Live video streaming</strong> infrastructure.</li>
+                    <li><strong>Push notification delivery</strong> (e.g. Apple Push Notification service).</li>
+                    <li><strong>OAuth sign-in</strong> providers (Apple, Google), if you choose them.</li>
                 </ul>
 
-                <h3>Data Retention</h3>
+                <h3>For legal and safety reasons</h3>
+                <p>We may disclose information if required by law, to respond to lawful requests, or to protect the rights, property, or safety of you, our users, or the public.</p>
+
+                <h3>What we don't do</h3>
+                <p><strong>We do not sell your personal information,</strong> and we do not share it with advertisers.</p>
+
+                <h2>5. Data Retention &amp; Deletion</h2>
+                <p>We keep your information for as long as your account is active and as needed to provide the Services. Session history (including location paths and recorded streams) is retained so you and your selected contacts can access it, until you delete it or delete your account.</p>
                 <ul>
-                    <li><strong>Active Accounts:</strong> We retain your data while your account is active</li>
-                    <li><strong>Deleted Accounts:</strong> Upon account deletion, we remove your personal data within 30 days</li>
-                    <li><strong>Emergency Records:</strong> Emergency event logs may be retained for a limited period for safety and legal purposes</li>
-                    <li><strong>Location History:</strong> Location data is retained based on your preferences and can be deleted at any time</li>
+                    <li><strong>You control your data.</strong> You can delete individual history entries and remove contacts in the app.</li>
+                    <li><strong>Account deletion.</strong> You can delete your account at any time, which removes your associated data from our database and cloud storage. If a deletion is requested while a session is active, the session is torn down and deletion proceeds immediately. See our <a href="account_deletion.html">Account Deletion</a> page for full instructions.</li>
+                    <li><strong>Residual copies.</strong> Some data may persist briefly in backups, and limited anonymized or aggregate data may be retained where required for legal or security purposes.</li>
                 </ul>
 
-                <h3>Data Location</h3>
-                <p>Your data is stored on servers provided by our service providers, which may be located in various countries. We ensure these providers maintain appropriate security standards.</p>
-
-                <h2>Your Privacy Rights</h2>
-                <p>You have the right to:</p>
-                <ol>
-                    <li><strong>Access Your Data:</strong> Request a copy of the personal information we hold about you</li>
-                    <li><strong>Correct Your Data:</strong> Update or correct inaccurate information in the app settings</li>
-                    <li><strong>Delete Your Data:</strong> Request deletion of your account and associated data</li>
-                    <li><strong>Export Your Data:</strong> Request an export of your data in a portable format</li>
-                    <li><strong>Opt-Out:</strong> Disable location tracking or other features (note: this may limit app functionality)</li>
-                    <li><strong>Revoke Permissions:</strong> Manage app permissions through your device settings</li>
-                </ol>
-                <p>To exercise these rights, contact us at <strong>admin@guardianlive.org</strong>.</p>
-
-                <h3>How to Delete Your Account</h3>
-                <p>You can delete your account directly in the app:</p>
-                <ol>
-                    <li>Open the GuardianLive app and go to your <strong>Profile</strong> tab</li>
-                    <li>Tap <strong>Settings</strong></li>
-                    <li>Scroll down and tap <strong>Delete Account</strong></li>
-                    <li><strong>Step 1 - Verify Password:</strong> Enter your account password and tap "Verify Password"</li>
-                    <li><strong>Step 2 - Confirm Deletion:</strong> Type "CONFIRM" (in capital letters) in the text field</li>
-                    <li>Tap <strong>Delete My Account Forever</strong></li>
-                    <li>Review the final warning and confirm your decision</li>
-                </ol>
-                <p><strong>What gets deleted:</strong></p>
+                <h2>6. Security</h2>
+                <p>We take the sensitivity of this data seriously and use technical and organizational measures to protect it, including:</p>
                 <ul>
-                    <li>Profile information (name, email, phone number, username)</li>
-                    <li>Profile picture and uploaded media</li>
-                    <li>All emergency contacts</li>
-                    <li>Location history and tracking data</li>
-                    <li>Emergency timer history and records</li>
-                    <li>All app settings and preferences</li>
+                    <li><strong>PIN-gated critical actions</strong> so that someone who has your unlocked phone still can't end a session, remove contacts, or sign you out without your PIN.</li>
+                    <li><strong>The Emergency (duress) PIN</strong>, which lets you appear to comply under threat while silently alerting your contacts.</li>
+                    <li><strong>Encryption in transit</strong> for data moving between your device, our providers, and your contacts.</li>
+                    <li><strong>Scoped credentials</strong> for companion devices like the Apple Watch, which never store a long-lived session and cannot create timers, end sessions, change contacts, or bypass PIN/duress rules.</li>
+                    <li><strong>Token revocation</strong> on sign-out.</li>
                 </ul>
-                <p><strong>Note:</strong> Account deletion is permanent and cannot be undone. Your data will be completely removed from our servers within 30 days.</p>
-                <p>If you're unable to access the app, you can request account deletion by emailing <strong>admin@guardianlive.org</strong> with your registered email address.</p>
+                <p>No method of transmission or storage is ever 100% secure, but we work to protect your information and to limit access to it.</p>
 
-                <h2>Location Services</h2>
-                
-                <h3>Permission Requirements</h3>
+                <h2>7. Your Choices &amp; Rights</h2>
+                <p>Depending on where you live, you may have rights to access, correct, delete, or port your personal information, or to object to or restrict certain processing. You can exercise many of these directly in the app, and others by emailing us at <a href="mailto:admin@guardianlive.org" class="email-link">admin@guardianlive.org</a>. You can also:</p>
                 <ul>
-                    <li><strong>Foreground Location:</strong> Required to track your location when using the app</li>
-                    <li><strong>Background Location:</strong> Optional, but necessary for emergency tracking when the app is not active</li>
-                    <li><strong>Always Allow:</strong> Recommended for full emergency protection features</li>
+                    <li><strong>Update your profile</strong> — you can change your name; your email and phone number are fixed to your account and can't be changed.</li>
+                    <li><strong>Change your PINs</strong> at any time in settings (this requires your password).</li>
+                    <li><strong>Manage permissions</strong> — location, camera, microphone, and notifications are controlled in your device settings. Disabling these will limit or disable core safety features.</li>
+                    <li><strong>Delete your account</strong> and associated data (see Section 5).</li>
                 </ul>
+                <p>Each email address and phone number can be associated with only one GuardianLive account.</p>
 
-                <h3>Disabling Location</h3>
-                <p>You can disable location services through your device settings. Note that this will prevent the app from providing location-based emergency features.</p>
+                <h2>8. Children's Privacy</h2>
+                <p>GuardianLive is not directed to children, and we do not knowingly collect personal information from anyone under the minimum age required in their jurisdiction. If you believe a child has provided us information, please contact us so we can remove it.</p>
 
-                <h2>Children's Privacy</h2>
-                <p>GuardianLive is not intended for use by children under 13 years of age. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected information from a child under 13, please contact us immediately.</p>
+                <h2>9. International Users</h2>
+                <p>GuardianLive is operated from the United States, and our service providers may process and store data in the United States and other countries. By using the Services, you understand your information may be transferred to and processed in countries with different data protection laws than your own.</p>
 
-                <h2>In-App Purchases and Subscriptions</h2>
-                <ul>
-                    <li>We process subscription payments through Apple App Store and Google Play Store</li>
-                    <li>We do not store your payment card information</li>
-                    <li>Subscription management is handled through your app store account</li>
-                    <li>We collect minimal transaction data (subscription status, tier) to enable premium features</li>
-                </ul>
+                <h2>10. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date above and, where appropriate, notify you in the app. Your continued use of the Services after an update means you accept the revised policy.</p>
 
-                <h2>Changes to This Privacy Policy</h2>
-                <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by:</p>
-                <ul>
-                    <li>Posting the new Privacy Policy in the app</li>
-                    <li>Updating the "Last Updated" date</li>
-                    <li>Sending you a notification (for significant changes)</li>
-                </ul>
-                <p>Your continued use of the app after changes constitutes acceptance of the updated policy.</p>
-
-                <h2>Third-Party Links</h2>
-                <p>The app may contain links to third-party websites or services. We are not responsible for the privacy practices of these third parties. We encourage you to review their privacy policies.</p>
-
-                <h2>International Users</h2>
-                <p>If you are accessing GuardianLive from outside the United States, please be aware that your information may be transferred to, stored, and processed in the United States or other countries where our service providers operate.</p>
-
-                <h2>Contact Us</h2>
-                <div class="contact-box">
-                    <p>If you have questions or concerns about this Privacy Policy or our data practices, please contact us:</p>
-                    <p><strong>Email:</strong> admin@guardianlive.org<br>
-                    <strong>Address:</strong> 814 East Forest Hills Blvd, Durham, NC 27707<br>
-                    <strong>Website:</strong> https://guardianlive.org</p>
-                </div>
-
-                <h2>Data Protection Officer</h2>
-                <p>For privacy-related inquiries, you can reach our data protection team at:<br>
-                <strong>Email:</strong> admin@guardianlive.org</p>
-
-                <h2>Your California Privacy Rights (CCPA)</h2>
-                <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act:</p>
-                <ul>
-                    <li>Right to know what personal information is collected</li>
-                    <li>Right to know if personal information is sold or shared</li>
-                    <li>Right to opt-out of the sale of personal information</li>
-                    <li>Right to non-discrimination for exercising your rights</li>
-                </ul>
-                <p><strong>We do not sell your personal information to third parties.</strong></p>
-
-                <h2>Your European Privacy Rights (GDPR)</h2>
-                <p>If you are in the European Economic Area, you have rights under the General Data Protection Regulation:</p>
-                <ul>
-                    <li>Right to access, rectification, erasure, and restriction of processing</li>
-                    <li>Right to data portability</li>
-                    <li>Right to object to processing</li>
-                    <li>Right to withdraw consent</li>
-                    <li>Right to lodge a complaint with a supervisory authority</li>
-                </ul>
-
-                <h2>Legal Basis for Processing (GDPR)</h2>
-                <p>We process your personal data based on:</p>
-                <ul>
-                    <li><strong>Consent:</strong> You have given explicit consent for emergency contact features</li>
-                    <li><strong>Contract:</strong> Processing is necessary to provide the services you requested</li>
-                    <li><strong>Legitimate Interest:</strong> To improve our services and ensure app security</li>
-                    <li><strong>Legal Obligation:</strong> To comply with applicable laws and regulations</li>
-                </ul>
+                <h2>11. Contact Us</h2>
+                <p>If you have questions, requests, or concerns about this Privacy Policy or your data, contact us at <a href="mailto:admin@guardianlive.org" class="email-link">admin@guardianlive.org</a>.</p>
+                <p>For account and data deletion, see our <a href="account_deletion.html">Account Deletion</a> page.</p>
 
                 <hr>
 
-                <div class="highlight-box">
-                    <p><strong>By using GuardianLive, you acknowledge that you have read and understood this Privacy Policy and agree to its terms.</strong></p>
-                </div>
+                <p class="footer-text">
+                    GuardianLive - Your safety, your control<br>
+                    <a href="account_deletion.html">Account Deletion</a>
+                </p>
             </div>
         </div>
     </main>
