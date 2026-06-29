@@ -9,11 +9,14 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "images", "use-cases")
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125.0 Safari/537.36"}
 
+# NOTE: "rideshares" is intentionally omitted. Its card image is a custom
+# generated photo (assets/rideshare_generated.png, cropped to
+# images/use-cases/rideshares.{webp,jpg}) and must NOT be overwritten by this
+# Unsplash fetch.
 PHOTOS = {
     "walking-alone": "photo-1762806883673-510ffe58aede",
     "first-dates": "photo-1604881991405-b273c7a4386a",
     "solo-activities": "photo-1733077151233-294545fedc3e",
-    "rideshares": "photo-1725176842466-3ff3ae5bf621",
     "home-service": "photo-1758523670564-d1d6a734dc0b",
     "marketplace": "photo-1772909650181-a351eda9cbc7",
 }
