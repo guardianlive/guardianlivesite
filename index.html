@@ -866,26 +866,10 @@
             align-items: center;
         }
 
-        .at-badge {
-            display: flex;
-            align-items: center;
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            border-radius: 20px;
-            padding: 6px 12px;
-            margin-bottom: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #22c55e;
-        }
-
-        .at-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 3px;
-            background: #22c55e;
-            margin-right: 8px;
+        /* Spacer mirrors the app's removed Active badge slot */
+        .at-badge-spacer {
+            height: 28px;
+            margin-bottom: 8px;
         }
 
         .at-preset {
@@ -897,51 +881,59 @@
 
         .at-timer-wrap {
             position: relative;
-            height: 234px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .at-ring-pulse {
-            position: absolute;
             width: 234px;
             height: 234px;
+            margin: 20px auto;
+            /* Grid stacks ring + dial on the same centered cell — survives parent scale() */
+            display: grid;
+            place-items: center;
             animation: atPulse 3s ease-in-out infinite;
         }
 
-        .at-ring {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: linear-gradient(135deg, #eb3446 0%, #eb34c3 33%, transparent 66%, transparent 100%);
-            opacity: 0.3;
-            animation: atSpin 10s linear infinite;
+        .at-ring-svg {
+            grid-area: 1 / 1;
+            width: 234px;
+            height: 234px;
+            display: block;
+            overflow: visible;
         }
 
-        @keyframes atSpin {
-            to { transform: rotate(360deg); }
+        .at-ring-track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 16;
+        }
+
+        .at-ring-progress {
+            fill: none;
+            stroke: #10B981;
+            stroke-width: 16;
+            stroke-linecap: round;
+            /* r=105 → circumference 2πr ≈ 659.73; negative offset = empty clockwise (matches app) */
+            stroke-dasharray: 659.73;
+            stroke-dashoffset: -164.93;
+            filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.35));
+            transition: stroke 0.4s linear;
         }
 
         @keyframes atPulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.035); }
         }
 
         .at-circle {
-            position: relative;
+            grid-area: 1 / 1;
             width: 194px;
             height: 194px;
             border-radius: 50%;
             background: #111111;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            z-index: 1;
         }
 
         .at-time {
@@ -1138,10 +1130,621 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .at-ring,
-            .at-ring-pulse {
+            .at-timer-wrap {
                 animation: none;
             }
+        }
+
+        /* ── Contacts list clone (ContactsListScreen) ── */
+        .ct-body {
+            position: absolute;
+            inset: 54px 0 96px;
+            padding: 6px 20px 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #040407 0%, #0a0a14 40%, #040407 100%);
+        }
+
+        .ct-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .ct-logo {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .ct-title {
+            flex: 1;
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .ct-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .ct-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .ct-status {
+            border-radius: 16px;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            background: linear-gradient(180deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .ct-status.risk {
+            border-color: rgba(255, 0, 0, 0.2);
+            background: linear-gradient(180deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+        }
+
+        .ct-status-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .ct-status-head i { font-size: 15px; }
+        .ct-status:not(.risk) .ct-status-head i { color: #10B981; }
+        .ct-status.risk .ct-status-head i { color: #eb3446; }
+
+        .ct-status-user {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+        }
+
+        .ct-ring {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            border: 3px solid #10B981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .ct-status.risk .ct-ring { border-color: #eb3446; }
+
+        .ct-status-user span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #10B981;
+            white-space: nowrap;
+        }
+
+        .ct-status.risk .ct-status-user span { color: #eb3446; }
+
+        .ct-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #eb34c3, #eb3446);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .ct-avatar.lg { width: 48px; height: 48px; border-radius: 24px; font-size: 18px; }
+        .ct-avatar.xl { width: 56px; height: 56px; border-radius: 28px; font-size: 22px; }
+        .ct-avatar img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ct-list { display: flex; flex-direction: column; }
+
+        .ct-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-height: 72px;
+            padding: 12px 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ct-row:last-child { border-bottom: none; }
+
+        .ct-row-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* ── Contact details clone (ContactTimerDetailScreen) ── */
+        .cd-scroll {
+            position: absolute;
+            inset: 54px 0 96px;
+            padding: 8px 0 24px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #040407 0%, #0a0a14 40%, #040407 100%);
+        }
+
+        .cd-scroll.no-tabs { inset: 54px 0 0; }
+
+        .cd-top {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 22px;
+            gap: 12px;
+        }
+
+        .cd-back {
+            width: 44px;
+            height: 44px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #eb34c3, #eb3446);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            flex-shrink: 0;
+            border: 1px solid rgba(235, 52, 195, 0.2);
+        }
+
+        .cd-titles { flex: 1; text-align: center; }
+        .cd-titles h3 {
+            margin: 0 0 4px;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .cd-titles p {
+            margin: 0;
+            color: #A3A3A3;
+            font-size: 14px;
+        }
+        .cd-spacer { width: 44px; flex-shrink: 0; }
+
+        .cd-section { padding: 0 20px; margin-bottom: 22px; }
+
+        .cd-profile {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .cd-profile-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .cd-avatar-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            border: 2px solid rgba(34, 197, 94, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .cd-avatar-wrap.danger { border-color: rgba(239, 68, 68, 0.55); }
+
+        .cd-profile-name {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cd-profile-right { text-align: right; flex-shrink: 0; }
+
+        .cd-status {
+            font-size: 13px;
+            font-weight: 700;
+            color: #10B981;
+            margin-bottom: 2px;
+        }
+
+        .cd-status.danger { color: #EF4444; }
+
+        .cd-timer {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .cd-timer.danger { color: #EF4444; }
+
+        .cd-sec-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .cd-sec-head i {
+            background: linear-gradient(135deg, #eb34c3, #eb3446);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 18px;
+        }
+
+        .cd-card {
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            padding: 16px;
+        }
+
+        .cd-phone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cd-phone-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(235, 52, 195, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #eb3446;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .cd-phone-info { flex: 1; }
+        .cd-phone-info strong {
+            display: block;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .cd-phone-info span {
+            color: #737373;
+            font-size: 13px;
+        }
+        .cd-phone > .fa-chevron-right { color: #737373; font-size: 14px; }
+
+        .cd-stat {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 4px 0;
+        }
+
+        .cd-stat + .cd-stat {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 14px;
+            padding-top: 14px;
+        }
+
+        .cd-stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .cd-stat-icon.cyan { background: rgba(0, 212, 255, 0.18); color: #00D4FF; }
+        .cd-stat-icon.blue { background: rgba(68, 138, 255, 0.18); color: #448AFF; }
+        .cd-stat-icon.green { background: rgba(0, 230, 118, 0.18); color: #00E676; }
+        .cd-stat-icon.yellow { background: rgba(255, 234, 0, 0.18); color: #FFEA00; }
+        .cd-stat-icon.red { background: rgba(239, 68, 68, 0.15); color: #EF4444; }
+
+        .cd-stat-label {
+            color: #A3A3A3;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .cd-stat-value {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .cd-stat-value.danger { color: #EF4444; }
+
+        .cd-text {
+            color: #fff;
+            font-size: 15px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .cd-map {
+            position: relative;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background:
+                radial-gradient(circle at 30% 40%, rgba(40, 60, 90, 0.45), transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(30, 50, 70, 0.4), transparent 45%),
+                #0d1520;
+        }
+
+        .cd-map-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .cd-map-roads {
+            position: absolute;
+            inset: 0;
+        }
+
+        .cd-map-roads path {
+            fill: none;
+            stroke: rgba(120, 140, 160, 0.35);
+            stroke-width: 2;
+        }
+
+        .cd-map-path {
+            position: absolute;
+            inset: 0;
+        }
+
+        .cd-map-path .safe {
+            fill: none;
+            stroke: #28a745;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .cd-map-path .risk {
+            fill: none;
+            stroke: #eb3446;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .cd-map-legend {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 10px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .cd-map-legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cd-map-legend i.diamond {
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            transform: rotate(45deg);
+            display: inline-block;
+        }
+
+        .cd-map-legend i.line {
+            width: 14px;
+            height: 3px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        .cd-map-legend i.line.safe { background: #28a745; }
+        .cd-map-legend i.line.risk { background: #eb3446; }
+
+        .cd-map-legend i.dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .cd-map-legend i.dot.safe { background: #28a745; box-shadow: 0 0 6px #28a745; }
+        .cd-map-legend i.dot.risk { background: #eb3446; box-shadow: 0 0 6px #eb3446; }
+
+        .cd-map-marker {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            transform: translate(-50%, -50%);
+        }
+
+        .cd-map-marker.safe { background: #28a745; box-shadow: 0 0 12px #28a745; }
+        .cd-map-marker.risk { background: #eb3446; box-shadow: 0 0 14px #eb3446; }
+        .cd-map-marker.start {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: #28a745;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* ── PIN entry clone (PinInput) ── */
+        .pin-body {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 54px 20px 32px;
+        }
+
+        .pin-lock {
+            color: #fff;
+            font-size: 40px;
+            margin-bottom: 28px;
+        }
+
+        .pin-title {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0 0 8px;
+            text-align: center;
+        }
+
+        .pin-sub {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            margin: 0 0 40px;
+            text-align: center;
+            max-width: 280px;
+            line-height: 1.35;
+        }
+
+        .pin-dots {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .pin-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+        }
+
+        .pin-dot.filled {
+            background: #fff;
+            border-color: #fff;
+        }
+
+        .pin-pad {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .pin-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            position: relative;
+        }
+
+        .pin-key {
+            width: 70px;
+            height: 70px;
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .pin-key strong {
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .pin-key small {
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1px;
+        }
+
+        .pin-backspace {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .pin-cancel {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 400;
         }
 
         /* Live stream replica - mirrors IvsStreamBroadcasterScreen, built at 390x844 */
@@ -1513,6 +2116,7 @@
 
         .action-phone .phone-screen {
             border-radius: 26px;
+            width: 100%;
         }
 
         .action-media-pair {
@@ -2315,11 +2919,16 @@
                                     </div>
                                     <div class="at-content">
                                         <div class="at-header">
-                                            <div class="at-badge"><span class="at-dot"></span>ACTIVE</div>
+                                            <div class="at-badge-spacer"></div>
                                             <div class="at-preset">Run</div>
                                         </div>
                                         <div class="at-timer-wrap">
-                                            <div class="at-ring-pulse"><div class="at-ring"></div></div>
+                                            <svg class="at-ring-svg" viewBox="0 0 234 234" aria-hidden="true">
+                                                <g transform="rotate(-90 117 117)">
+                                                    <circle class="at-ring-track" cx="117" cy="117" r="105"></circle>
+                                                    <circle class="at-ring-progress" cx="117" cy="117" r="105"></circle>
+                                                </g>
+                                            </svg>
                                             <div class="at-circle">
                                                 <div class="at-time">44:52</div>
                                                 <div class="at-remaining">Remaining</div>
@@ -2396,10 +3005,67 @@
                             <div class="hero-phone pos-left">
                                 <div class="phone-frame">
                                     <div class="phone-screen">
-                                        <picture>
-                                            <source srcset="images/timer_alert2-640.webp" type="image/webp">
-                                            <img src="images/timer_alert2-640.png" alt="Contact alert view with response instructions and a live location map" width="640" height="1385">
-                                        </picture>
+                                        <div class="at-app" role="img" aria-label="Contact alert view showing response instructions and a map of the at-risk user's last known location">
+                                            <div class="at-statusbar">
+                                                <span class="at-clock">11:45</span>
+                                                <span class="at-status-icons">
+                                                    <i class="fas fa-signal"></i>
+                                                    <i class="fas fa-wifi"></i>
+                                                    <i class="fas fa-battery-three-quarters"></i>
+                                                </span>
+                                            </div>
+                                            <div class="cd-scroll">
+                                                <div class="cd-top">
+                                                    <div class="cd-back"><i class="fas fa-chevron-left"></i></div>
+                                                    <div class="cd-titles">
+                                                        <h3>Contact Details</h3>
+                                                        <p>At risk user information</p>
+                                                    </div>
+                                                    <div class="cd-spacer"></div>
+                                                </div>
+                                                <div class="cd-section">
+                                                    <div class="cd-profile">
+                                                        <div class="cd-profile-left">
+                                                            <div class="cd-avatar-wrap danger"><div class="ct-avatar xl"><img src="images/avatars/emma.jpg" alt=""></div></div>
+                                                            <div class="cd-profile-name">Emma Sullivan</div>
+                                                        </div>
+                                                        <div class="cd-profile-right">
+                                                            <div class="cd-status danger">Expired</div>
+                                                            <div class="cd-timer danger cd-expired-timer">26:14</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="cd-section">
+                                                    <div class="cd-sec-head"><i class="fas fa-circle-info"></i> Response Instructions</div>
+                                                    <div class="cd-card"><div class="cd-text">Call me right away. If I don't pick up within a few minutes, check my last location and call my roommate Jess.</div></div>
+                                                </div>
+                                                <div class="cd-section">
+                                                    <div class="cd-sec-head"><i class="fas fa-map"></i> Location Map</div>
+                                                    <div class="cd-map">
+                                                        <div class="cd-map-grid"></div>
+                                                        <svg class="cd-map-roads" viewBox="0 0 350 220" preserveAspectRatio="none"><path d="M0 60 H350 M0 120 H350 M0 180 H350 M80 0 V220 M160 0 V220 M240 0 V220"/></svg>
+                                                        <svg class="cd-map-path" viewBox="0 0 350 220" preserveAspectRatio="none">
+                                                            <path class="safe" d="M70 170 C110 150, 140 110, 180 95"/>
+                                                            <path class="risk" d="M180 95 C210 85, 240 100, 270 75"/>
+                                                        </svg>
+                                                        <div class="cd-map-legend">
+                                                            <span><i class="diamond"></i> Start</span>
+                                                            <span><i class="line safe"></i> Safe path</span>
+                                                            <span><i class="line risk"></i> At risk</span>
+                                                            <span><i class="dot risk"></i> Last Known</span>
+                                                        </div>
+                                                        <div class="cd-map-marker start" style="left:20%;top:77%"></div>
+                                                        <div class="cd-map-marker risk" style="left:77%;top:34%"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="at-tabbar">
+                                                <i class="fas fa-user-group"></i>
+                                                <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                                <i class="far fa-user"></i>
+                                                <span class="at-home-indicator"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2423,7 +3089,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2>Powerful Safety Features</h2>
-                <p class="section-sub">Every core feature, shown with real screens from the app.</p>
+                <p class="section-sub">Every core feature, shown as it appears in the app today.</p>
                 <div class="accent"></div>
             </div>
 
@@ -2442,11 +3108,16 @@
                                 </div>
                                 <div class="at-content">
                                     <div class="at-header">
-                                        <div class="at-badge"><span class="at-dot"></span>ACTIVE</div>
+                                        <div class="at-badge-spacer"></div>
                                         <div class="at-preset">Run</div>
                                     </div>
                                     <div class="at-timer-wrap">
-                                        <div class="at-ring-pulse"><div class="at-ring"></div></div>
+                                        <svg class="at-ring-svg" viewBox="0 0 234 234" aria-hidden="true">
+                                            <g transform="rotate(-90 117 117)">
+                                                <circle class="at-ring-track" cx="117" cy="117" r="105"></circle>
+                                                <circle class="at-ring-progress" cx="117" cy="117" r="105"></circle>
+                                            </g>
+                                        </svg>
                                         <div class="at-circle">
                                             <div class="at-time">44:52</div>
                                             <div class="at-remaining">Remaining</div>
@@ -2549,16 +3220,78 @@
             <div class="action-row" data-aos="fade-up">
                 <div class="action-media action-media-pair">
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/contacts_screen-640.webp" type="image/webp">
-                            <img src="images/contacts_screen-640.png" alt="GuardianLive emergency contacts list" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="GuardianLive emergency contacts list">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="ct-body">
+                                    <div class="ct-header">
+                                        <img class="ct-logo" src="logos/translucent_background.PNG" alt="">
+                                        <div class="ct-title">Contacts</div>
+                                        <div class="ct-actions">
+                                            <div class="ct-icon-btn"><i class="fas fa-user-plus"></i></div>
+                                            <div class="ct-icon-btn"><i class="fas fa-magnifying-glass"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="ct-list">
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/daniel.jpg" alt=""></div><div class="ct-row-name">Daniel Patel</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/emma.jpg" alt=""></div><div class="ct-row-name">Emma Sullivan</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/james.jpg" alt=""></div><div class="ct-row-name">James Carter</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/marcus.jpg" alt=""></div><div class="ct-row-name">Marcus Webb</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/olivia.jpg" alt=""></div><div class="ct-row-name">Olivia Chen</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/sophie.jpg" alt=""></div><div class="ct-row-name">Sophie Martin</div></div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/active_contact-640.webp" type="image/webp">
-                            <img src="images/active_contact-640.png" alt="Contacts list highlighting a contact with an active safety timer" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="Contacts list highlighting a contact with an active safety timer">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="ct-body">
+                                    <div class="ct-header">
+                                        <img class="ct-logo" src="logos/translucent_background.PNG" alt="">
+                                        <div class="ct-title">Contacts</div>
+                                        <div class="ct-actions">
+                                            <div class="ct-icon-btn"><i class="fas fa-user-plus"></i></div>
+                                            <div class="ct-icon-btn"><i class="fas fa-magnifying-glass"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="ct-status">
+                                        <div class="ct-status-head"><i class="fas fa-clock"></i> Active</div>
+                                        <div class="ct-status-user">
+                                            <div class="ct-ring"><div class="ct-avatar"><img src="images/avatars/emma.jpg" alt=""></div></div>
+                                            <span>Emma</span>
+                                        </div>
+                                    </div>
+                                    <div class="ct-list">
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/daniel.jpg" alt=""></div><div class="ct-row-name">Daniel Patel</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/emma.jpg" alt=""></div><div class="ct-row-name">Emma Sullivan</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/james.jpg" alt=""></div><div class="ct-row-name">James Carter</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/marcus.jpg" alt=""></div><div class="ct-row-name">Marcus Webb</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/olivia.jpg" alt=""></div><div class="ct-row-name">Olivia Chen</div></div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="action-text">
@@ -2586,16 +3319,122 @@
                 </div>
                 <div class="action-media action-media-pair">
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/active_contact_timer1-640.webp" type="image/webp">
-                            <img src="images/active_contact_timer1-640.png" alt="Contact details showing an active timer with time remaining and tap-to-call info" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="Contact details showing an active timer with time remaining and tap-to-call info">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="cd-scroll">
+                                    <div class="cd-top">
+                                        <div class="cd-back"><i class="fas fa-chevron-left"></i></div>
+                                        <div class="cd-titles">
+                                            <h3>Contact Details</h3>
+                                            <p>View active timer details</p>
+                                        </div>
+                                        <div class="cd-spacer"></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-profile">
+                                            <div class="cd-profile-left">
+                                                <div class="cd-avatar-wrap"><div class="ct-avatar xl"><img src="images/avatars/emma.jpg" alt=""></div></div>
+                                                <div class="cd-profile-name">Emma Sullivan</div>
+                                            </div>
+                                            <div class="cd-profile-right">
+                                                <div class="cd-status">Active</div>
+                                                <div class="cd-timer">8:12</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-phone"></i> Contact Information</div>
+                                        <div class="cd-card cd-phone">
+                                            <div class="cd-phone-icon"><i class="fas fa-phone"></i></div>
+                                            <div class="cd-phone-info"><strong>+1 (415) 555-0101</strong><span>Tap to call</span></div>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-chart-simple"></i> Timer Details</div>
+                                        <div class="cd-card">
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon cyan"><i class="fas fa-tag"></i></div>
+                                                <div><div class="cd-stat-label">Name</div><div class="cd-stat-value">Walking home</div></div>
+                                            </div>
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon blue"><i class="fas fa-hourglass-half"></i></div>
+                                                <div><div class="cd-stat-label">Duration</div><div class="cd-stat-value">30m</div></div>
+                                            </div>
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon green"><i class="fas fa-circle-play"></i></div>
+                                                <div><div class="cd-stat-label">Started</div><div class="cd-stat-value">Today, 10:55 AM</div></div>
+                                            </div>
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon yellow"><i class="fas fa-flag"></i></div>
+                                                <div><div class="cd-stat-label">Expires</div><div class="cd-stat-value">Today, 11:25 AM</div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/active_contact_timer2-640.webp" type="image/webp">
-                            <img src="images/active_contact_timer2-640.png" alt="Active timer view with description, response instructions, and live location map" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="Active timer view with description, response instructions, and live location map">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="cd-scroll">
+                                    <div class="cd-top">
+                                        <div class="cd-back"><i class="fas fa-chevron-left"></i></div>
+                                        <div class="cd-titles">
+                                            <h3>Contact Details</h3>
+                                            <p>View active timer details</p>
+                                        </div>
+                                        <div class="cd-spacer"></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-file-lines"></i> Description</div>
+                                        <div class="cd-card"><div class="cd-text">Walking home from the Embarcadero station</div></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-circle-info"></i> Response Instructions</div>
+                                        <div class="cd-card"><div class="cd-text">Call me right away. If I don't pick up within a few minutes, check my last location and call my roommate Jess.</div></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-map"></i> Location Map</div>
+                                        <div class="cd-map">
+                                            <div class="cd-map-grid"></div>
+                                            <svg class="cd-map-roads" viewBox="0 0 350 220" preserveAspectRatio="none"><path d="M0 50 H350 M0 110 H350 M0 170 H350 M70 0 V220 M150 0 V220 M230 0 V220 M310 0 V220"/></svg>
+                                            <svg class="cd-map-path" viewBox="0 0 350 220" preserveAspectRatio="none">
+                                                <path class="safe" d="M60 175 C100 155, 150 120, 200 95 S280 60, 300 55"/>
+                                            </svg>
+                                            <div class="cd-map-legend">
+                                                <span><i class="diamond"></i> Start</span>
+                                                <span><i class="line safe"></i> Safe path</span>
+                                                <span><i class="dot safe"></i> Last Known</span>
+                                            </div>
+                                            <div class="cd-map-marker start" style="left:17%;top:80%"></div>
+                                            <div class="cd-map-marker safe" style="left:86%;top:25%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2603,22 +3442,163 @@
             <div class="action-row" data-aos="fade-up">
                 <div class="action-media action-media-trio">
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/at_risk_contact-640.webp" type="image/webp">
-                            <img src="images/at_risk_contact-640.png" alt="Contacts list flagging a contact as At Risk after their timer expired" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="Contacts list flagging a contact as At Risk after their timer expired">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="ct-body">
+                                    <div class="ct-header">
+                                        <img class="ct-logo" src="logos/translucent_background.PNG" alt="">
+                                        <div class="ct-title">Contacts</div>
+                                        <div class="ct-actions">
+                                            <div class="ct-icon-btn"><i class="fas fa-user-plus"></i></div>
+                                            <div class="ct-icon-btn"><i class="fas fa-magnifying-glass"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="ct-status risk">
+                                        <div class="ct-status-head"><i class="fas fa-triangle-exclamation"></i> At Risk Users</div>
+                                        <div class="ct-status-user">
+                                            <div class="ct-ring"><div class="ct-avatar"><img src="images/avatars/emma.jpg" alt=""></div></div>
+                                            <span>Emma</span>
+                                        </div>
+                                    </div>
+                                    <div class="ct-list">
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/daniel.jpg" alt=""></div><div class="ct-row-name">Daniel Patel</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/emma.jpg" alt=""></div><div class="ct-row-name">Emma Sullivan</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/james.jpg" alt=""></div><div class="ct-row-name">James Carter</div></div>
+                                        <div class="ct-row"><div class="ct-avatar lg"><img src="images/avatars/marcus.jpg" alt=""></div><div class="ct-row-name">Marcus Webb</div></div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/timer_alert1-640.webp" type="image/webp">
-                            <img src="images/timer_alert1-640.png" alt="Contact alert view showing the at-risk user, their phone number, and timer details" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="Contact alert view showing the at-risk user, their phone number, and timer details">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="cd-scroll">
+                                    <div class="cd-top">
+                                        <div class="cd-back"><i class="fas fa-chevron-left"></i></div>
+                                        <div class="cd-titles">
+                                            <h3>Contact Details</h3>
+                                            <p>At risk user information</p>
+                                        </div>
+                                        <div class="cd-spacer"></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-profile">
+                                            <div class="cd-profile-left">
+                                                <div class="cd-avatar-wrap danger"><div class="ct-avatar xl"><img src="images/avatars/emma.jpg" alt=""></div></div>
+                                                <div class="cd-profile-name">Emma Sullivan</div>
+                                            </div>
+                                            <div class="cd-profile-right">
+                                                <div class="cd-status danger">Expired</div>
+                                                <div class="cd-timer danger cd-expired-timer">26:14</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-phone"></i> Contact Information</div>
+                                        <div class="cd-card cd-phone">
+                                            <div class="cd-phone-icon"><i class="fas fa-phone"></i></div>
+                                            <div class="cd-phone-info"><strong>+1 (415) 555-0101</strong><span>Tap to call</span></div>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-chart-simple"></i> Timer Details</div>
+                                        <div class="cd-card">
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon cyan"><i class="fas fa-tag"></i></div>
+                                                <div><div class="cd-stat-label">Name</div><div class="cd-stat-value">Walking home</div></div>
+                                            </div>
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon blue"><i class="fas fa-hourglass-half"></i></div>
+                                                <div><div class="cd-stat-label">Duration</div><div class="cd-stat-value">30m</div></div>
+                                            </div>
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon green"><i class="fas fa-circle-play"></i></div>
+                                                <div><div class="cd-stat-label">Started</div><div class="cd-stat-value">Today, 10:44 AM</div></div>
+                                            </div>
+                                            <div class="cd-stat">
+                                                <div class="cd-stat-icon red"><i class="fas fa-circle-exclamation"></i></div>
+                                                <div><div class="cd-stat-label">Expired</div><div class="cd-stat-value danger">Today, 11:14 AM</div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/timer_alert2-640.webp" type="image/webp">
-                            <img src="images/timer_alert2-640.png" alt="Contact alert view showing response instructions and a map of the at-risk user's last known location" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="Contact alert view showing response instructions and a map of the at-risk user's last known location">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="cd-scroll">
+                                    <div class="cd-top">
+                                        <div class="cd-back"><i class="fas fa-chevron-left"></i></div>
+                                        <div class="cd-titles">
+                                            <h3>Contact Details</h3>
+                                            <p>At risk user information</p>
+                                        </div>
+                                        <div class="cd-spacer"></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-file-lines"></i> Description</div>
+                                        <div class="cd-card"><div class="cd-text">Walking home from the Embarcadero station</div></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-circle-info"></i> Response Instructions</div>
+                                        <div class="cd-card"><div class="cd-text">Call me right away. If I don't pick up within a few minutes, check my last location and call my roommate Jess.</div></div>
+                                    </div>
+                                    <div class="cd-section">
+                                        <div class="cd-sec-head"><i class="fas fa-map"></i> Location Map</div>
+                                        <div class="cd-map">
+                                            <div class="cd-map-grid"></div>
+                                            <svg class="cd-map-roads" viewBox="0 0 350 220" preserveAspectRatio="none"><path d="M0 60 H350 M0 120 H350 M0 180 H350 M80 0 V220 M160 0 V220 M240 0 V220"/></svg>
+                                            <svg class="cd-map-path" viewBox="0 0 350 220" preserveAspectRatio="none">
+                                                <path class="safe" d="M70 170 C110 150, 140 110, 180 95"/>
+                                                <path class="risk" d="M180 95 C210 85, 240 100, 270 75"/>
+                                            </svg>
+                                            <div class="cd-map-legend">
+                                                <span><i class="diamond"></i> Start</span>
+                                                <span><i class="line safe"></i> Safe path</span>
+                                                <span><i class="line risk"></i> At risk</span>
+                                                <span><i class="dot risk"></i> Last Known</span>
+                                            </div>
+                                            <div class="cd-map-marker start" style="left:20%;top:77%"></div>
+                                            <div class="cd-map-marker risk" style="left:77%;top:34%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="at-tabbar">
+                                    <i class="fas fa-user-group"></i>
+                                    <img src="logos/translucent_background.PNG" alt="" class="at-tab-logo">
+                                    <i class="far fa-user"></i>
+                                    <span class="at-home-indicator"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="action-text">
@@ -2646,10 +3626,47 @@
                 </div>
                 <div class="action-media">
                     <div class="action-phone">
-                        <picture>
-                            <source srcset="images/pin_entry-640.webp" type="image/webp">
-                            <img src="images/pin_entry-640.png" alt="GuardianLive PIN entry screen asking for a PIN to confirm safety and stop the timer" width="640" height="1385" loading="lazy">
-                        </picture>
+                        <div class="phone-screen">
+                            <div class="at-app" role="img" aria-label="GuardianLive PIN entry screen asking for a PIN to confirm safety and stop the timer">
+                                <div class="at-statusbar">
+                                    <span class="at-clock">11:45</span>
+                                    <span class="at-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                                </div>
+                                <div class="pin-body">
+                                    <i class="fas fa-lock pin-lock"></i>
+                                    <h3 class="pin-title">I'm Safe</h3>
+                                    <p class="pin-sub">Enter PIN to confirm safety and stop timer</p>
+                                    <div class="pin-dots">
+                                        <div class="pin-dot"></div>
+                                        <div class="pin-dot"></div>
+                                        <div class="pin-dot"></div>
+                                        <div class="pin-dot"></div>
+                                    </div>
+                                    <div class="pin-pad">
+                                        <div class="pin-row">
+                                            <div class="pin-key"><strong>1</strong></div>
+                                            <div class="pin-key"><strong>2</strong><small>ABC</small></div>
+                                            <div class="pin-key"><strong>3</strong><small>DEF</small></div>
+                                        </div>
+                                        <div class="pin-row">
+                                            <div class="pin-key"><strong>4</strong><small>GHI</small></div>
+                                            <div class="pin-key"><strong>5</strong><small>JKL</small></div>
+                                            <div class="pin-key"><strong>6</strong><small>MNO</small></div>
+                                        </div>
+                                        <div class="pin-row">
+                                            <div class="pin-key"><strong>7</strong><small>PQRS</small></div>
+                                            <div class="pin-key"><strong>8</strong><small>TUV</small></div>
+                                            <div class="pin-key"><strong>9</strong><small>WXYZ</small></div>
+                                        </div>
+                                        <div class="pin-row">
+                                            <div class="pin-key"><strong>0</strong></div>
+                                            <div class="pin-backspace"><i class="fas fa-delete-left"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="pin-cancel">Cancel</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3172,26 +4189,65 @@
             }, 250);
         });
 
-        // Live timer replicas: scale each 390x844 app UI to fit its phone frame
-        const atApps = document.querySelectorAll('.at-app');
+        // App UI replicas: scale each 390x844 clone to fit its phone frame
         function scaleTimerApp() {
-            atApps.forEach(app => {
-                app.style.transform = 'scale(' + (app.parentElement.clientWidth / 390) + ')';
+            document.querySelectorAll('.at-app').forEach(app => {
+                const frame = app.parentElement;
+                if (!frame) return;
+                app.style.transform = 'scale(' + (frame.clientWidth / 390) + ')';
             });
         }
         scaleTimerApp();
         window.addEventListener('resize', scaleTimerApp);
+        if (typeof ResizeObserver !== 'undefined') {
+            document.querySelectorAll('.phone-screen').forEach(screen => {
+                new ResizeObserver(scaleTimerApp).observe(screen);
+            });
+        }
 
-        // Live timer (44:52 and counting, loops back when it runs out)
+        // Live timer (44:52 and counting down, loops back when it runs out)
         const AT_START = 44 * 60 + 52;
+        const AT_TOTAL = 60 * 60; // 60m preset — ring fill = remaining / total
+        const AT_CIRC = 2 * Math.PI * 105; // matches SVG r=105
         let atRemaining = AT_START;
         const atTimerEls = document.querySelectorAll('.at-time, .st-time');
+        const atRingEls = document.querySelectorAll('.at-ring-progress');
+        function formatMmSs(total) {
+            const m = Math.floor(total / 60);
+            const s = total % 60;
+            return m + ':' + String(s).padStart(2, '0');
+        }
+        function ringColor(progress) {
+            // green → yellow → red as time runs out (matches TimerStatusHero)
+            if (progress > 0.5) return '#10B981';
+            if (progress > 0.25) return '#F59E0B';
+            return '#EF4444';
+        }
+        function updateActiveTimer() {
+            const text = formatMmSs(atRemaining);
+            atTimerEls.forEach(el => el.textContent = text);
+            const progress = Math.min(1, Math.max(0, atRemaining / AT_TOTAL));
+            // Negative dashoffset empties clockwise from 12 o'clock
+            const offset = -(1 - progress) * AT_CIRC;
+            const color = ringColor(progress);
+            atRingEls.forEach(el => {
+                el.style.strokeDashoffset = offset;
+                el.style.stroke = color;
+            });
+        }
+        updateActiveTimer();
         setInterval(() => {
             atRemaining = atRemaining > 0 ? atRemaining - 1 : AT_START;
-            const m = Math.floor(atRemaining / 60);
-            const s = atRemaining % 60;
-            const text = m + ':' + String(s).padStart(2, '0');
-            atTimerEls.forEach(el => el.textContent = text);
+            updateActiveTimer();
+        }, 1000);
+
+        // Expired contact timers count up from 26:14 (seconds since expiry)
+        let expiredElapsed = 26 * 60 + 14;
+        const expiredTimerEls = document.querySelectorAll('.cd-expired-timer');
+        setInterval(() => {
+            expiredElapsed += 1;
+            const text = formatMmSs(expiredElapsed);
+            expiredTimerEls.forEach(el => el.textContent = text);
         }, 1000);
 
         // Status bar clocks show the visitor's actual time, like a real phone
