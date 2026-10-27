@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're invited - GuardianLive</title>
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Someone would like to add you as a contact on GuardianLive.">
+
+    <!-- Link previews in Messages -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GuardianLive">
+    <meta property="og:title" content="Add me on GuardianLive">
+    <meta property="og:description" content="Someone would like to add you as a contact on GuardianLive.">
+    <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!--
+      Contact invites from the GuardianLive app (ADR 0190). The link carries the sender's exact
+      username after the #, so it never reaches this server. With the app on the phone, iOS opens
+      the app instead of this page (apple-app-site-association); here, the script reads the
+      username and points the Open button at the app.
+    -->
+    <style>
+        :root {
+            --primary: #eb3446;
+            --primary-start: #eb34c3;
+            --text-secondary: #a3a3a3;
+            --gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary) 100%);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 48px 16px;
+            color: #fff;
+            background:
+                radial-gradient(ellipse at top left, rgba(235, 52, 195, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom right, rgba(235, 52, 70, 0.06) 0%, transparent 60%),
+                linear-gradient(180deg, #040407 0%, #0a0a14 50%, #040407 100%);
+        }
+
+        .box {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .logo {
+            height: 56px;
+            width: auto;
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .lede {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            overflow-wrap: anywhere;
+        }
+
+        .step {
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+
+        .step[hidden] {
+            display: none;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .step strong {
+            color: #fff;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 16px;
+            background: var(--gradient);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(235, 52, 195, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <main class="box">
+        <img src="/logos/translucent_background.PNG" alt="GuardianLive" class="logo">
+        <h1>You're invited to GuardianLive</h1>
+        <p class="lede" id="lede">Someone would like to add you as a contact.</p>
+
+        <section class="step invite-step">
+            <h2>Get the app</h2>
+            <p>GuardianLive is in beta. If it isn't on your phone yet, ask the person who invited you how to join.</p>
+        </section>
+
+        <section class="step invite-step">
+            <h2>Open your invite</h2>
+            <p>With GuardianLive on this phone, come back to this page and open the invite. If you're new, create your account first: their card waits on Add contact, and one tap sends them a request.</p>
+            <a class="button" id="open" href="guardianlive://invite">Open in GuardianLive</a>
+        </section>
+
+        <section class="step invite-step">
+            <h2>Or add them yourself</h2>
+            <p>In GuardianLive, open Contacts, tap the add contact icon, and enter <strong id="username">their username</strong>.</p>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var match = /^#@?([A-Za-z0-9_]{3,30})$/.exec(window.location.hash);
+            var lede = document.getElementById('lede');
+            if (match) {
+                var username = match[1];
+                lede.textContent = '@' + username + ' would like to add you as a contact.';
+                document.getElementById('open').setAttribute('href', 'guardianlive://invite#' + username);
+                document.getElementById('username').textContent = username;
+            } else {
+                // A link cut short names no one: say so rather than open an empty invite.
+                lede.textContent = 'This invite link is incomplete. Ask them for a new one.';
+                var steps = document.querySelectorAll('.invite-step');
+                for (var i = 0; i < steps.length; i++) steps[i].hidden = true;
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,8 +1,19 @@
 {
-  "webcredentials": {
-    "apps": [
-      "7LU4G3FFTG.org.guardianlive.app.dev",
-      "7LU4G3FFTG.com.guardianlive.app"
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["7LU4G3FFTG.com.guardianlive.app", "7LU4G3FFTG.org.guardianlive.app.dev"],
+        "components": [
+          {
+            "/": "/invite",
+            "comment": "Contact invites: the sender's username follows the # (ADR 0190)."
+          },
+          { "/": "/invite/" }
+        ]
+      }
     ]
+  },
+  "webcredentials": {
+    "apps": ["7LU4G3FFTG.org.guardianlive.app.dev", "7LU4G3FFTG.com.guardianlive.app"]
   }
 }
