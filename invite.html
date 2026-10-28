@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You're invited - GuardianLive</title>
     <meta name="robots" content="noindex">
-    <meta name="description" content="Someone would like to add you as a contact on GuardianLive.">
+    <meta name="description" content="This link adds a contact on GuardianLive. Open it in the app or add them by username.">
 
     <!-- Link previews in Messages -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GuardianLive">
-    <meta property="og:title" content="Add me on GuardianLive">
-    <meta property="og:description" content="Someone would like to add you as a contact on GuardianLive.">
+    <meta property="og:title" content="Add a contact on GuardianLive">
+    <meta property="og:description" content="This link adds a contact on GuardianLive. Open it in the app or add them by username.">
     <meta property="og:image" content="https://guardianlive.org/images/og-image.png">
 
     <!-- Favicon -->
@@ -24,8 +24,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!--
-      Contact invites from the GuardianLive app (ADR 0190). The link carries the sender's exact
-      username after the #, so it never reaches this server. With the app on the phone, iOS opens
+      Contact invites from the GuardianLive app (ADR 0190). The link carries an exact username after
+      the #, so it never reaches this server. It is the sender's own or, from Share Contact on a
+      contact's page, that contact's (ADR 0199), so the page says whom the link adds, never who
+      wants to add whom. With the app on the phone, iOS opens
       the app instead of this page (apple-app-site-association); here, the script reads the
       username and points the Open button at the app.
     -->
@@ -127,11 +129,11 @@
     <main class="box">
         <img src="/logos/translucent_background.PNG" alt="GuardianLive" class="logo">
         <h1>You're invited to GuardianLive</h1>
-        <p class="lede" id="lede">Someone would like to add you as a contact.</p>
+        <p class="lede" id="lede">This link adds a contact.</p>
 
         <section class="step invite-step">
             <h2>Get the app</h2>
-            <p>GuardianLive is in beta. If it isn't on your phone yet, ask the person who invited you how to join.</p>
+            <p>GuardianLive is in beta. If it isn't on your phone yet, ask the person who sent you this link how to join.</p>
         </section>
 
         <section class="step invite-step">
@@ -152,7 +154,7 @@
             var lede = document.getElementById('lede');
             if (match) {
                 var username = match[1];
-                lede.textContent = '@' + username + ' would like to add you as a contact.';
+                lede.textContent = 'This link adds @' + username + ' as a contact.';
                 document.getElementById('open').setAttribute('href', 'guardianlive://invite#' + username);
                 document.getElementById('username').textContent = username;
             } else {
